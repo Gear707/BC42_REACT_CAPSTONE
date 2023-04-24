@@ -1,3 +1,5 @@
+$slickBtnHover: rgb(0, 175, 64);
+
 .slick-dots {
     position: absolute;
     bottom: 40px !important;
@@ -8,37 +10,45 @@
     list-style: none;
     text-align: center;
 
-    li button::before {
-        font-size: 20px !important;
-        color: #afafaf !important;
-        opacity: 0.75 !important;
+    li button {
+        &::before {
+            font-size: 20px !important;
+            color: #afafaf !important;
+            opacity: 0.8 !important;
+            transition: all .3s !important;
+        }
+
+        &:hover::before {
+            color: white !important;
+        }
     }
 
-    li.slick-active button::before {
-        color: orangered !important;
+    li.slick-active button {
+        &::before {
+            color: $slickBtnHover !important;
+        }
+    }
+}
+
+.slick-prev,
+.slick-next {
+    z-index: 2;
+
+    &::before {
+        font-size: 55px !important;
+        line-height: 0 !important;
+        transition: all .3s !important;
     }
 
-    li:hover button::before {
-        opacity: 1 !important;
+    &:hover::before {
+        color: $slickBtnHover !important;
     }
 }
 
 .slick-prev {
-    left: 50px !important;
-    z-index: 2;
-
-    &::before {
-        font-size: 55px !important;
-        line-height: 0 !important;
-    }
+    left: 20px !important;
 }
 
 .slick-next {
-    right: 50px !important;
-    z-index: 2;
-
-    &::before {
-        font-size: 55px !important;
-        line-height: 0 !important;
-    }
+    right: 55px !important;
 }

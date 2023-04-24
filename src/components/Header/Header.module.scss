@@ -1,4 +1,4 @@
-$primary-color: rgb(0, 128, 255);
+$headerHover: rgb(3, 84, 165);
 
 .header {
     position: fixed !important;
@@ -17,7 +17,7 @@ $primary-color: rgb(0, 128, 255);
     font-weight: 700 !important;
 
     &:hover {
-        color: $primary-color !important;
+        color: $headerHover !important;
     }
 }
 
@@ -26,10 +26,9 @@ $primary-color: rgb(0, 128, 255);
     text-decoration: none;
     font-weight: 700;
     color: black;
-    transition: all .5s;
 
     &:hover {
-        color: $primary-color;
+        color: $headerHover;
     }
 }
 
