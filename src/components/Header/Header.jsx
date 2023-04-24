@@ -9,7 +9,7 @@ function Header() {
             <Navbar bg="light" expand="lg">
                 <Container fluid className="d-flex">
                     <Navbar.Brand href="#" className="col-4">
-                        <i className="fa-solid fa-film"></i>
+                        <i className="fa-solid fa-film"></i> MovieParadise
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls="navbarScroll" />
                     <Navbar.Collapse id="navbarScroll">
