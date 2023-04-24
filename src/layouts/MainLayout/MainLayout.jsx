@@ -6,7 +6,7 @@ import { Outlet } from "react-router-dom";
 
 function MainLayout() {
     return (
-        <div className={styles.container}>
+        <div>
             <Header />
 
             <Outlet />
