@@ -24,9 +24,9 @@ function Banner() {
     // carousel: react slick, react swiper
 
     return (
-        <div style={{ display: "flex" }}>
+        <div style={{ position: "relative" }}>
             {banners.map((item) => {
-                return <img key={item.maPhim} src={item.hinhAnh} alt={item.maBanner} height={300} />;
+                return <img key={item.maPhim} src={item.hinhAnh} alt={item.maBanner} />;
             })}
         </div>
     );
