@@ -1,0 +1,26 @@
+.showtimesContainer {
+    display: flex;
+    padding: 0 !important;
+    margin: 100px;
+    margin-bottom: 40px;
+    background-color: #fff;
+    width: 100%;
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid rgb(206, 204, 204);
+    max-height: 650px;
+    overflow-y: scroll;
+}
+
+.logoBorder {
+    &::after {
+        content: '';
+        width: 100%;
+        bottom: -15px;
+        height: 1px;
+        display: block;
+        position: absolute;
+        background: rgba(202, 197, 197, 0.88);
+    }
+}
