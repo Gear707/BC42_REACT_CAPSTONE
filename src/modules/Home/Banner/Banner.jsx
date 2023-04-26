@@ -17,7 +17,7 @@ function Banner() {
         slidesToScroll: 1,
         autoplay: true,
         speed: 500,
-        autoplaySpeed: 2000,
+        autoplaySpeed: 5 * 1000,
     };
 
     const getBanners = async () => {

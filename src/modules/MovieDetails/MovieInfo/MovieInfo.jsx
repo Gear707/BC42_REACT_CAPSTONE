@@ -1,8 +1,27 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { apiGetMovieDetails } from "../../../apis/movieAPI";
 
-function MovieInfo() {
+function MovieInfo({ movieId }) {
+    const [movie, setMovie] = useState({});
+
+    const getMovieDetails = async () => {
+        try {
+            const data = await apiGetMovieDetails(movieId);
+            setMovie(data.content);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    useEffect(() => {
+        getMovieDetails();
+    }, []);
+
     return (
-        <div>MovieInfo</div>
+        <div>
+            <h1>MovieInfo</h1>
+            <h3>{movie.tenPhim}</h3>
+        </div>
     );
 }
 

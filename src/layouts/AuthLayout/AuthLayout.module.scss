@@ -1,0 +1,24 @@
+.background {
+    background-image: url("../../../public/img/auth-background.jpg");
+    // min-height: calc(100vh - 70px);
+    height: 100vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    // position: relative;
+    // top: 70px;
+    // z-index: 1;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.box {
+    width: 500px;
+    margin-top: 100px;
+    padding: 30px;
+    background-color: white;
+    border-radius: 8px;
+}

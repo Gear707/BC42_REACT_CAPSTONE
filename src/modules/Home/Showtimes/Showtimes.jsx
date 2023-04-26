@@ -24,7 +24,7 @@ function Showtimes() {
             items={cinemasShowtimes.map((cinema, index) => {
                 return {
                     label:
-                        <div className={`${styles.logoBorder} position-relative m-1`} style={{width: "auto"}}>
+                        <div className={`${styles.logoBorder} position-relative m-1`} style={{ width: "auto" }}>
                             <img src={cinema.logo} width={70} />
                         </div>,
                     key: `${index}-${cinema.maHeThongRap}`,
@@ -41,7 +41,7 @@ function Showtimes() {
                                             </div>
                                             <hr />
                                         </>,
-                                    key: index,
+                                    key: `${index}-${branch.maCumRap}`,
                                     children: branch.danhSachPhim.map((movie) => {
                                         return (
                                             <>
@@ -55,7 +55,7 @@ function Showtimes() {
                                                             {movie.lstLichChieuTheoPhim.slice(0, 12).map((dateTime, index) => {
                                                                 return (
                                                                     <div className="col-4 p-1">
-                                                                        <NavLink to="/" key={index}>
+                                                                        <NavLink to="/" key={`${index}-${dateTime.maRap}`}>
                                                                             {moment(dateTime.ngayChieuGioChieu).format("DD-MM-YYYY ~ HH:mm")}
                                                                         </NavLink>
                                                                     </div>
