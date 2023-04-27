@@ -1,15 +1,19 @@
+$primaryFont: 'JetBrains Mono';
+
+%ellipsis {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    max-width: 100%;
+}
+
 .showtimesContainer {
     display: flex;
+    max-height: 670px;
     padding: 0 !important;
-    margin: 100px;
-    margin-bottom: 40px;
-    background-color: #fff;
-    width: 100%;
-    box-sizing: border-box;
-    margin-left: auto;
-    margin-right: auto;
+    margin: 100px auto 100px;
+    background-color: white;
     border: 1px solid rgb(206, 204, 204);
-    max-height: 650px;
     overflow-y: scroll;
 }
 
@@ -23,4 +27,44 @@
         position: absolute;
         background: rgba(202, 197, 197, 0.88);
     }
+}
+
+.branchContainer {
+    font-family: $primaryFont;
+    width: 350px;
+    text-transform: uppercase;
+
+    &::after {
+        @extend .logoBorder;
+        width: 87%;
+        bottom: -3px;
+    }
+}
+
+.branchList {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.branchName {
+    color: #0354a5;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: 0.00735em;
+    @extend %ellipsis;
+}
+
+.branchAddress {
+    color: #757575;
+    font-weight: 400;
+    letter-spacing: 0.0075em;
+    @extend %ellipsis;
+}
+
+.branchDetails {
+    color: #fb4226;
+    font-size: 13px;
+    letter-spacing: 1px;
 }

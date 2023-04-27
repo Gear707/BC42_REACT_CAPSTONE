@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from "./Showtimes.module.scss";
+import "./antClassCustom.scss";
 import { apiGetCinemaShowtimes } from "../../../apis/cinemaAPI";
 import { Tabs } from 'antd';
 import { NavLink } from "react-router-dom";
@@ -24,7 +25,7 @@ function Showtimes() {
             items={cinemasShowtimes.map((cinema, index) => {
                 return {
                     label:
-                        <div className={`${styles.logoBorder} position-relative m-1`} style={{ width: "auto" }}>
+                        <div className={`${styles.logoBorder} position-relative m-1`}>
                             <img src={cinema.logo} width={70} />
                         </div>,
                     key: `${index}-${cinema.maHeThongRap}`,
@@ -33,15 +34,18 @@ function Showtimes() {
                             items={cinema.lstCumRap.map((branch, index) => {
                                 return {
                                     label:
-                                        <>
-                                            <div className="d-flex flex-column align-items-start text-uppercase" style={{ width: "300px" }}>
-                                                <p>{branch.tenCumRap}</p>
-                                                <p>{branch.diaChi}</p>
-                                                <p>Chi tiết</p>
+                                        <div className={styles.branchContainer}>
+                                            <div className={styles.branchList}>
+                                                <h4 className={styles.branchName} title={branch.tenCumRap}>
+                                                    {branch.tenCumRap}
+                                                </h4>
+                                                <h6 className={styles.branchAddress} title={branch.diaChi}>
+                                                    {branch.diaChi}
+                                                </h6>
+                                                <a href="/" className={styles.branchDetails}>Chi tiết</a>
                                             </div>
-                                            <hr />
-                                        </>,
-                                    key: `${index}-${branch.maCumRap}`,
+                                        </div>,
+                                    key: index,
                                     children: branch.danhSachPhim.map((movie) => {
                                         return (
                                             <>

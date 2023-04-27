@@ -6,7 +6,7 @@ import Header from "../../components/Header/Header";
 function AuthLayout() {
     return (
         <>
-            {/* <Header /> */}
+            <Header />
             <div className={styles.background}>
                 <div className={styles.container}>
                     <div className={styles.box}>

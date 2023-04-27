@@ -1,13 +1,12 @@
 .background {
     background-image: url("../../../public/img/auth-background.jpg");
-    // min-height: calc(100vh - 70px);
-    height: 100vh;
+    min-height: calc(100vh - 70px);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    // position: relative;
-    // top: 70px;
-    // z-index: 1;
+    position: relative;
+    top: 70px;
+    z-index: 1;
 }
 
 .container {
