@@ -48,30 +48,37 @@ function Showtimes() {
                                     key: index,
                                     children: branch.danhSachPhim.map((movie) => {
                                         return (
-                                            <>
-                                                <div className="d-flex p-3" key={movie.maPhim}>
+                                            <div className={styles.movieList}>
+                                                <div className="d-flex p-3 justify-content-around" key={movie.maPhim}>
                                                     <div className="col-2 d-flex justify-content-center">
-                                                        <img src={movie.hinhAnh} className="img-fluid" width={100} />
+                                                        <img src={movie.hinhAnh} 
+                                                        className="img-fluid" 
+                                                        styles={{ width: "auto" }}
+                                                        alt={movie.tenPhim} />
                                                     </div>
-                                                    <div className="col-9 container">
-                                                        <h2>{movie.tenPhim}</h2>
-                                                        <div className="row">
-                                                            {movie.lstLichChieuTheoPhim.slice(0, 12).map((dateTime, index) => {
+                                                    <div className="col-9">
+                                                        <span className={styles.movieIcon}>
+                                                            <i className="fa-solid fa-video"></i>
+                                                        </span>
+                                                        <span className={styles.movieName}>
+                                                            {movie.tenPhim}
+                                                        </span>
+                                                        <div className="d-flex flex-wrap mt-3">
+                                                            {movie.lstLichChieuTheoPhim.slice(0, 6).map((dateTime, index) => {
                                                                 return (
-                                                                    <div className="col-4 p-1">
-                                                                        <NavLink to="/" key={`${index}-${dateTime.maRap}`}>
-                                                                            {moment(dateTime.ngayChieuGioChieu).format("DD-MM-YYYY ~ HH:mm")}
-                                                                        </NavLink>
-                                                                    </div>
+                                                                    <a href="/"
+                                                                        key={`${index}-${dateTime.maRap}`}
+                                                                        className={styles.dateTime}
+                                                                    >
+                                                                        {moment(dateTime.ngayChieuGioChieu).format("DD-MM-YYYY ~ HH:mm")}
+                                                                    </a>
                                                                 );
                                                             })}
+
                                                         </div>
-
                                                     </div>
-
                                                 </div>
-                                                <hr />
-                                            </>
+                                            </div>
                                         );
                                     })
                                 };

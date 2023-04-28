@@ -1,3 +1,58 @@
-.movieContainer{
-    margin-top: 100px;
+.movieImg {
+    height: 314px;
+    width: 210px
+}
+
+.tagMovie {
+    color: #fff;
+    display: inline-block;
+    padding: 0 5px;
+    font-size: 16px;
+    min-width: 33px;
+    background: #fb4226;
+    text-align: center;
+    margin-right: 8px;
+    border-radius: 4px;
+}
+
+.movieTitle {
+    color: #000000;
+    height: 45px;
+    opacity: 1;
+    overflow: hidden;
+    font-size: 18px;
+    max-height: 45px;
+    visibility: visible;
+    font-weight: 500;
+    line-height: 22px;
+}
+
+.orderButton {
+    bottom: 0px;
+    left: 0;
+    width: 100%;
+    display: block;
+    opacity: 0;
+    padding: 12px 8px;
+    position: absolute;
+    font-size: 18px;
+    background: linear-gradient(to left, #fb4226, #ce3017 100%);
+    text-align: center;
+    font-weight: 500;
+    border-radius: 4px;
+}
+
+.orderButton:hover {
+    transition: all 1s;
+    color: #fff;
+    opacity: 1;
+}
+
+.card-body {
+    padding-bottom: 0px !important;
+    overflow: hidden !important;
+}
+
+.movieCard {
+    overflow: hidden !important;
 }

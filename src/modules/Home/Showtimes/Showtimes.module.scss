@@ -1,4 +1,6 @@
 $primaryFont: 'JetBrains Mono';
+$primaryColor: #0354a5;
+$borderColor: #cdcbcb;
 
 %ellipsis {
     white-space: nowrap;
@@ -13,18 +15,18 @@ $primaryFont: 'JetBrains Mono';
     padding: 0 !important;
     margin: 100px auto 100px;
     background-color: white;
-    border: 1px solid rgb(206, 204, 204);
+    border: 1px solid $borderColor;
     overflow-y: scroll;
 }
 
 .logoBorder {
     &::after {
         content: '';
+        position: absolute;
         width: 100%;
         bottom: -15px;
         height: 1px;
         display: block;
-        position: absolute;
         background: rgba(202, 197, 197, 0.88);
     }
 }
@@ -48,7 +50,7 @@ $primaryFont: 'JetBrains Mono';
 }
 
 .branchName {
-    color: #0354a5;
+    color: $primaryColor;
     font-size: 1rem;
     font-weight: 700;
     line-height: 1.4;
@@ -67,4 +69,53 @@ $primaryFont: 'JetBrains Mono';
     color: #fb4226;
     font-size: 13px;
     letter-spacing: 1px;
+}
+
+.movieList {
+    margin-bottom: 30px;
+    font-family: $primaryFont;
+    position: relative;
+
+    &::after {
+        @extend .logoBorder;
+        width: 90%;
+        bottom: -15px;
+        left: 30px;
+    }
+}
+
+.movieIcon {
+    color: #fff;
+    display: inline-block;
+    font-size: 16px;
+    min-width: 33px;
+    background: $primaryColor;
+    text-align: center;
+    margin-right: 12px;
+    border-radius: 4px;
+}
+
+.movieName {
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 22px;
+    margin-bottom: 8px;
+    letter-spacing: -0.00833em;
+}
+
+.dateTime {
+    display: inline-block;
+    color: #ff8c00;
+    font-weight: 700;
+    font-size: 14px;
+    border: 1px solid $borderColor;
+    margin: 0px 16px 16px 0px;
+    padding: 8px;
+    border-radius: 4px;
+    background-color: rgba(246, 246, 246, 0.5);
+
+    &:hover {
+        color: white;
+        background-color: rgba(66, 66, 66, 0.8);
+    }
 }
