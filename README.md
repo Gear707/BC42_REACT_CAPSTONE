@@ -1,6 +1,7 @@
 ### Thư viện
 - Routing: react-router-dom
 - Redux: @reduxjs/toolkit, react-redux
+- Form: react-hook-form hoặc formik
 - API: axios
 - Styles: sass
 - UI: react-bootstrap, material-ui,...

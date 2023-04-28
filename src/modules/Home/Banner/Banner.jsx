@@ -1,10 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import styles from "./Banner.module.scss";
+import "./slickCustom.scss";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 import { apiGetBanners } from "../../../apis/movieAPI";
 
 function Banner() {
     const [banners, setBanners] = useState([]);
     const [error, setError] = useState(null);
+
+    const settings = {
+        dots: true,
+        infinite: true,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        speed: 500,
+        autoplaySpeed: 5 * 1000,
+    };
 
     const getBanners = async () => {
         try {
@@ -24,11 +38,16 @@ function Banner() {
     // carousel: react slick, react swiper
 
     return (
-        <div style={{ display: "flex" }}>
+        <Slider {...settings} className={styles.bannerContainer}>
             {banners.map((item) => {
-                return <img key={item.maPhim} src={item.hinhAnh} alt={item.maBanner} height={300} />;
+                return (
+                    <div key={item.maPhim} className={styles.bannerItem}>
+                        <img src={item.hinhAnh} alt={item.maBanner}
+                            className={`img-fluid ${styles.bannerImg}`} />
+                    </div>
+                );
             })}
-        </div>
+        </Slider>
     );
 }
 
