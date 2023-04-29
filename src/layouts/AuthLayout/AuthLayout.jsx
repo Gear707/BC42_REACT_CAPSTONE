@@ -8,8 +8,8 @@ function AuthLayout() {
         <>
             <Header />
             <div className={styles.background}>
-                <div className={styles.container}>
-                    <div className={styles.box}>
+                <div className="container">
+                    <div className="row justify-content-center">
                         <Outlet />
                     </div>
                 </div>
