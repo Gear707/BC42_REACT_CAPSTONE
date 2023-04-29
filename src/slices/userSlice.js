@@ -11,6 +11,11 @@ export const signin = createAsyncThunk("user/signin", async (values) => {
     }
 });
 
+// let userInfo = {};
+// if (localStorage.getItem("userList")) {
+//     userInfo = JSON.parse(localStorage.getItem("userList"));
+// };
+
 const initialState = {
     user: null,
     isLoading: false,
@@ -22,10 +27,11 @@ const userSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(signin.pending, (state, action) => {
+        builder.addCase(signin.pending, (state) => {
             return { ...state, isLoading: true, error: null };
         });
         builder.addCase(signin.fulfilled, (state, action) => {
+            // localStorage.setItem("userList", JSON.stringify(action.payload));
             return { ...state, isLoading: false, user: action.payload };
         });
         builder.addCase(signin.rejected, (state, action) => {
