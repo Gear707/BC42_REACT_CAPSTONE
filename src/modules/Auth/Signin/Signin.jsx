@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { signin } from "../../../slices/userSlice";
 import { Navigate } from "react-router-dom";
-import styles from "./Sigin.module.scss";
+import styles from "./Signin.module.scss";
 
 function Signin() {
     const { user, isLoading, error } = useSelector((state) => state.user);
@@ -70,8 +70,8 @@ function Signin() {
                     {error && <p className="text-danger">{error}</p>}
 
                     <div className="form-group">
-                        <button className={`${styles.btnSignin} form-control btn mt-2 px-3`} 
-                        disabled={isLoading}>Đăng nhập</button>
+                        <button className={`${styles.btnSignin} form-control btn mt-2 px-3`}
+                            disabled={isLoading}>Đăng nhập</button>
                     </div>
                 </form>
             </div>

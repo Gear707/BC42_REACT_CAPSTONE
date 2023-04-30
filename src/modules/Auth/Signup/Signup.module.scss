@@ -1,10 +1,10 @@
 $color-1: #0354a5;
-$defaultSize: 60px;
+$defaultSize: 50px;
 $borRad: 10px;
 
 .box {
-    margin-top: 100px !important;
-    padding: 30px;
+    margin-top: 50px !important;
+    padding: 10px;
     background-color: white;
     border-radius: $borRad;
 }
@@ -14,7 +14,7 @@ $borRad: 10px;
     height: $defaultSize;
     background-color: $color-1;
     border-radius: 50%;
-    font-size: 30px;
+    font-size: 22px;
     margin: 0 auto;
     margin-bottom: 10px;
 }
@@ -35,7 +35,7 @@ $borRad: 10px;
     }
 }
 
-.btnSignin {
+.btnSignup {
     text-transform: uppercase;
     letter-spacing: 0.1em;
     font-size: 20px !important;
