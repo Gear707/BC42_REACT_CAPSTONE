@@ -2,12 +2,11 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import styles from "./Signup.module.scss";
 import { apiSignup } from "../../../apis/userAPI";
-import { Navigate } from "react-router-dom";
 
 function Signup() {
     const PASSWORD_FORMAT = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,})/;
     const EMAIL_FORMAT = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const NAME_FORMAT = /^[A-Za-z\s]+$/;
+    const NAME_FORMAT = /^[\p{L}\s]{2,}$/u;
     const PHONENUMBER_FORMAT = /^0[0-9]{9}$/i;
 
     const { register, handleSubmit, formState: { errors }, watch } = useForm({
