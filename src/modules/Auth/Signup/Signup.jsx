@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import styles from "./Signup.module.scss";
 import { apiSignup } from "../../../apis/userAPI";
+import { Navigate } from "react-router-dom";
 
 function Signup() {
     const PASSWORD_FORMAT = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,})/;
@@ -13,35 +14,34 @@ function Signup() {
         defaultValues: {
             taiKhoan: "",
             matKhau: "",
-            matKhauConfirm: "",
             email: "",
             soDt: "",
             hoTen: "",
+            matKhauConfirm: "",
         },
     });
 
+    const postUserInfo = async (values) => {
+        try {
+            const data = await apiSignup(values);
+            console.log(data);
+            localStorage.setItem("userList", JSON.stringify(data));
+            alert("Đăng ký thành công");
+        } catch (error) {
+            console.log(error.response?.data?.content);
+        }
+    };
+
     const onSubmit = (values) => {
         console.log(values);
+        postUserInfo(values);
     };
 
     const onError = (errors) => {
         console.log(errors);
     };
 
-    const password = watch("matKhau");
-
-    // const postUserInfo = async (values) => {
-    //     try {
-    //         const data = await apiSignup(values);
-    //         console.log(data.content);
-    //     } catch (error) {
-    //         console.log(error.response?.data?.content);
-    //     }
-    // }
-
-    // const handleSignup = (values) => {
-    //     postUserInfo(values);
-    // }
+    const password = watch("matKhau"); 
 
     return (
         <div className={`col-md-7 col-lg-5 ${styles.box}`}>
