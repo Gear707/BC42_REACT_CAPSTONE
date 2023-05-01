@@ -4,29 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { signin } from "../../../slices/userSlice";
 import { Navigate } from "react-router-dom";
 import styles from "./Signin.module.scss";
-import Swal from "sweetalert2";
+import { alertError } from "../../../apis/sweetAlert2";
 
 function Signin() {
-    // Tạo thông báo popup
-    const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 800
-    });
-    const alertSuccess = (text) => {
-        Toast.fire({
-            icon: 'success',
-            title: text
-        });
-    };
-    const alertError = (text) => {
-        Toast.fire({
-            icon: 'error',
-            title: text
-        });
-    }
-
     const { user, isLoading, error } = useSelector((state) => state.user);
     const dispatch = useDispatch();
 
@@ -40,7 +20,6 @@ function Signin() {
 
     const onSubmit = (values) => {
         dispatch(signin(values));
-        alertSuccess("Đăng nhập thành công");
     };
 
     const onError = (errors) => {

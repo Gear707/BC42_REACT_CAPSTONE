@@ -2,24 +2,10 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import styles from "./Signup.module.scss";
 import { apiSignup } from "../../../apis/userAPI";
-import Swal from "sweetalert2";
+import { alertSuccess } from "../../../apis/sweetAlert2";
 import { useNavigate } from "react-router-dom";
 
 function Signup() {
-    // Tạo thông báo popup
-    const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 800
-    });
-    const alertSuccess = (text) => {
-        Toast.fire({
-            icon: 'success',
-            title: text
-        });
-    };
-
     const PASSWORD_FORMAT = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,})/;
     const EMAIL_FORMAT = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const NAME_FORMAT = /^[\p{L}\s]{2,}$/u;
