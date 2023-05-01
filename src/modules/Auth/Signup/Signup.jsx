@@ -2,6 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import styles from "./Signup.module.scss";
 import { apiSignup } from "../../../apis/userAPI";
+import { useHistory } from "react-router-dom";
 
 function Signup() {
     const PASSWORD_FORMAT = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,})/;
@@ -23,17 +24,20 @@ function Signup() {
     const postUserInfo = async (values) => {
         try {
             const data = await apiSignup(values);
-            console.log(data);
             localStorage.setItem("userList", JSON.stringify(data));
+            console.log(data);
             alert("Đăng ký thành công");
         } catch (error) {
             console.log(error.response?.data?.content);
         }
     };
 
+    const history = useHistory();
+
     const onSubmit = (values) => {
         console.log(values);
         postUserInfo(values);
+        history.push("/signin");
     };
 
     const onError = (errors) => {

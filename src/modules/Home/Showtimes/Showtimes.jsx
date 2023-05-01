@@ -14,7 +14,6 @@ function Showtimes() {
         try {
             const data = await apiGetCinemaShowtimes();
             setCinemasShowtimes(data.content);
-            console.log(data.content);
         } catch (error) {
             setError(error.response?.data?.content);
         }
