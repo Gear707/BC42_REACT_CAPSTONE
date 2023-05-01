@@ -4,7 +4,7 @@ import "./antClassCustom.scss";
 import { apiGetCinemaShowtimes } from "../../../apis/cinemaAPI";
 import { Tabs } from 'antd';
 import { NavLink } from "react-router-dom";
-import moment from "moment/moment";
+import moment from "moment";
 
 function Showtimes() {
     const [cinemasShowtimes, setCinemasShowtimes] = useState([]);
@@ -20,19 +20,22 @@ function Showtimes() {
     };
 
     const tabs = (
-        <Tabs tabPosition="left"
+        <Tabs
+            tabPosition="left"
             items={cinemasShowtimes.map((cinema, index) => {
                 return {
-                    label:
+                    label: (
                         <div className={`${styles.logoBorder} position-relative m-1`}>
-                            <img src={cinema.logo} width={70} />
-                        </div>,
+                            <img src={cinema.logo} alt="Cinema logo" width={70} />
+                        </div>
+                    ),
                     key: `${index}-${cinema.maHeThongRap}`,
-                    children:
-                        <Tabs tabPosition="left"
+                    children: (
+                        <Tabs
+                            tabPosition="left"
                             items={cinema.lstCumRap.map((branch, index) => {
                                 return {
-                                    label:
+                                    label: (
                                         <div className={styles.branchContainer}>
                                             <div className={styles.branchList}>
                                                 <h4 className={styles.branchName} title={branch.tenCumRap}>
@@ -41,48 +44,52 @@ function Showtimes() {
                                                 <h6 className={styles.branchAddress} title={branch.diaChi}>
                                                     {branch.diaChi}
                                                 </h6>
-                                                <a href="/" className={styles.branchDetails}>Chi tiết</a>
+                                                <NavLink to="/" className={styles.branchDetails}>
+                                                    Chi tiết
+                                                </NavLink>
                                             </div>
-                                        </div>,
+                                        </div>
+                                    ),
                                     key: index,
                                     children: branch.danhSachPhim.map((movie) => {
                                         return (
-                                            <div className={styles.movieList}>
-                                                <div className="d-flex p-3 justify-content-around" key={movie.maPhim}>
+                                            <div className={styles.movieList} key={movie.maPhim}>
+                                                <div className="d-flex p-3 justify-content-around">
                                                     <div className="col-2 d-flex justify-content-center">
-                                                        <img src={movie.hinhAnh} 
-                                                        className="img-fluid" 
-                                                        styles={{ width: "auto" }}
-                                                        alt={movie.tenPhim} />
+                                                        <img
+                                                            src={movie.hinhAnh}
+                                                            alt={movie.tenPhim}
+                                                            className="img-fluid"
+                                                            style={{ width: "auto" }}
+                                                        />
                                                     </div>
                                                     <div className="col-9">
                                                         <span className={styles.movieIcon}>
                                                             <i className="fa-solid fa-video"></i>
                                                         </span>
-                                                        <span className={styles.movieName}>
-                                                            {movie.tenPhim}
-                                                        </span>
+                                                        <span className={styles.movieName}>{movie.tenPhim}</span>
                                                         <div className="d-flex flex-wrap mt-3">
                                                             {movie.lstLichChieuTheoPhim.slice(0, 6).map((dateTime, index) => {
                                                                 return (
-                                                                    <a href="/"
-                                                                        key={`${index}-${dateTime.maRap}`}
+                                                                    <NavLink
+                                                                        to="/"
+                                                                        key={`${movie.maPhim}-${dateTime.maLichChieu}`}
                                                                         className={styles.dateTime}
                                                                     >
                                                                         {moment(dateTime.ngayChieuGioChieu).format("DD-MM-YYYY ~ HH:mm")}
-                                                                    </a>
+                                                                    </NavLink>
                                                                 );
                                                             })}
-
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         );
-                                    })
+                                    }),
                                 };
                             })}
-                        />,
+                        />
+                    ),
                 };
             })}
         />

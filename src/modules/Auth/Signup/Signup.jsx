@@ -2,9 +2,24 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import styles from "./Signup.module.scss";
 import { apiSignup } from "../../../apis/userAPI";
-import { useHistory } from "react-router-dom";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
+    // Tạo thông báo popup
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 800
+    });
+    const alertSuccess = (text) => {
+        Toast.fire({
+            icon: 'success',
+            title: text
+        });
+    };
+
     const PASSWORD_FORMAT = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,})/;
     const EMAIL_FORMAT = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const NAME_FORMAT = /^[\p{L}\s]{2,}$/u;
@@ -26,25 +41,25 @@ function Signup() {
             const data = await apiSignup(values);
             localStorage.setItem("userList", JSON.stringify(data));
             console.log(data);
-            alert("Đăng ký thành công");
+            alertSuccess("Đăng ký thành công");
         } catch (error) {
             console.log(error.response?.data?.content);
         }
     };
 
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const onSubmit = (values) => {
         console.log(values);
         postUserInfo(values);
-        history.push("/signin");
+        navigate("/signin");
     };
 
     const onError = (errors) => {
         console.log(errors);
     };
 
-    const password = watch("matKhau"); 
+    const password = watch("matKhau");
 
     return (
         <div className={`col-md-7 col-lg-5 ${styles.box}`}>
