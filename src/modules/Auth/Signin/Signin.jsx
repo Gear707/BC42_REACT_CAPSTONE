@@ -2,24 +2,44 @@ import React from 'react';
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { signin } from "../../../slices/userSlice";
-import { Navigate } from "react-router-dom";
+import { Navigate, useSearchParams } from "react-router-dom";
+import * as yup from "yup";
+import { yupResolver } from '@hookform/resolvers/yup';
 import styles from "./Signin.module.scss";
-import { alertError } from "../../../apis/sweetAlert2";
+import { alertError, alertSuccess } from "../../../apis/sweetAlert2";
+
+const PASSWORD_FORMAT = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+
+// Định nghĩa các xác thực cho thuộc tính
+const schema = yup.object({
+    taiKhoan: yup.string().required("Tài khoản không được để trống!"),
+    matKhau: yup.string().required("Mật khẩu không được để trống!")
+        .matches(
+            PASSWORD_FORMAT,
+            "Mật khẩu phải có ít nhất 8 kí tự, 1 chữ hoa, 1 chữ thường, 1 số và 1 ký tự đặc biệt"
+        ),
+});
 
 function Signin() {
-    const { user, isLoading, error } = useSelector((state) => state.user);
-    const dispatch = useDispatch();
-
     const { register, handleSubmit, formState: { errors } } = useForm({
         // Khai báo các giá trị khởi tạo cho các input
         defaultValues: {
             taiKhoan: "",
             matKhau: ""
-        }
+        },
+        mode: "onTouched",
+        resolver: yupResolver(schema),
     });
+
+    const { user, isLoading, error } = useSelector((state) => state.user);
+    const dispatch = useDispatch();
+
+    const [searchParams, setSearchParams] = useSearchParams();
+    console.log(searchParams.get("redirectUrl"));
 
     const onSubmit = (values) => {
         dispatch(signin(values));
+        alertSuccess("Đăng nhập thành công");
     };
 
     const onError = (errors) => {
@@ -27,10 +47,11 @@ function Signin() {
         alertError("Đăng nhập thất bại");
     };
 
-    const PASSWORD_FORMAT = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,})/;
-
     // Kiểm tra nếu có thông tin user => đã đăng nhập => điều hướng về trang home
-    if (user) return <Navigate to="/" />;
+    if (user) {
+        const url = searchParams.get("redirectUrl") || "/";
+        return <Navigate to={url} />;
+    };
 
     return (
         <div className={`col-md-7 col-lg-5 ${styles.box}`}>
@@ -60,10 +81,10 @@ function Signin() {
                                     value: true,
                                     message: "Mật khẩu không được để trống!",
                                 },
-                                pattern: {
-                                    value: PASSWORD_FORMAT,
-                                    message: "Mật khẩu phải có ít nhất 8 kí tự, 1 chữ hoa, 1 chữ thường, 1 số và 1 ký tự đặc biệt",
-                                }
+                                // pattern: {
+                                //     value: PASSWORD_FORMAT,
+                                //     message: "Mật khẩu phải có ít nhất 8 kí tự, 1 chữ hoa, 1 chữ thường, 1 số và 1 ký tự đặc biệt",
+                                // }
                             })} />
                         {errors.matKhau && <p className="mt-1 text-danger">{errors.matKhau.message}</p>}
                     </div>

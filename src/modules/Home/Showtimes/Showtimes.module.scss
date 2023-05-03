@@ -1,4 +1,3 @@
-$primaryFont: 'JetBrains Mono';
 $primaryColor: #0354a5;
 $borderColor: #cdcbcb;
 
@@ -32,7 +31,6 @@ $borderColor: #cdcbcb;
 }
 
 .branchContainer {
-    font-family: $primaryFont;
     width: 350px;
     text-transform: uppercase;
 
@@ -73,7 +71,6 @@ $borderColor: #cdcbcb;
 
 .movieList {
     margin-bottom: 30px;
-    font-family: $primaryFont;
     position: relative;
 
     &::after {

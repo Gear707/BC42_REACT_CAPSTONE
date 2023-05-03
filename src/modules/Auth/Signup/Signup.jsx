@@ -2,15 +2,15 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import styles from "./Signup.module.scss";
 import { apiSignup } from "../../../apis/userAPI";
-import { alertSuccess } from "../../../apis/sweetAlert2";
+import { alertError, alertSuccess } from "../../../apis/sweetAlert2";
 import { useNavigate } from "react-router-dom";
 
-function Signup() {
-    const PASSWORD_FORMAT = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,})/;
-    const EMAIL_FORMAT = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const NAME_FORMAT = /^[\p{L}\s]{2,}$/u;
-    const PHONENUMBER_FORMAT = /^0[0-9]{9}$/i;
+const PASSWORD_FORMAT = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,})/;
+const EMAIL_FORMAT = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const NAME_FORMAT = /^[\p{L}\s]{2,}$/u;
+const PHONENUMBER_FORMAT = /^0[0-9]{9}$/i;
 
+function Signup() {
     const { register, handleSubmit, formState: { errors }, watch } = useForm({
         defaultValues: {
             taiKhoan: "",
@@ -25,9 +25,7 @@ function Signup() {
     const postUserInfo = async (values) => {
         try {
             const data = await apiSignup(values);
-            localStorage.setItem("userList", JSON.stringify(data));
             console.log(data);
-            alertSuccess("Đăng ký thành công");
         } catch (error) {
             console.log(error.response?.data?.content);
         }
@@ -38,11 +36,13 @@ function Signup() {
     const onSubmit = (values) => {
         console.log(values);
         postUserInfo(values);
+        alertSuccess("Đăng ký thành công");
         navigate("/signin");
     };
 
     const onError = (errors) => {
         console.log(errors);
+        alertError("Đăng ký thất bại");
     };
 
     const password = watch("matKhau");
@@ -60,12 +60,7 @@ function Signup() {
                             type="text"
                             className={`${styles.inputCustom} form-control`}
                             placeholder="Tài khoản"
-                            {...register("taiKhoan", {
-                                required: {
-                                    value: true,
-                                    message: "Tài khoản không được để trống!",
-                                }
-                            })}
+                            {...register("taiKhoan")}
                         />
                         {errors.taiKhoan && <p className="mt-1 text-danger">{errors.taiKhoan.message}</p>}
                     </div>
@@ -75,16 +70,7 @@ function Signup() {
                             type="password"
                             className={`${styles.inputCustom} form-control`}
                             placeholder="Mật khẩu"
-                            {...register("matKhau", {
-                                required: {
-                                    value: true,
-                                    message: "Mật khẩu không được để trống!",
-                                },
-                                pattern: {
-                                    value: PASSWORD_FORMAT,
-                                    message: "Mật khẩu phải có ít nhất 8 kí tự, 1 chữ hoa, 1 chữ thường, 1 số và 1 ký tự đặc biệt",
-                                }
-                            })}
+                            {...register("matKhau")}
                         />
                         {errors.matKhau && <p className="mt-1 text-danger">{errors.matKhau.message}</p>}
                     </div>
