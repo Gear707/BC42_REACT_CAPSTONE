@@ -71,7 +71,7 @@ function Showtimes() {
                                                         </span>
                                                         <span className={styles.movieName}>{movie.tenPhim}</span>
                                                         <div className="d-flex flex-wrap mt-3">
-                                                            {movie.lstLichChieuTheoPhim.slice(0, 6).map((schedule, index) => {
+                                                            {movie.lstLichChieuTheoPhim.slice(0, 6).map((schedule) => {
                                                                 return (
                                                                     <a className={styles.dateTime}
                                                                         key={`${movie.maPhim}-${schedule.maLichChieu}`}

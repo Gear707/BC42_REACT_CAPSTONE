@@ -1,3 +1,4 @@
+$primaryFont: 'Roboto';
 $primaryColor: #0354a5;
 $borderColor: #cdcbcb;
 
@@ -33,6 +34,7 @@ $borderColor: #cdcbcb;
 .branchContainer {
     width: 350px;
     text-transform: uppercase;
+    font-family: $primaryFont;
 
     &::after {
         @extend .logoBorder;
@@ -72,6 +74,7 @@ $borderColor: #cdcbcb;
 .movieList {
     margin-bottom: 30px;
     position: relative;
+    font-family: $primaryFont;
 
     &::after {
         @extend .logoBorder;
