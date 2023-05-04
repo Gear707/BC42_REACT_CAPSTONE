@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout/MainLayout";
 import AuthLayout from "./layouts/AuthLayout/AuthLayout";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import Loading from "./components/Loading/Loading";
 
 // import Home from "./modules/Home/Home";
 // import MovieDetails from "./modules/MovieDetails/MovieDetails";
@@ -19,7 +20,7 @@ const Signup = lazy(() => import("./modules/Auth/Signup/Signup"));
 
 function App() {
   return (
-    <Suspense fallback={<h1>Loading</h1>}>
+    <Suspense fallback={<Loading />}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainLayout />}>
