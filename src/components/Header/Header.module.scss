@@ -22,10 +22,11 @@ $headerHover: #0354a5;
 }
 
 .userLink {
-    text-transform: uppercase;
     text-decoration: none;
     font-weight: 700;
     color: black;
+    border: none;
+    background-color: transparent;
 
     &:hover {
         color: $headerHover;

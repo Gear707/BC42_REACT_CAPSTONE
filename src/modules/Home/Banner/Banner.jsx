@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styles from "./Banner.module.scss";
-import "./slickCustom.scss";
 import Slider from "react-slick";
+import "./slickCustom.scss";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { apiGetBanners } from "../../../apis/movieAPI";
@@ -34,8 +34,6 @@ function Banner() {
     }, []);
 
     if (error) return null;
-
-    // carousel: react slick, react swiper
 
     return (
         <Slider {...settings} className={styles.bannerContainer}>

@@ -11,4 +11,3 @@ export const apiSignup = async (values) => {
     const { data } = await axiosClient.post("/QuanLyNguoiDung/DangKy", payload);
     return data;
 }
-
