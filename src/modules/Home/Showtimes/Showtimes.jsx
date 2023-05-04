@@ -3,7 +3,7 @@ import styles from "./Showtimes.module.scss";
 import "./antClassCustom.scss";
 import { apiGetCinemaShowtimes } from "../../../apis/cinemaAPI";
 import { Tabs } from 'antd';
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import moment from "moment";
 
 function Showtimes() {
@@ -18,6 +18,8 @@ function Showtimes() {
             setError(error.response?.data?.content);
         }
     };
+
+    const navigate = useNavigate();
 
     const tabs = (
         <Tabs
@@ -69,15 +71,14 @@ function Showtimes() {
                                                         </span>
                                                         <span className={styles.movieName}>{movie.tenPhim}</span>
                                                         <div className="d-flex flex-wrap mt-3">
-                                                            {movie.lstLichChieuTheoPhim.slice(0, 6).map((dateTime, index) => {
+                                                            {movie.lstLichChieuTheoPhim.slice(0, 6).map((schedule, index) => {
                                                                 return (
-                                                                    <NavLink
-                                                                        to="/"
-                                                                        key={`${movie.maPhim}-${dateTime.maLichChieu}`}
-                                                                        className={styles.dateTime}
+                                                                    <a className={styles.dateTime}
+                                                                        key={`${movie.maPhim}-${schedule.maLichChieu}`}
+                                                                        onClick={() => navigate(`/booking/${schedule.maLichChieu}`)}
                                                                     >
-                                                                        {moment(dateTime.ngayChieuGioChieu).format("DD-MM-YYYY ~ HH:mm")}
-                                                                    </NavLink>
+                                                                        {moment(schedule.ngayChieuGioChieu).format("DD-MM-YYYY ~ HH:mm")}
+                                                                    </a>
                                                                 );
                                                             })}
                                                         </div>
