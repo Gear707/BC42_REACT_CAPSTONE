@@ -14,10 +14,3 @@ export const alertSuccess = (text) => {
         title: text,
     });
 };
-
-export const alertError = (text) => {
-    Popup.fire({
-        icon: 'error',
-        title: text,
-    });
-};

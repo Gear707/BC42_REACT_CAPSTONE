@@ -6,7 +6,7 @@ import { Navigate, useSearchParams } from "react-router-dom";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import styles from "./Signin.module.scss";
-import { alertError, alertSuccess } from "../../../apis/sweetAlert2";
+import { alertSuccess } from "../../../apis/sweetAlert2";
 
 const PASSWORD_FORMAT = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 
@@ -44,7 +44,6 @@ function Signin() {
 
     const onError = (errors) => {
         console.log(errors);
-        alertError("Đăng nhập thất bại");
     };
 
     // Kiểm tra nếu có thông tin user => đã đăng nhập => điều hướng về trang home
@@ -64,28 +63,16 @@ function Signin() {
                     <div className="form-group mb-3">
                         <input type="text" placeholder="Tài khoản"
                             className={`${styles.inputCustom} form-control`}
-                            {...register("taiKhoan", {
-                                required: {
-                                    value: true,
-                                    message: "Tài khoản không được để trống!",
-                                }
-                            })} />
+                            {...register("taiKhoan")}
+                        />
                         {errors.taiKhoan && <p className="mt-1 text-danger">{errors.taiKhoan.message}</p>}
                     </div>
 
                     <div className="form-group mb-3">
                         <input type="password" placeholder="Mật khẩu"
                             className={`${styles.inputCustom} form-control`}
-                            {...register("matKhau", {
-                                required: {
-                                    value: true,
-                                    message: "Mật khẩu không được để trống!",
-                                },
-                                // pattern: {
-                                //     value: PASSWORD_FORMAT,
-                                //     message: "Mật khẩu phải có ít nhất 8 kí tự, 1 chữ hoa, 1 chữ thường, 1 số và 1 ký tự đặc biệt",
-                                // }
-                            })} />
+                            {...register("matKhau")}
+                        />
                         {errors.matKhau && <p className="mt-1 text-danger">{errors.matKhau.message}</p>}
                     </div>
 

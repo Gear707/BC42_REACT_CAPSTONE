@@ -2,24 +2,49 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import styles from "./Signup.module.scss";
 import { apiSignup } from "../../../apis/userAPI";
-import { alertError, alertSuccess } from "../../../apis/sweetAlert2";
+import { alertSuccess } from "../../../apis/sweetAlert2";
 import { useNavigate } from "react-router-dom";
+import * as yup from "yup";
+import { yupResolver } from '@hookform/resolvers/yup';
 
-const PASSWORD_FORMAT = /((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,})/;
-const EMAIL_FORMAT = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PASSWORD_FORMAT = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 const NAME_FORMAT = /^[\p{L}\s]{2,}$/u;
 const PHONENUMBER_FORMAT = /^0[0-9]{9}$/i;
 
+const schema = yup.object({
+    taiKhoan: yup.string().required("Tài khoản không được để trống!"),
+    matKhau: yup.string().required("Mật khẩu không được để trống!")
+        .matches(
+            PASSWORD_FORMAT,
+            "Mật khẩu phải có ít nhất 8 kí tự, 1 chữ hoa, 1 chữ thường và 1 số",
+        ),
+    matKhauConfirm: yup.string().required("Vui lòng xác nhận mật khẩu")
+        .oneOf([yup.ref("matKhau"), null], "Mật khẩu không khớp!"),
+    email: yup.string().email().required("Email không được để trống!"),
+    soDt: yup.string().required("Số điện thoại không được để trống!")
+        .matches(
+            PHONENUMBER_FORMAT,
+            "Số điện thoại không đúng định dạng",
+        ),
+    hoTen: yup.string().required("Họ tên không được để trống!")
+        .matches(
+            NAME_FORMAT,
+            "Họ tên chỉ có có thể bao gồm chữ alphabet",
+        ),
+});
+
 function Signup() {
-    const { register, handleSubmit, formState: { errors }, watch } = useForm({
+    const { register, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
             taiKhoan: "",
             matKhau: "",
+            matKhauConfirm: "",
             email: "",
             soDt: "",
             hoTen: "",
-            matKhauConfirm: "",
         },
+        mode: "onTouched",
+        resolver: yupResolver(schema),
     });
 
     const postUserInfo = async (values) => {
@@ -42,10 +67,7 @@ function Signup() {
 
     const onError = (errors) => {
         console.log(errors);
-        alertError("Đăng ký thất bại");
     };
-
-    const password = watch("matKhau");
 
     return (
         <div className={`col-md-7 col-lg-5 ${styles.box}`}>
@@ -80,13 +102,7 @@ function Signup() {
                             type="password"
                             className={`${styles.inputCustom} form-control`}
                             placeholder="Nhập lại mật khẩu"
-                            {...register("matKhauConfirm", {
-                                required: {
-                                    value: true,
-                                    message: "Vui lòng xác nhận mật khẩu",
-                                },
-                                validate: (value) => value === password || "Mật khẩu xác nhận không khớp",
-                            })}
+                            {...register("matKhauConfirm")}
                         />
                         {errors.matKhauConfirm && <p className="mt-1 text-danger">{errors.matKhauConfirm.message}</p>}
                     </div>
@@ -96,16 +112,7 @@ function Signup() {
                             type="email"
                             className={`${styles.inputCustom} form-control`}
                             placeholder="Email"
-                            {...register("email", {
-                                required: {
-                                    value: true,
-                                    message: "Email không được để trống!",
-                                },
-                                pattern: {
-                                    value: EMAIL_FORMAT,
-                                    message: "Email không đúng định dạng",
-                                }
-                            })}
+                            {...register("email")}
                         />
                         {errors.email && <p className="mt-1 text-danger">{errors.email.message}</p>}
                     </div>
@@ -115,16 +122,7 @@ function Signup() {
                             type="text"
                             className={`${styles.inputCustom} form-control`}
                             placeholder="Số điện thoại"
-                            {...register("soDt", {
-                                required: {
-                                    value: true,
-                                    message: "Số điện thoại không được để trống!",
-                                },
-                                pattern: {
-                                    value: PHONENUMBER_FORMAT,
-                                    message: "Số điện thoại không đúng định dạng",
-                                }
-                            })}
+                            {...register("soDt")}
                         />
                         {errors.soDt && <p className="mt-1 text-danger">{errors.soDt.message}</p>}
                     </div>
@@ -134,16 +132,7 @@ function Signup() {
                             type="text"
                             className={`${styles.inputCustom} form-control`}
                             placeholder="Họ tên"
-                            {...register("hoTen", {
-                                required: {
-                                    value: true,
-                                    message: "Họ tên không được để trống!",
-                                },
-                                pattern: {
-                                    value: NAME_FORMAT,
-                                    message: "Họ tên chỉ có có thể bao gồm chữ alphabet",
-                                }
-                            })}
+                            {...register("hoTen")}
                         />
                         {errors.hoTen && <p className="mt-1 text-danger">{errors.hoTen.message}</p>}
                     </div>
