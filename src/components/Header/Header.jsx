@@ -31,11 +31,10 @@ function Header() {
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
-                    <Nav className="my-2 my-lg-0" navbarScroll>
+                    <Nav className={`${styles.menuMargin} my-2 my-lg-0`} navbarScroll>
                         <Nav.Link href="/" className={styles.navLink}>Lịch Chiếu</Nav.Link>
                         <Nav.Link href="/" className={styles.navLink}>Cụm Rạp</Nav.Link>
-                        <Nav.Link href="/" className={styles.navLink}>Tin Tức</Nav.Link>
-                        <Nav.Link href="/" className={styles.navLink}>Ứng Dụng</Nav.Link>
+                        <Nav.Link href="/" className={styles.navLink}>Liên hệ</Nav.Link>
                     </Nav>
                     <div className="ms-auto">
                         {user ?

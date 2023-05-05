@@ -71,13 +71,16 @@ function Showtimes() {
                                                         </span>
                                                         <span className={styles.movieName}>{movie.tenPhim}</span>
                                                         <div className="d-flex flex-wrap mt-3">
-                                                            {movie.lstLichChieuTheoPhim.slice(0, 6).map((schedule, index) => {
+                                                            {movie.lstLichChieuTheoPhim.slice(0, 6).map((schedule) => {
                                                                 return (
-                                                                    <a className={styles.dateTime}
+                                                                    <a className={`${styles.date} fw-bold`}
                                                                         key={`${movie.maPhim}-${schedule.maLichChieu}`}
                                                                         onClick={() => navigate(`/booking/${schedule.maLichChieu}`)}
                                                                     >
-                                                                        {moment(schedule.ngayChieuGioChieu).format("DD-MM-YYYY ~ HH:mm")}
+                                                                        {moment(schedule.ngayChieuGioChieu).format("DD-MM-YYYY ")}
+                                                                        <span className={styles.time}>
+                                                                            {moment(schedule.ngayChieuGioChieu).format("~ HH:mm")}
+                                                                        </span>
                                                                     </a>
                                                                 );
                                                             })}

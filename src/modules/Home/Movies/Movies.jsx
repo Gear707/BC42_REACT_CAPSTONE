@@ -69,7 +69,7 @@ function Movies() {
                                             <Card.Img
                                                 variant="top"
                                                 src={item.hinhAnh}
-                                                className={`${styles.movieImg} img-fluid`}
+                                                className={styles.movieImg}
                                             />
                                             <div className={styles.trailerButton}>
                                                 <button
@@ -78,16 +78,12 @@ function Movies() {
                                                     type="button"
                                                     onClick={handleShow}
                                                 >
-                                                    <img
-                                                        src="https://www.linkpicture.com/q/playButton.png"
-                                                        className="jss197"
-                                                    />
+                                                    <img src="https://www.linkpicture.com/q/playButton.png" />
                                                 </button>
                                             </div>
                                             <Card.Body>
                                                 <Card.Title>
                                                     <div className={styles.movieTitle}>
-                                                        <span className={styles.tagMovie}>C18</span>
                                                         {item.tenPhim}
                                                     </div>
                                                     <a
@@ -157,16 +153,12 @@ function Movies() {
                                                     type="button"
                                                     onClick={handleShow}
                                                 >
-                                                    <img
-                                                        src="https://www.linkpicture.com/q/playButton.png"
-                                                        className="jss197"
-                                                    />
+                                                    <img src="https://www.linkpicture.com/q/playButton.png" />
                                                 </button>
                                             </div>
                                             <Card.Body>
                                                 <Card.Title>
                                                     <div className={styles.movieTitle}>
-                                                        <span className={styles.tagMovie}>C18</span>
                                                         {item.tenPhim}
                                                     </div>
                                                     <a
