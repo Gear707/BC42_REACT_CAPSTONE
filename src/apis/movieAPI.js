@@ -3,7 +3,7 @@ import axiosClient from "./axiosClient";
 export const apiGetMovies = async () => {
   const { data } = await axiosClient.get("/QuanLyPhim/LayDanhSachPhim", {
     params: {
-      maNhom: "GP06",
+      maNhom: "GP03",
     },
   });
   return data;
@@ -20,17 +20,5 @@ export const apiGetMovieDetails = async (movieId) => {
       MaPhim: movieId,
     },
   });
-  return data;
-};
-
-export const apiGetCinemaInfos = async (movieId) => {
-  const { data } = await axiosClient.get(
-    "/QuanLyRap/LayThongTinLichChieuPhim",
-    {
-      params: {
-        MaPhim: movieId,
-      },
-    }
-  );
   return data;
 };

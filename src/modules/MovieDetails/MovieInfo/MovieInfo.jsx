@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { apiGetCinemaInfos, apiGetMovieDetails } from "../../../apis/movieAPI";
+import { apiGetMovieDetails } from "../../../apis/movieAPI";
+import { apiGetCinemaInfos } from "../../../apis/cinemaAPI";
 import moment from "moment/moment";
 import styles from "./MovieInfo.module.scss";
 import ReactPlayer from "react-player";
 import { Modal } from "react-bootstrap";
+
 function MovieInfo({ movieId }) {
   const [movie, setMovie] = useState({});
   const [cinema, setCinema] = useState({});

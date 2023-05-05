@@ -26,7 +26,8 @@ function App() {
           <Route path="/" element={<MainLayout />}>
             <Route index element={<Home />} />
             <Route path="/movies/:movieId" element={<MovieDetails />} />
-            <Route path="/booking/:bookingId"
+            <Route
+              path="/booking/:bookingId"
               element={
                 <ProtectedRoute>
                   <Booking />
