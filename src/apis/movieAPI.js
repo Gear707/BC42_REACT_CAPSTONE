@@ -3,7 +3,7 @@ import axiosClient from "./axiosClient";
 export const apiGetMovies = async () => {
   const { data } = await axiosClient.get("/QuanLyPhim/LayDanhSachPhim", {
     params: {
-      maNhom: "GP03",
+      maNhom: "GP01",
     },
   });
   return data;
