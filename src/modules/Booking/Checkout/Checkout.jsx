@@ -10,7 +10,7 @@ function Checkout({ bookingId }) {
 
     useEffect(() => {
         dispatch(fetchAllSeats(bookingId));
-    }, [selectedSeats, checkoutSeats]);
+    }, [bookingId, selectedSeats, checkoutSeats]);
 
     if (!allSeats || isLoading) return <Loading />;
 
