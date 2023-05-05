@@ -87,7 +87,6 @@ function Movies() {
                                             <Card.Body>
                                                 <Card.Title>
                                                     <div className={styles.movieTitle}>
-                                                        <span className={styles.tagMovie}>C18</span>
                                                         {item.tenPhim}
                                                     </div>
                                                     <a
