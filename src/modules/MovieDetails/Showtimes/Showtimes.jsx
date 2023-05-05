@@ -48,7 +48,7 @@ function Showtimes({ movieId }) {
                   <span className={styles.tenCumRap}>{rap.tenCumRap}</span>
                   {rap.lichChieuPhim.map((lichChieu, index) => {
                     return (
-                      <a
+                      <button
                         key={`${lichChieu.maLichChieu}-${index}`}
                         className={styles.ngayChieu}
                         onClick={() =>
@@ -63,7 +63,7 @@ function Showtimes({ movieId }) {
                             " ~ HH:mm"
                           )}
                         </span>
-                      </a>
+                      </button>
                     );
                   })}
                 </div>

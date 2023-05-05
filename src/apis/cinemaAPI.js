@@ -5,7 +5,7 @@ export const apiGetCinemaShowtimes = async () => {
     "/QuanLyRap/LayThongTinLichChieuHeThongRap",
     {
       params: {
-        maNhom: "GP06",
+        maNhom: "GP04",
       },
     }
   );
