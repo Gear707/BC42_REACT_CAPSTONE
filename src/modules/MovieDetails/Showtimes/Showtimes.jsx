@@ -3,11 +3,13 @@ import { apiGetCinemaInfos } from "../../../apis/cinemaAPI";
 import styles from "./Showtimes.module.scss";
 import { Tabs } from "antd";
 import moment from "moment/moment";
+import { useNavigate } from "react-router-dom";
 
 function Showtimes({ movieId }) {
     const [cinema, setCinema] = useState({});
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const navigate = useNavigate();
     const getCinemaInfos = async () => {
         try {
             const data = await apiGetCinemaInfos(movieId);
@@ -41,14 +43,17 @@ function Showtimes({ movieId }) {
                             return (
                                 <div
                                     key={`${rap.maCumRap}-${index}`}
-                                    className={styles.maCumRap}
+                                    className={`ms-3 ${styles.maCumRap}`}
                                 >
                                     <span className={styles.tenCumRap}>{rap.tenCumRap}</span>
                                     {rap.lichChieuPhim.map((lichChieu, index) => {
                                         return (
-                                            <span
+                                            <button
                                                 key={`${lichChieu.maLichChieu}-${index}`}
                                                 className={styles.ngayChieu}
+                                                onClick={() =>
+                                                    navigate(`/booking/${lichChieu.maLichChieu}`)
+                                                }
                                             >
                                                 {moment(lichChieu.ngayChieuGioChieu).format(
                                                     "DD-MM-YYYY "
@@ -58,7 +63,7 @@ function Showtimes({ movieId }) {
                                                         " ~ HH:mm"
                                                     )}
                                                 </span>
-                                            </span>
+                                            </button>
                                         );
                                     })}
                                 </div>
@@ -68,7 +73,7 @@ function Showtimes({ movieId }) {
                 })}
             />
         ) : (
-            <p>Hiện tại phim chưa có suất chiếu</p>
+            <p className="ps-3">Hiện tại phim chưa có suất chiếu</p>
         );
 
     return isLoading ? (
