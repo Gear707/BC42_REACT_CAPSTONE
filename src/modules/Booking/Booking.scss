@@ -1,6 +1,7 @@
 $color-1: rgb(45, 146, 45);
-$color-2: rgb(61, 163, 181);
+$color-2: rgb(19, 84, 96);
 $color-3: rgb(212, 55, 55);
+$textColor: white;
 $customBorder: 40px solid;
 $font: "Roboto";
 
@@ -69,7 +70,7 @@ $font: "Roboto";
     // color: black;
     @include generalSize();
     cursor: no-drop !important;
-    color: white;
+    color: $textColor;
     background-color: rgba(0, 0, 0, 0.7) !important;
 }
 
@@ -77,7 +78,7 @@ $font: "Roboto";
     // @include seatBorder($color-1);
     @include generalSize();
     cursor: pointer;
-    color: white;
+    color: $textColor;
     background-color: $color-1;
 }
 
@@ -85,13 +86,14 @@ $font: "Roboto";
     // @include seatBorder($color-2);
     @include generalSize();
     cursor: no-drop;
+    color: $textColor;
     background-color: $color-2;
 }
 
 .vipSeat {
     @include generalSize();
     cursor: pointer;
-    color: white;
+    color: $textColor;
     background-color: $color-3;
 }
 

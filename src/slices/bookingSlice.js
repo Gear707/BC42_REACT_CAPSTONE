@@ -39,15 +39,16 @@ const bookingSlice = createSlice({
                 return { ...state, selectedSeats: seats };
             }
         },
-        // deleteSeats: (state, action) => {
-        //     const seats = state.selectedSeats.filter((seat) => seat.maGhe !== action.number);
-        //     return { ...state, selectedSeats: seats };
-        // },
         checkoutSelectedSeats: (state, action) => {
             const seatsToCheckout = [...state.selectedSeats];
+            // tạo mảng danh sách ghế checkout
             const updatedSeats = [...state.checkoutSeats, ...seatsToCheckout];
             return { ...state, selectedSeats: [], checkoutSeats: updatedSeats };
         },
+        // deleteSeats: (state, action) => {
+        //     const seats = state.selectedSeats.filter((seat) => seat.maGhe !== action.payload.maGhe);
+        //     return { ...state, selectedSeats: seats };
+        // },
     },
     extraReducers: (builder) => {
         builder.addCase(fetchAllSeats.pending, (state) => {

@@ -34,16 +34,22 @@ function SeatInfo({ bookingId }) {
             // nếu tồn tại ghế đã chọn thì áp class cho các ghế đang chọn
             let selectedSeatClass = selectedIndex !== -1 ? "selectedSeat" : "";
 
+            // kiểm tra ghế sau khi nhấn button đặt vé
+            let checkoutIndex = checkoutSeats.findIndex(
+                (checkoutSeat) => checkoutSeat.maGhe === seat.maGhe
+            );
+            // nếu tồn tại ghế vừa checkout sau khi nhấn button thì áp class cho 
+            let checkoutSeatClass = checkoutIndex !== -1 ? "checkoutSeat" : "";
+
             return (
                 <Fragment key={index}>
-
-                    <button disabled={seat.daDat} onClick={() => handleAddSeat(seat)}
-                        className={`emptySeats ${vipSeatClass} ${reservedSeatClass} ${selectedSeatClass}`}>
-                        {seat.daDat ? <i className="fa-solid fa-xmark"></i> : seat.tenGhe}
-                    </button>
-
                     {/* 1 hàng có tối đa 16 ghế */}
                     {(index + 1) % 16 === 0 ? <br /> : ""}
+
+                    <button disabled={seat.daDat} onClick={() => handleAddSeat(seat)}
+                        className={`emptySeats ${vipSeatClass} ${reservedSeatClass} ${selectedSeatClass} ${checkoutSeatClass}`}>
+                        {seat.daDat ? <i className="fa-solid fa-xmark"></i> : seat.tenGhe}
+                    </button>
                 </Fragment>
             );
         }));
