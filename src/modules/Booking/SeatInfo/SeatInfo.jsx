@@ -10,7 +10,7 @@ function SeatInfo({ bookingId }) {
 
     useEffect(() => {
         dispatch(fetchAllSeats(bookingId));
-    }, [selectedSeats, checkoutSeats]);
+    }, [bookingId, selectedSeats, checkoutSeats]);
 
     console.log(allSeats);
 

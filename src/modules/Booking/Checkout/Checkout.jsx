@@ -10,7 +10,7 @@ function Checkout({ bookingId }) {
 
     useEffect(() => {
         dispatch(fetchAllSeats(bookingId));
-    }, [selectedSeats, checkoutSeats]);
+    }, [bookingId, selectedSeats, checkoutSeats]);
 
     if (!allSeats || isLoading) return <Loading />;
 
@@ -21,36 +21,36 @@ function Checkout({ bookingId }) {
             </div>
             <hr className="my-0 mx-3" />
             <div className={`${styles.divPadding} d-flex justify-content-between`}>
-                <h3 className={styles.h3Custom}>Cụm Rạp:</h3>
-                <h3 className={`${styles.h3Custom} text-danger`}>
+                <h3 className={styles.headingCustom}>Cụm Rạp:</h3>
+                <h3 className={`${styles.headingCustom} text-danger`}>
                     {allSeats.thongTinPhim?.tenCumRap}
                 </h3>
             </div>
             <hr className="m-0 mx-3" />
             <div className={`${styles.divPadding} d-flex justify-content-between`}>
-                <h3 className={styles.h3Custom}>Địa chỉ:</h3>
-                <h3 className={`${styles.h3Custom} text-danger text-wrap`}>
+                <h3 className={styles.headingCustom}>Địa chỉ:</h3>
+                <h3 className={`${styles.headingCustom} text-danger col-9 ${styles.textRight}`}>
                     {allSeats.thongTinPhim?.diaChi}
                 </h3>
             </div>
             <hr className="m-0 mx-3" />
             <div className={`${styles.divPadding} d-flex justify-content-between`}>
-                <h3 className={styles.h3Custom}>Rạp:</h3>
-                <h3 className={`${styles.h3Custom} text-danger`}>
+                <h3 className={styles.headingCustom}>Rạp:</h3>
+                <h3 className={`${styles.headingCustom} text-danger`}>
                     {allSeats.thongTinPhim?.tenRap}
                 </h3>
             </div>
             <hr className="m-0 mx-3" />
             <div className={`${styles.divPadding} d-flex justify-content-between`}>
-                <h3 className={styles.h3Custom}>Ngày giờ chiếu:</h3>
-                <h3 className={`${styles.h3Custom} text-danger`}>
+                <h3 className={styles.headingCustom}>Ngày giờ chiếu:</h3>
+                <h3 className={`${styles.headingCustom} text-danger`}>
                     {allSeats.thongTinPhim?.ngayChieu} - {allSeats.thongTinPhim?.gioChieu}
                 </h3>
             </div>
             <hr className="m-0 mx-3" />
             <div className={`${styles.divPadding} d-flex justify-content-between`}>
-                <h3 className={styles.h3Custom}>Tên Phim:</h3>
-                <h3 className={`${styles.h3Custom} text-danger`}>
+                <h3 className={styles.headingCustom}>Tên Phim:</h3>
+                <h3 className={`${styles.headingCustom} text-danger`}>
                     {allSeats.thongTinPhim?.tenPhim}
                 </h3>
             </div>

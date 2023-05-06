@@ -25,14 +25,17 @@ $font: "Roboto";
     padding: 24px 16px;
 }
 
-.h3Custom {
+.headingCustom {
     margin: 0;
-    display: inline-block;
     font-size: 17px;
     font-family: $font;
     font-weight: 700;
     line-height: 1.167;
     letter-spacing: 0em;
+}
+
+.textRight {
+    text-align: right !important;
 }
 
 .checkoutBtn{
