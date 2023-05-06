@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { apiGetSeats } from "../apis/bookingAPI";
-import { alertSuccess } from "../apis/sweetAlert2";
 
 // async actions
 export const fetchAllSeats = createAsyncThunk("booking/fetch_seats", async (showtimeId) => {
@@ -47,7 +46,6 @@ const bookingSlice = createSlice({
         checkoutSelectedSeats: (state, action) => {
             const seatsToCheckout = [...state.selectedSeats];
             const updatedSeats = [...state.checkoutSeats, ...seatsToCheckout];
-            alertSuccess("Đặt vé thành công");
             return { ...state, selectedSeats: [], checkoutSeats: updatedSeats };
         },
     },

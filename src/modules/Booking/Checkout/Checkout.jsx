@@ -14,6 +14,7 @@ function Checkout({ bookingId }) {
 
     const handleCheckout = () => {
         dispatch(checkoutSelectedSeats());
+        alertSuccess("Đặt vé thành công");
     };
 
     if (!allSeats || isLoading) return <Loading />;
