@@ -2,24 +2,26 @@ import React, { useEffect, useState } from "react";
 import { apiGetCinemaInfos } from "../../../apis/cinemaAPI";
 import styles from "./Showtimes.module.scss";
 import { Tabs } from "antd";
-import moment from "moment/moment";
-import { useNavigate } from "react-router-dom";
+import CumRapChieu from "./CumRapChieu";
+import HeThongRap from "./HeThongRap";
 
-function Showtimes({ movieId }) {
+function Showtimes({ movieId, onMovieDurationChange }) {
   const [cinema, setCinema] = useState({});
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const navigate = useNavigate();
   const getCinemaInfos = async () => {
     try {
       const data = await apiGetCinemaInfos(movieId);
       setCinema(data.content);
       setIsLoading(false);
-      console.log(data.content);
     } catch (error) {
       setError(error.response?.data?.content);
       setIsLoading(false);
     }
+  };
+
+  const handleMovieDurationChange = (movieDuration) => {
+    console.log(movieDuration);
   };
 
   useEffect(() => {
@@ -32,43 +34,14 @@ function Showtimes({ movieId }) {
         tabPosition="left"
         items={cinema.heThongRapChieu.map((heThongRap, index) => {
           return {
-            label: (
-              <div className={styles.heThongRap}>
-                <img className={styles.logo} src={heThongRap.logo} alt="" />
-              </div>
-            ),
-
+            label: <HeThongRap heThongRap={heThongRap} />,
             key: `${heThongRap.maHeThongRap}-${index}`,
-            children: heThongRap.cumRapChieu.map((rap, index) => {
-              return (
-                <div
-                  key={`${rap.maCumRap}-${index}`}
-                  className={`ms-3 ${styles.maCumRap}`}
-                >
-                  <span className={styles.tenCumRap}>{rap.tenCumRap}</span>
-                  {rap.lichChieuPhim.map((lichChieu, index) => {
-                    return (
-                      <button
-                        key={`${lichChieu.maLichChieu}-${index}`}
-                        className={styles.ngayChieu}
-                        onClick={() =>
-                          navigate(`/booking/${lichChieu.maLichChieu}`)
-                        }
-                      >
-                        {moment(lichChieu.ngayChieuGioChieu).format(
-                          "DD-MM-YYYY "
-                        )}
-                        <span className={styles.gioChieu}>
-                          {moment(lichChieu.ngayChieuGioChieu).format(
-                            " ~ HH:mm"
-                          )}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
-              );
-            }),
+            children: (
+              <CumRapChieu
+                onMovieDurationChange={handleMovieDurationChange}
+                heThongRap={heThongRap}
+              />
+            ),
           };
         })}
       />
@@ -77,7 +50,9 @@ function Showtimes({ movieId }) {
     );
 
   return isLoading ? (
-    <p>Đang tải dữ liệu...</p>
+    <p style={{ fontSize: "18px" }} className={`${styles.container} ps-3`}>
+      Đang tải dữ liệu...
+    </p>
   ) : (
     <div id="lichChieu" className={styles.container}>
       {tabs}
