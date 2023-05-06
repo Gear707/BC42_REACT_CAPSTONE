@@ -29,7 +29,7 @@ function MovieInfo({ movieId }) {
             setCinema(data.content);
             console.log(cinema);
         } catch (error) {
-            setError(error.response?.data?.content);
+            setError(error?.response?.data?.content);
         }
     };
 

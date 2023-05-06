@@ -5,7 +5,8 @@ import styles from "./Header.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signout } from "../../slices/userSlice";
-import { alertSuccess } from "../../apis/sweetAlert2";
+import { alertSuccess, warningSignout } from "../../apis/sweetAlert2";
+import Swal from "sweetalert2";
 
 function Header() {
     const { user } = useSelector((state) => state.user);
@@ -18,9 +19,15 @@ function Header() {
     };
 
     const handleSignout = () => {
-        dispatch(signout());
-        localStorage.removeItem("user");
-        alertSuccess("Đăng xuất thành công");
+        warningSignout()
+            .then((result) => {
+                if (result.isConfirmed) {
+                    dispatch(signout());
+                    localStorage.removeItem("user");
+                    alertSuccess("Bạn đã đăng xuất thành công!");
+                }
+            })
+            .catch((error) => console.log(error));
     };
 
     return (

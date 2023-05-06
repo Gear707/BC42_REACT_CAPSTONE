@@ -51,6 +51,8 @@ function Signup() {
         try {
             const data = await apiSignup(values);
             console.log(data);
+            alertSuccess("Đăng ký thành công");
+            navigate("/signin");
         } catch (error) {
             console.log(error.response?.data?.content);
         }
@@ -61,8 +63,6 @@ function Signup() {
     const onSubmit = (values) => {
         console.log(values);
         postUserInfo(values);
-        alertSuccess("Đăng ký thành công");
-        navigate("/signin");
     };
 
     const onError = (errors) => {

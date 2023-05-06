@@ -17,7 +17,7 @@ function Showtimes({ movieId }) {
             setIsLoading(false);
             console.log(data.content);
         } catch (error) {
-            setError(error.response?.data?.content);
+            setError(error?.response?.data?.content);
             setIsLoading(false);
         }
     };

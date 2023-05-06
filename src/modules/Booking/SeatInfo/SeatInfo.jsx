@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllSeats } from "../../../slices/bookingSlice";
-import styles from "./SeatInfo.module.scss";
+import { addSeats, fetchAllSeats } from "../../../slices/bookingSlice";
 import Loading from "../../../components/Loading/Loading";
 
 function SeatInfo({ bookingId }) {
@@ -10,18 +9,55 @@ function SeatInfo({ bookingId }) {
 
     useEffect(() => {
         dispatch(fetchAllSeats(bookingId));
-    }, [bookingId, selectedSeats, checkoutSeats]);
+    }, [bookingId]);
+
+    const handleAddSeat = (seat) => {
+        dispatch(addSeats(seat));
+    };
 
     console.log(allSeats);
 
     if (!allSeats || isLoading) return <Loading />;
 
+    const renderSeats = () => {
+        return (allSeats?.danhSachGhe?.map((seat, index) => {
+            // áp class cho ghế vip
+            let vipSeatClass = seat.loaiGhe === "Vip" ? "vipSeat" : "";
+
+            // áp class cho ghế đã đặt trước
+            let reservedSeatClass = seat.daDat ? "reservedSeat" : "";
+
+            // kiểm tra tất cả ghế đã render với các ghế đang có trong danh sách chọn
+            let selectedIndex = selectedSeats.findIndex(
+                (selectedSeat) => selectedSeat.maGhe === seat.maGhe
+            );
+            // nếu tồn tại ghế đã chọn thì áp class cho các ghế đang chọn
+            let selectedSeatClass = selectedIndex !== -1 ? "selectedSeat" : "";
+
+            return (
+                <Fragment key={index}>
+
+                    <button disabled={seat.daDat} onClick={() => handleAddSeat(seat)}
+                        className={`emptySeats ${vipSeatClass} ${reservedSeatClass} ${selectedSeatClass}`}>
+                        {seat.daDat ? <i className="fa-solid fa-xmark"></i> : seat.tenGhe}
+                    </button>
+
+                    {/* 1 hàng có tối đa 16 ghế */}
+                    {(index + 1) % 16 === 0 ? <br /> : ""}
+                </Fragment>
+            );
+        }));
+    };
+
     return (
-        <div className={`${styles.headingTop}`}>
+        <div className="headingLeft mb-5">
             <div className="d-flex flex-column align-items-center mt-2">
-                <div className="bg-dark" style={{width: "80%", height: "10px"}}></div>
-                <div className={`${styles.screen} text-center`}>
-                    <h6 className="mt-1 text-dark">Màn hình</h6>
+                <div className="bg-dark" style={{ width: "80%", height: "10px" }}></div>
+                <div className="screen text-center">
+                    <h6 className="mt-2 text-dark">Màn hình</h6>
+                </div>
+                <div>
+                    {renderSeats()}
                 </div>
             </div>
         </div>

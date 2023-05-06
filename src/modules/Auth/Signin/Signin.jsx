@@ -16,7 +16,7 @@ const schema = yup.object({
     matKhau: yup.string().required("Mật khẩu không được để trống!")
         .matches(
             PASSWORD_FORMAT,
-            "Mật khẩu phải có ít nhất 8 kí tự, 1 chữ hoa, 1 chữ thường, 1 số và 1 ký tự đặc biệt"
+            "Mật khẩu phải có ít nhất 8 kí tự, 1 chữ hoa, 1 chữ thường và 1 số"
         ),
 });
 
