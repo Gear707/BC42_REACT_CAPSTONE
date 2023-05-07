@@ -9,6 +9,7 @@ function Showtimes({ movieId, onMovieDurationChange }) {
   const [cinema, setCinema] = useState({});
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+
   const getCinemaInfos = async () => {
     try {
       const data = await apiGetCinemaInfos(movieId);
@@ -21,7 +22,8 @@ function Showtimes({ movieId, onMovieDurationChange }) {
   };
 
   const handleMovieDurationChange = (movieDuration) => {
-    console.log(movieDuration);
+    // truyền props lên lại component cha Showtimes
+    onMovieDurationChange(movieDuration);
   };
 
   useEffect(() => {

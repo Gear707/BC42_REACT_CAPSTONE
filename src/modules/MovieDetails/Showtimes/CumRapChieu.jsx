@@ -1,10 +1,11 @@
-import moment from "moment/moment";
-import React from "react";
 import styles from "./Showtimes.module.scss";
 import { useNavigate } from "react-router-dom";
+import dayjs from "dayjs";
+import { useState } from "react";
 
 function CumRapChieu({ onMovieDurationChange, heThongRap }) {
   const navigate = useNavigate();
+  const [count, setCount] = useState(0); // cờ hiệu để truyền giá trị props onMovieDurationChange 1 lần khi duyệt qua phần tử lichChieu đầu tiên
   return (
     <div>
       {heThongRap.cumRapChieu.map((rap, index) => {
@@ -15,16 +16,19 @@ function CumRapChieu({ onMovieDurationChange, heThongRap }) {
           >
             <span className={styles.tenCumRap}>{rap.tenCumRap}</span>
             {rap.lichChieuPhim.map((lichChieu, index) => {
-              onMovieDurationChange(lichChieu.thoiLuong);
+              if (!count) {
+                onMovieDurationChange(lichChieu.thoiLuong);
+                setCount(count + 1);
+              }
               return (
                 <button
                   key={`${lichChieu.maLichChieu}-${index}`}
                   className={styles.ngayChieu}
                   onClick={() => navigate(`/booking/${lichChieu.maLichChieu}`)}
                 >
-                  {moment(lichChieu.ngayChieuGioChieu).format("DD-MM-YYYY ")}
+                  {dayjs(lichChieu.ngayChieuGioChieu).format("DD-MM-YYYY ")}
                   <span className={styles.gioChieu}>
-                    {moment(lichChieu.ngayChieuGioChieu).format(" ~ HH:mm")}
+                    {dayjs(lichChieu.ngayChieuGioChieu).format(" ~ HH:mm")}
                   </span>
                 </button>
               );
