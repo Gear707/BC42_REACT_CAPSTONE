@@ -6,6 +6,7 @@ import AuthLayout from "./layouts/AuthLayout/AuthLayout";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Loading from "./components/Loading/Loading";
 // import MovieManagement from "./modules/MovieManagement/MovieManagement";
+// import AdminLayout from "./layouts/AdminLayout/AdminLayout";
 import AdminLayout from "./layouts/AdminLayout/AdminLayout";
 import AdminRoute from "./routes/AdminRoute";
 import PageNotFound from "./components/PageNotFound/PageNotFound";
