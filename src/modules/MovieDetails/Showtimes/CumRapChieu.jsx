@@ -6,6 +6,7 @@ import { useState } from "react";
 function CumRapChieu({ onMovieDurationChange, heThongRap }) {
   const navigate = useNavigate();
   const [count, setCount] = useState(0); // cờ hiệu để truyền giá trị props onMovieDurationChange 1 lần khi duyệt qua phần tử lichChieu đầu tiên
+  console.log(count);
   return (
     <div>
       {heThongRap.cumRapChieu.map((rap, index) => {
@@ -19,6 +20,7 @@ function CumRapChieu({ onMovieDurationChange, heThongRap }) {
               if (!count) {
                 onMovieDurationChange(lichChieu.thoiLuong);
                 setCount(count + 1);
+                console.log(count);
               }
               return (
                 <button
