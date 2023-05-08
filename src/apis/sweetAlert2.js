@@ -1,13 +1,24 @@
 import Swal from "sweetalert2";
 
 // Tạo thông báo popup
+const Popup = Swal.mixin({
+    // toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 1000,
+});
+
 export const alertSuccess = (text) => {
-    return Swal.fire({
-        position: "top-end",
+    return Popup.fire({
         icon: "success",
         title: text,
-        showConfirmButton: false,
-        timer: 1000,
+    });
+};
+
+export const alertError = (text) => {
+    return Popup.fire({
+        icon: "error",
+        title: text,
     });
 };
 

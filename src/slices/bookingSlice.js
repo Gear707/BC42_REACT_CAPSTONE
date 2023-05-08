@@ -1,10 +1,20 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { apiGetSeats } from "../apis/bookingAPI";
+import { apiCheckout, apiGetSeats } from "../apis/bookingAPI";
 
 // async actions
-export const fetchAllSeats = createAsyncThunk("booking/fetch_seats", async (showtimeId) => {
+export const fetchAllSeats = createAsyncThunk("booking/fetchAllSeats", async (bookingId) => {
     try {
-        const data = await apiGetSeats(showtimeId);
+        const data = await apiGetSeats(bookingId);
+        return data.content;
+    } catch (error) {
+        throw error.response?.data?.content;
+    }
+});
+
+export const checkout = createAsyncThunk("booking/checkout", async (checkoutData) => {
+    try {
+        const { bookingId, selectedSeats } = checkoutData;
+        const data = await apiCheckout(bookingId, selectedSeats);
         return data.content;
     } catch (error) {
         throw error.response?.data?.content;
@@ -24,31 +34,17 @@ const bookingSlice = createSlice({
     initialState,
     reducers: {
         addSeats: (state, action) => {
-            // cập nhật danh sách ghế đang chọn
             const currentSeats = [...state.selectedSeats];
-            // so sánh mã số ghế trong state và mã số ghế trong danh sách đang chọn
             let index = currentSeats.findIndex((seat) => seat.maGhe === action.payload.maGhe);
             if (index !== -1) {
-                // nếu tìm thấy ghế trong danh sách đang chọn thì xóa đi
                 currentSeats.splice(index, 1);
                 return { ...state, selectedSeats: currentSeats };
             }
             else {
-                // nếu chưa có thì thêm mới mã số ghế vào danh sách chọn
                 const seats = [...currentSeats, action.payload];
                 return { ...state, selectedSeats: seats };
             }
         },
-        checkoutSelectedSeats: (state, action) => {
-            const seatsToCheckout = [...state.selectedSeats];
-            // tạo mảng danh sách ghế checkout
-            const updatedSeats = [...state.checkoutSeats, ...seatsToCheckout];
-            return { ...state, selectedSeats: [], checkoutSeats: updatedSeats };
-        },
-        // deleteSeats: (state, action) => {
-        //     const seats = state.selectedSeats.filter((seat) => seat.maGhe !== action.payload.maGhe);
-        //     return { ...state, selectedSeats: seats };
-        // },
     },
     extraReducers: (builder) => {
         builder.addCase(fetchAllSeats.pending, (state) => {
@@ -60,9 +56,24 @@ const bookingSlice = createSlice({
         builder.addCase(fetchAllSeats.rejected, (state, action) => {
             return { ...state, isLoading: false, error: action.error.message };
         });
+        builder.addCase(checkout.pending, (state) => {
+            return { ...state, isLoading: true, error: null };
+        });
+        builder.addCase(checkout.fulfilled, (state) => {
+            if (state.selectedSeats.length === 0) {
+                return { ...state, isLoading: false, error: "Vui lòng chọn ghế" };
+            }
+
+            const updatedSeats = [...state.checkoutSeats, ...state.selectedSeats];
+
+            return { ...state, isLoading: false, selectedSeats: [], checkoutSeats: updatedSeats };
+        });
+        builder.addCase(checkout.rejected, (state, action) => {
+            return { ...state, isLoading: false, error: action.error.message };
+        });
     }
 });
 
-export const { addSeats, deleteSeats, checkoutSelectedSeats } = bookingSlice.actions;
+export const { addSeats } = bookingSlice.actions;
 
 export default bookingSlice.reducer;

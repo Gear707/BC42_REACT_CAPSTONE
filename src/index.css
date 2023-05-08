@@ -20,11 +20,13 @@ code {
     monospace;
 }
 
-html, body {
+html,
+body {
   font-family: 'Roboto', sans-serif !important;
 }
 
-a {
+a,
+button {
   text-decoration: none !important;
   transition: all .3s !important;
 }

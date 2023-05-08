@@ -15,48 +15,43 @@ function SeatInfo({ bookingId }) {
         dispatch(addSeats(seat));
     };
 
-    console.log(allSeats);
-
     if (!allSeats || isLoading) return <Loading />;
 
     const renderSeats = () => {
-        return (allSeats?.danhSachGhe?.map((seat, index) => {
-            // áp class cho ghế vip
+        return (allSeats.danhSachGhe?.map((seat, index) => {
             let vipSeatClass = seat.loaiGhe === "Vip" ? "vipSeat" : "";
 
-            // áp class cho ghế đã đặt trước
             let reservedSeatClass = seat.daDat ? "reservedSeat" : "";
 
-            // kiểm tra tất cả ghế đã render với các ghế đang có trong danh sách chọn
-            let selectedIndex = selectedSeats.findIndex(
+            let selectedIndex = selectedSeats?.findIndex(
                 (selectedSeat) => selectedSeat.maGhe === seat.maGhe
             );
-            // nếu tồn tại ghế đã chọn thì áp class cho các ghế đang chọn
             let selectedSeatClass = selectedIndex !== -1 ? "selectedSeat" : "";
 
-            // kiểm tra ghế sau khi nhấn button đặt vé
-            let checkoutIndex = checkoutSeats.findIndex(
+            let checkoutIndex = checkoutSeats?.findIndex(
                 (checkoutSeat) => checkoutSeat.maGhe === seat.maGhe
             );
-            // nếu tồn tại ghế vừa checkout sau khi nhấn button thì áp class cho 
             let checkoutSeatClass = checkoutIndex !== -1 ? "checkoutSeat" : "";
+
+            let btnHoverClass = seat.daDat || checkoutSeatClass !== "" ? "" : "btnHover";
 
             return (
                 <Fragment key={index}>
-                    {/* 1 hàng có tối đa 16 ghế */}
-                    {(index + 1) % 16 === 0 ? <br /> : ""}
-
-                    <button disabled={seat.daDat} onClick={() => handleAddSeat(seat)}
-                        className={`emptySeats ${vipSeatClass} ${reservedSeatClass} ${selectedSeatClass} ${checkoutSeatClass}`}>
+                    <button className={`emptySeat ${vipSeatClass} ${reservedSeatClass} ${selectedSeatClass} ${checkoutSeatClass} ${btnHoverClass}`}
+                        disabled={seat.daDat || checkoutSeatClass !== ""}
+                        onClick={() => handleAddSeat(seat)}
+                    >
                         {seat.daDat ? <i className="fa-solid fa-xmark"></i> : seat.tenGhe}
                     </button>
+
+                    {(index + 1) % 16 === 0 ? <br /> : ""}
                 </Fragment>
             );
         }));
     };
 
     return (
-        <div className="headingLeft mb-5">
+        <div className="headingLeft">
             <div className="d-flex flex-column align-items-center mt-2">
                 <div className="bg-dark" style={{ width: "80%", height: "10px" }}></div>
                 <div className="screen text-center">
@@ -65,6 +60,49 @@ function SeatInfo({ bookingId }) {
                 <div>
                     {renderSeats()}
                 </div>
+            </div>
+
+            <div className="my-5 d-flex">
+                <table className="table table-borderless text-center">
+                    <thead>
+                        <tr>
+                            <th>Ghế chưa đặt (thường)</th>
+                            <th>Ghế chưa đặt (vip)</th>
+                            <th>Ghế đã đặt trước</th>
+                            <th>Ghế đang chọn</th>
+                            <th>Ghế bạn vừa đặt</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <button className="emptySeat">
+                                    <i className="fa-solid fa-check"></i>
+                                </button>
+                            </td>
+                            <td>
+                                <button className="vipSeat">
+                                    <i className="fa-solid fa-check"></i>
+                                </button>
+                            </td>
+                            <td>
+                                <button className="reservedSeat">
+                                    <i className="fa-solid fa-xmark"></i>
+                                </button>
+                            </td>
+                            <td>
+                                <button className="selectedSeat">
+                                    <i className="fa-solid fa-check"></i>
+                                </button>
+                            </td>
+                            <td>
+                                <button className="checkoutSeat">
+                                    <i className="fa-solid fa-check"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     );

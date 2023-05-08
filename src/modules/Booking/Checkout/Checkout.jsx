@@ -1,20 +1,24 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { checkoutSelectedSeats, fetchAllSeats } from "../../../slices/bookingSlice";
+import { checkout, fetchAllSeats } from "../../../slices/bookingSlice";
 import Loading from "../../../components/Loading/Loading";
-import { alertSuccess } from "../../../apis/sweetAlert2";
+import { alertError, alertSuccess } from "../../../apis/sweetAlert2";
 
 function Checkout({ bookingId }) {
-    const { allSeats, selectedSeats, checkoutSeats, isLoading } = useSelector((state) => state.booking);
+    const { allSeats, selectedSeats, isLoading, error } = useSelector((state) => state.booking);
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(fetchAllSeats(bookingId));
     }, [bookingId]);
 
+    useEffect(() => {
+        if (error) alertError(error);
+    }, [error]);
+
     const handleCheckout = () => {
-        dispatch(checkoutSelectedSeats());
-        alertSuccess("Đặt vé thành công");
+        dispatch(checkout({ bookingId, selectedSeats }));
+        if (selectedSeats) alertSuccess("Đặt vé thành công");
     };
 
     if (!allSeats || isLoading) return <Loading />;
@@ -63,7 +67,7 @@ function Checkout({ bookingId }) {
             </div>
             <hr className="m-0 mx-3" />
             <div className="mt-5">
-                <button className="checkoutBtn btn btn-warning form-control rounded-0"
+                <button className="btnCheckout btn btn-warning form-control rounded-0"
                     onClick={handleCheckout}>Đặt vé</button>
             </div>
         </div>
