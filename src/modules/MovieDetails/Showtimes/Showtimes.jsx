@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { apiGetCinemaInfos } from "../../../apis/cinemaAPI";
 import styles from "./Showtimes.module.scss";
 import { Tabs } from "antd";
-import moment from "moment/moment";
+import moment from "moment";
 import { useNavigate } from "react-router-dom";
 
 function Showtimes({ movieId }) {
@@ -17,7 +17,7 @@ function Showtimes({ movieId }) {
             setIsLoading(false);
             console.log(data.content);
         } catch (error) {
-            setError(error.response?.data?.content);
+            setError(error?.response?.data?.content);
             setIsLoading(false);
         }
     };

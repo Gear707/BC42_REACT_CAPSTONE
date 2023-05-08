@@ -7,7 +7,7 @@ export const signin = createAsyncThunk("user/signin", async (values) => {
         const data = await apiSignin(values);
         // Lưu thông tin user vào localStorage để giữ trạng thái đăng nhập
         localStorage.setItem("user", JSON.stringify(data.content));
-
+        
         return data.content;
     } catch (error) {
         throw error.response?.data?.content;
@@ -25,7 +25,7 @@ const userSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
-        signout: (state, action) => {
+        signout: (state) => {
             return { ...state, user: null };
         }
     },

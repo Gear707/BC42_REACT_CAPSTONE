@@ -25,7 +25,7 @@ function Banner() {
             const data = await apiGetBanners();
             setBanners(data.content);
         } catch (error) {
-            setError(error.response?.data?.content);
+            setError(error?.response?.data?.content);
         }
     };
 

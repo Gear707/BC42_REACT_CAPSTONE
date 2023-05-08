@@ -1,11 +1,12 @@
 import axiosClient from "./axiosClient";
 
 export const apiGetMovies = async () => {
-    const { data } = await axiosClient.get("/QuanLyPhim/LayDanhSachPhim", {
-        params: {
-            maNhom: "GP06",
-        },
-    });
+    const { data } = await axiosClient.get("/QuanLyPhim/LayDanhSachPhim",
+        {
+            params: {
+                maNhom: "GP06",
+            },
+        });
     return data;
 };
 
@@ -15,10 +16,21 @@ export const apiGetBanners = async () => {
 };
 
 export const apiGetMovieDetails = async (movieId) => {
-    const { data } = await axiosClient.get("/QuanLyPhim/LayThongTinPhim", {
-        params: {
-            MaPhim: movieId,
-        },
-    });
+    const { data } = await axiosClient.get("/QuanLyPhim/LayThongTinPhim",
+        {
+            params: {
+                MaPhim: movieId,
+            },
+        });
     return data;
+};
+
+export const apiCreateMovie = async (movie) => {
+    const formData = new FormData();
+    for (let key in movie) {
+        formData.append(key, movie[key]);
+    }
+    formData.append("maNhom", "GP06");
+
+    await axiosClient.post("/QuanLyPhim/ThemPhimUploadHinh", formData);
 };

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { apiGetMovieDetails } from "../../../apis/movieAPI";
 import { apiGetCinemaInfos } from "../../../apis/cinemaAPI";
-import moment from "moment/moment";
+import moment from "moment";
 import styles from "./MovieInfo.module.scss";
 import ReactPlayer from "react-player";
 import { Modal } from "react-bootstrap";
@@ -29,7 +29,7 @@ function MovieInfo({ movieId }) {
             setCinema(data.content);
             console.log(cinema);
         } catch (error) {
-            setError(error.response?.data?.content);
+            setError(error?.response?.data?.content);
         }
     };
 
