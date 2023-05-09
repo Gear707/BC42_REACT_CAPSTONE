@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signout } from "../../slices/userSlice";
 import { alertSuccess, warningSignout } from "../../apis/sweetAlert2";
-import Swal from "sweetalert2";
 
 function Header() {
     const { user } = useSelector((state) => state.user);
@@ -14,7 +13,6 @@ function Header() {
     const navigate = useNavigate();
 
     const handleSignin = () => {
-        // Chuyển sang trang signin
         navigate("/signin");
     };
 
@@ -28,6 +26,10 @@ function Header() {
                 }
             })
             .catch((error) => console.log(error));
+    };
+
+    const handleNavigateUser = () => {
+        navigate("/user");
     };
 
     return (
@@ -47,10 +49,12 @@ function Header() {
                         {user ?
                             (
                                 <>
-                                    <a href="/" className={`${styles.userLink} ${styles.borderRight} me-3`}>
+                                    <button className={`${styles.userLink} ${styles.borderRight} me-3`}
+                                        onClick={handleNavigateUser}
+                                    >
                                         <i className="fa-solid fa-user me-2" />
                                         <span className="me-4">{user.taiKhoan}</span>
-                                    </a>
+                                    </button>
                                     <button className={styles.userLink} onClick={handleSignout}>
                                         <i className="fa-solid fa-arrow-right-from-bracket m-2" />
                                         <span>Đăng xuất</span>

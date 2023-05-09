@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { apiGetCinemaInfos } from "../../../apis/cinemaAPI";
 import styles from "./Showtimes.module.scss";
 import { Tabs } from "antd";
-import moment from "moment";
+import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
 
 function Showtimes({ movieId }) {
@@ -55,11 +55,11 @@ function Showtimes({ movieId }) {
                                                     navigate(`/booking/${lichChieu.maLichChieu}`)
                                                 }
                                             >
-                                                {moment(lichChieu.ngayChieuGioChieu).format(
+                                                {dayjs(lichChieu.ngayChieuGioChieu).format(
                                                     "DD-MM-YYYY "
                                                 )}
                                                 <span className={styles.gioChieu}>
-                                                    {moment(lichChieu.ngayChieuGioChieu).format(
+                                                    {dayjs(lichChieu.ngayChieuGioChieu).format(
                                                         " ~ HH:mm"
                                                     )}
                                                 </span>

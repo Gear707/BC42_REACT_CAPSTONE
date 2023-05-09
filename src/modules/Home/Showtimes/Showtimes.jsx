@@ -4,7 +4,7 @@ import "./antClassCustom.scss";
 import { apiGetCinemaShowtimes } from "../../../apis/cinemaAPI";
 import { Tabs } from 'antd';
 import { NavLink, useNavigate } from "react-router-dom";
-import moment from "moment";
+import dayjs from "dayjs";
 
 function Showtimes() {
     const [cinemasShowtimes, setCinemasShowtimes] = useState([]);
@@ -58,11 +58,8 @@ function Showtimes() {
                                             <div className={styles.movieList} key={movie.maPhim}>
                                                 <div className="d-flex p-3 justify-content-around">
                                                     <div className="col-2 d-flex justify-content-center">
-                                                        <img
-                                                            src={movie.hinhAnh}
-                                                            alt={movie.tenPhim}
+                                                        <img src={movie.hinhAnh} alt={movie.tenPhim}
                                                             className="img-fluid"
-                                                            style={{ width: "auto" }}
                                                         />
                                                     </div>
                                                     <div className="col-9">
@@ -77,9 +74,9 @@ function Showtimes() {
                                                                         key={`${movie.maPhim}-${schedule.maLichChieu}`}
                                                                         onClick={() => navigate(`/booking/${schedule.maLichChieu}`)}
                                                                     >
-                                                                        {moment(schedule.ngayChieuGioChieu).format("DD-MM-YYYY ")}
+                                                                        {dayjs(schedule.ngayChieuGioChieu).format("DD-MM-YYYY ")}
                                                                         <span className={styles.time}>
-                                                                            {moment(schedule.ngayChieuGioChieu).format("~ HH:mm")}
+                                                                            {dayjs(schedule.ngayChieuGioChieu).format("~ HH:mm")}
                                                                         </span>
                                                                     </a>
                                                                 );

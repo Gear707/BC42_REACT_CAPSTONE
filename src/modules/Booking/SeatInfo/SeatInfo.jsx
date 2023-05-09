@@ -15,10 +15,10 @@ function SeatInfo({ bookingId }) {
         dispatch(addSeats(seat));
     };
 
-    if (!allSeats || isLoading) return <Loading />;
+    if (isLoading) return <Loading />;
 
     const renderSeats = () => {
-        return (allSeats.danhSachGhe?.map((seat, index) => {
+        return (allSeats?.danhSachGhe?.map((seat, index) => {
             let vipSeatClass = seat.loaiGhe === "Vip" ? "vipSeat" : "";
 
             let reservedSeatClass = seat.daDat ? "reservedSeat" : "";

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { apiGetMovieDetails } from "../../../apis/movieAPI";
 import { apiGetCinemaInfos } from "../../../apis/cinemaAPI";
-import moment from "moment";
+import dayjs from "dayjs";
 import styles from "./MovieInfo.module.scss";
 import ReactPlayer from "react-player";
 import { Modal } from "react-bootstrap";
@@ -88,7 +88,7 @@ function MovieInfo({ movieId }) {
                     {/* <h3>{movie.tenPhim}</h3> */}
                     <div className={`col-lg-7 ${styles.detailFormat}`}>
                         <span className="mb-2 d-block">
-                            {moment(movie.ngayKhoiChieu).format("DD-MM-YYYY ")}
+                            {dayjs(movie.ngayKhoiChieu).format("DD-MM-YYYY ")}
                         </span>
                         <span className={styles.movieTitle}>{movie.tenPhim}</span>
                         <span className={styles.description}>{movie.moTa}</span>

@@ -2,14 +2,14 @@ import React from 'react';
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
-function AdminRoute({ children }) {
+function UserRoute({ children }) {
     const { user } = useSelector((state) => state.user);
 
-    if (!user || user.maLoaiNguoiDung !== "QuanTri") {
-        return <Navigate to="/" replace />;
+    if (!user) {
+        return <Navigate to="/signin" replace />;
     }
 
     return children;
 }
 
-export default AdminRoute;
+export default UserRoute;
