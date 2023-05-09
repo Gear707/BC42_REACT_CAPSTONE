@@ -1,0 +1,64 @@
+.container {
+    width: 70%;
+    margin: auto;
+    display: flex;
+    margin: 120px auto 0px;
+    background-color: white;
+    overflow-y: scroll;
+    color: black;
+    padding: 15px 0;
+}
+
+.logo {
+    width: 100%;
+    height: auto;
+}
+
+.heThongRap {
+    position: relative;
+    width: 60px;
+    height: auto;
+
+    &::after {
+        content: "";
+        width: 100%;
+        height: 2px;
+        background-color: rgb(238 238 238 / 88%);
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+    }
+}
+
+.tenCumRap {
+    padding: 5px 0;
+    display: block;
+    color: rgb(139, 195, 74);
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.maCumRap {
+    display: block;
+    margin: 15px 20px 25px 0
+}
+
+.ngayChieu {
+    border: 1px solid #e4e4e4 !important;
+    cursor: pointer;
+    margin: 0px 10px 16px 0px;
+    padding: 6px;
+    border-radius: 4px;
+    text-decoration: none;
+    background-color: rgba(246, 246, 246, 0.5);
+    display: inline;
+    color: #108f3e;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.gioChieu {
+    color: #fa5238 !important;
+    font-size: 16px !important;
+    margin-bottom: 5px;
+}

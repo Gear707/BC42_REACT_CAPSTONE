@@ -6,15 +6,23 @@ import ReactPlayer from "react-player";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import Modal from "react-bootstrap/Modal";
 
 function Movies() {
+    // Các state quản lý movies show ở trang Home
     const [movies, setMovies] = useState([]);
     const [movies1, setMovies1] = useState([]);
     const [movies2, setMovies2] = useState([]);
     const [movies3, setMovies3] = useState([]);
     const [error, setError] = useState(null);
+
+    // state show modal trailer
+    const [show, setShow] = useState(false);
+
+    // hàm đóng mở trailer
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
     const navigate = useNavigate();
 
     const settings = {
@@ -32,8 +40,8 @@ function Movies() {
             const data = await apiGetMovies();
             setMovies(data.content);
             setMovies1(data.content.slice(0, 8));
-            setMovies2(data.content.slice(8, 10));
-            // setMovies3(data.content.slice(0, 8));
+            setMovies2(data.content.slice(8, 16));
+            setMovies3(data.content.slice(16, 24));
         } catch (error) {
             console.log(error);
         }
@@ -54,16 +62,28 @@ function Movies() {
                             {movies1.map((item, index) => {
                                 return (
                                     <div key={index} className="col-lg-3 mt-3">
-                                        <Card className="movieCard" style={{ maxHeight: "420px" }}>
+                                        <Card
+                                            className={styles.movieCard}
+                                            style={{ maxHeight: "420px" }}
+                                        >
                                             <Card.Img
                                                 variant="top"
                                                 src={item.hinhAnh}
                                                 className={styles.movieImg}
                                             />
+                                            <div className={styles.trailerButton}>
+                                                <button
+                                                    className={styles.playButton}
+                                                    tabIndex={0}
+                                                    type="button"
+                                                    onClick={handleShow}
+                                                >
+                                                    <img src="https://www.linkpicture.com/q/playButton.png" />
+                                                </button>
+                                            </div>
                                             <Card.Body>
                                                 <Card.Title>
                                                     <div className={styles.movieTitle}>
-                                                        <span className={styles.tagMovie}>C18</span>
                                                         {item.tenPhim}
                                                     </div>
                                                     <a
@@ -73,9 +93,24 @@ function Movies() {
                                                         MUA VÉ
                                                     </a>
                                                 </Card.Title>
-                                                <Card.Text>{item.moTa}</Card.Text>
+                                                <Card.Text className={styles.description}>
+                                                    {item.moTa}
+                                                </Card.Text>
                                             </Card.Body>
                                         </Card>
+                                        <Modal show={show} onHide={handleClose}>
+                                            <ReactPlayer
+                                                className={styles.trailerModal}
+                                                url={item.trailer}
+                                                config={{
+                                                    video: {
+                                                        playerVars: {
+                                                            autoplay: 1,
+                                                        },
+                                                    },
+                                                }}
+                                            />
+                                        </Modal>
                                     </div>
                                 );
                             })}
@@ -89,16 +124,41 @@ function Movies() {
                             {movies2.map((item, index) => {
                                 return (
                                     <div key={index} className="col-lg-3 mt-3">
-                                        <Card className="movieCard" style={{ maxHeight: "420px" }}>
+                                        <Card
+                                            className={styles.movieCard}
+                                            style={{ maxHeight: "420px" }}
+                                        >
                                             <Card.Img
                                                 variant="top"
                                                 src={item.hinhAnh}
                                                 className={styles.movieImg}
                                             />
+                                            <Modal show={show} onHide={handleClose}>
+                                                <ReactPlayer
+                                                    className={styles.trailerModal}
+                                                    url={item.trailer}
+                                                    config={{
+                                                        video: {
+                                                            playerVars: {
+                                                                autoplay: 1,
+                                                            },
+                                                        },
+                                                    }}
+                                                />
+                                            </Modal>
+                                            <div className={styles.trailerButton}>
+                                                <button
+                                                    className={styles.playButton}
+                                                    tabIndex={0}
+                                                    type="button"
+                                                    onClick={handleShow}
+                                                >
+                                                    <img src="https://www.linkpicture.com/q/playButton.png" />
+                                                </button>
+                                            </div>
                                             <Card.Body>
                                                 <Card.Title>
                                                     <div className={styles.movieTitle}>
-                                                        <span className={styles.tagMovie}>C18</span>
                                                         {item.tenPhim}
                                                     </div>
                                                     <a
@@ -108,7 +168,9 @@ function Movies() {
                                                         MUA VÉ
                                                     </a>
                                                 </Card.Title>
-                                                <Card.Text>{item.moTa}</Card.Text>
+                                                <Card.Text className={styles.description}>
+                                                    {item.moTa}
+                                                </Card.Text>
                                             </Card.Body>
                                         </Card>
                                     </div>

@@ -1,0 +1,47 @@
+$color-1: #0354a5;
+$defaultSize: 50px;
+$borRad: 10px;
+
+.box {
+    margin-top: 50px !important;
+    padding: 10px;
+    background-color: white;
+    border-radius: $borRad;
+}
+
+.icon {
+    width: $defaultSize;
+    height: $defaultSize;
+    background-color: $color-1;
+    border-radius: 50%;
+    font-size: 22px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+}
+
+.inputCustom {
+    height: $defaultSize;
+    color: black !important;
+    font-size: 17px !important;
+    border: 1px solid rgba(0, 0, 0, 0.2) !important;
+
+    &:hover {
+        border: 1px solid black !important;
+    }
+
+    &:focus {
+        box-shadow: none !important;
+        border: 1px solid $color-1 !important;
+    }
+}
+
+.btnSignin {
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 20px !important;
+    height: $defaultSize;
+    color: white !important;
+    background-color: $color-1 !important;
+    border-radius: $borRad !important;
+    box-shadow: none !important;
+}

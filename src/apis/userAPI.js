@@ -6,9 +6,13 @@ export const apiSignin = async (values) => {
 };
 
 export const apiSignup = async (values) => {
-    const payload = {...values, maNhom: "GP06"};
+    const payload = { ...values, maNhom: "GP06" };
 
     const { data } = await axiosClient.post("/QuanLyNguoiDung/DangKy", payload);
     return data;
-}
+};
 
+export const apiUserInfo = async () => {
+    const { data } = await axiosClient.post("/QuanLyNguoiDung/ThongTinTaiKhoan");
+    return data;
+};

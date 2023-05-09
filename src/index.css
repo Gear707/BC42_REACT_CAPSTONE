@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
 
 * {
   margin: 0;
@@ -22,10 +22,11 @@ code {
 
 html,
 body {
-  font-family: 'JetBrains Mono', monospace !important;
+  font-family: 'Roboto', sans-serif !important;
 }
 
-a {
+a,
+button {
   text-decoration: none !important;
   transition: all .3s !important;
 }
