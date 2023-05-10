@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { checkout, fetchAllSeats } from "../../../slices/bookingSlice";
 import Loading from "../../../components/Loading/Loading";
-import { alertError, alertSuccess } from "../../../apis/sweetAlert2";
+import { alertCheckout, alertError } from "../../../apis/sweetAlert2";
 
 function Checkout({ bookingId }) {
     const { allSeats, selectedSeats, isLoading, error } = useSelector((state) => state.booking);
@@ -18,7 +18,10 @@ function Checkout({ bookingId }) {
 
     const handleCheckout = () => {
         dispatch(checkout({ bookingId, selectedSeats }));
-        if (selectedSeats) alertSuccess("Đặt vé thành công");
+        if (selectedSeats) alertCheckout(
+            "Đặt vé thành công",
+            "Vui lòng kiểm tra lịch sử đặt vé tại giao diện thông tin người dùng.",
+        );
     };
 
     if (!allSeats || isLoading) return <Loading />;
@@ -68,7 +71,10 @@ function Checkout({ bookingId }) {
             <hr className="m-0 mx-3" />
             <div className="mt-5">
                 <button className="btnCheckout btn btn-warning form-control rounded-0"
-                    onClick={handleCheckout}>Đặt vé</button>
+                    onClick={handleCheckout}
+                >
+                    Đặt vé
+                </button>
             </div>
         </div>
     );

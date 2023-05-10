@@ -5,20 +5,31 @@ const Popup = Swal.mixin({
     // toast: true,
     position: 'top-end',
     showConfirmButton: false,
-    timer: 1000,
+    timer: 1500,
 });
 
-export const alertSuccess = (text) => {
+export const alertSuccess = (title) => {
     return Popup.fire({
         icon: "success",
-        title: text,
+        title,
     });
 };
 
-export const alertError = (text) => {
+export const alertCheckout = (title, text) => {
+    return Popup.fire({
+        icon: "success",
+        title,
+        text,
+        showConfirmButton: true,
+        confirmButtonColor: "#0354a5",
+        timer: null,
+    });
+};
+
+export const alertError = (title) => {
     return Popup.fire({
         icon: "error",
-        title: text,
+        title,
     });
 };
 
@@ -28,7 +39,7 @@ export const warningSignout = () => {
         icon: "warning",
         showCancelButton: true,
         confirmButtonText: "Đồng ý",
-        confirmButtonColor: "#3085d6",
+        confirmButtonColor: "#0354a5",
         cancelButtonText: "Hủy",
         cancelButtonColor: "#d33",
     });

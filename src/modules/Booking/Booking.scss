@@ -71,7 +71,7 @@ $font: "Roboto";
     @include generalSize();
     cursor: no-drop !important;
     color: $textColor;
-    background-color: $color-2;
+    background-color: $color-2 !important;
 }
 
 
