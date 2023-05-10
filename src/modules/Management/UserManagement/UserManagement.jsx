@@ -7,10 +7,10 @@ import {
 } from "../../../apis/userAPI";
 import Modal from "react-bootstrap/Modal";
 import { Button } from "react-bootstrap";
-// import { useForm } from "react-hook-form";
-// import * as yup from "yup";
-// import { yupResolver } from "@hookform/resolvers/yup";
-// import UserModal from "./UserModal";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import UserModal from "./UserModal";
 function UserManagement() {
   const [values, setValues] = useState({
     taiKhoan: "",
@@ -41,16 +41,16 @@ function UserManagement() {
     }
   };
 
-  const handleChange = (evt) => {
-    setValues(evt.target);
-  };
+  // const handleChange = (evt) => {
+  //   setValues(evt.target);
+  // };
 
-  const handleSelectUser = (user) => {
-    // setSelectedUser(user);
-    setShow(true);
-    console.log(user);
-    setValues(user);
-  };
+  // const onSubmit = (user) => {
+  //   // setSelectedUser(user);
+  //   setShow(true);
+  //   console.log(user);
+  //   setValues(user);
+  // };
 
   const getUserList = async () => {
     try {
@@ -62,43 +62,43 @@ function UserManagement() {
   };
 
   // Định nghĩa các xác thực cho thuộc tính
-  // const schema = yup.object({
-  //   taiKhoan: yup.string().required("Tài khoản không được để trống!"),
-  //   hoTen: yup.string().required("Họ tên không được để trống!"),
-  //   email: yup.string().required("Email không được để trống!"),
-  //   soDT: yup.string().required("Số điện thoại không được để trống!"),
-  //   matKhau: yup.string().required("Mật khẩu không được để trống!"),
-  //   // maLoaiNguoiDung: yup
-  //   //   .string()
-  //   //   .required("Mã loại người dùng không được để trống!"),
-  //   // .matches(
-  //   //   PASSWORD_FORMAT,
-  //   //   "Mật khẩu phải có ít nhất 8 kí tự, 1 chữ hoa, 1 chữ thường, 1 số và 1 ký tự đặc biệt"
-  //   // ),
-  // });
+  const schema = yup.object({
+    taiKhoan: yup.string().required("Tài khoản không được để trống!"),
+    hoTen: yup.string().required("Họ tên không được để trống!"),
+    email: yup.string().required("Email không được để trống!"),
+    soDT: yup.string().required("Số điện thoại không được để trống!"),
+    matKhau: yup.string().required("Mật khẩu không được để trống!"),
+    // maLoaiNguoiDung: yup
+    //   .string()
+    //   .required("Mã loại người dùng không được để trống!"),
+    // .matches(
+    //   PASSWORD_FORMAT,
+    //   "Mật khẩu phải có ít nhất 8 kí tự, 1 chữ hoa, 1 chữ thường, 1 số và 1 ký tự đặc biệt"
+    // ),
+  });
 
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   formState: { errors },
-  // } = useForm({
-  //   // Khai báo các giá trị khởi tạo cho các input
-  //   defaultValues: {
-  //     taiKhoan: "",
-  //     matKhau: "",
-  //   },
-  //   mode: "onTouched",
-  //   resolver: yupResolver(schema),
-  // });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    // Khai báo các giá trị khởi tạo cho các input
+    defaultValues: {
+      taiKhoan: "",
+      matKhau: "",
+      hoTen: "",
+      email: "",
+      soDT: "",
+      matKhau: "",
+      // maLoaiNguoiDung: "",
+    },
+    mode: "onTouched",
+    resolver: yupResolver(schema),
+  });
 
-  // const onSubmit = (values) => {
-  //   dispatch(signin(values));
-  //   alertSuccess("Đăng nhập thành công");
-  // };
-
-  // const onError = (errors) => {
-  //   console.log(errors);
-  // };
+  const onError = (errors) => {
+    console.log(errors);
+  };
 
   useEffect(() => {
     getUserList();
@@ -110,20 +110,18 @@ function UserManagement() {
       <table className="table">
         <thead>
           <tr className="">
-            <td>STT</td>
-            <td>Tài khoản</td>
-            <td>Mật khẩu</td>
-            <td>Họ tên</td>
-            <td>Email</td>
-            <td>SĐT</td>
-            <td>Nhóm</td>
-            <td>Thao tác</td>
+            <th>STT</th>
+            <th>Tài khoản</th>
+            <th>Mật khẩu</th>
+            <th>Họ tên</th>
+            <th>Email</th>
+            <th>SĐT</th>
+            <th>Nhóm</th>
+            <th>Thao tác</th>
           </tr>
         </thead>
         <tbody>
           {users.map((user, index) => {
-            // const { taiKhoan, hoTen, email, soDT, matKhau, maLoaiNguoiDung } =
-            //   user;
             return (
               <tr key={index}>
                 <td>{index + 1}</td>
@@ -132,7 +130,7 @@ function UserManagement() {
                 <td>{user.email}</td>
                 <td>{user.soDT}</td>
                 <td>{user.matKhau}</td>
-                <td>{user.maLoaiNguoiDung}</td>
+                {/* <td>{user.maLoaiNguoiDung}</td> */}
                 <td>
                   <button
                     className="btn btn-primary"
@@ -140,7 +138,7 @@ function UserManagement() {
                   >
                     <i class="fa-regular fa-pen-to-square"></i>
                   </button>
-                  <button className="btn btn-danger">
+                  <button className="btn btn-danger ms-1">
                     <i class="fa-regular fa-trash-can ml-2"></i>
                   </button>
                 </td>
@@ -155,7 +153,7 @@ function UserManagement() {
         </Modal.Header>
         <Modal.Body>
           <form
-            // onSubmit={handleSubmit(onSubmit, onError)}
+            onSubmit={handleSubmit(onSubmit, onError)}
             action=""
             className="form-group"
           >
@@ -164,9 +162,9 @@ function UserManagement() {
               <input
                 type="text"
                 className="form-control"
-                onChange={handleChange}
+                // onChange={handleChange}
                 value={values?.hoTen}
-                // {...register("hoTen")}
+                {...register("hoTen")}
               />
             </div>
 
@@ -175,9 +173,9 @@ function UserManagement() {
               <input
                 type="text"
                 className="form-control"
-                onChange={handleChange}
+                // onChange={handleChange}
                 value={values?.taiKhoan}
-                // {...register("taiKhoan")}
+                {...register("taiKhoan")}
               />
             </div>
 
@@ -186,9 +184,9 @@ function UserManagement() {
               <input
                 type="text"
                 className="form-control"
-                onChange={handleChange}
+                // onChange={handleChange}
                 value={values?.matKhau}
-                // {...register("matKhau")}
+                {...register("matKhau")}
               />
             </div>
 
@@ -197,9 +195,9 @@ function UserManagement() {
               <input
                 type="text"
                 className="form-control"
-                onChange={handleChange}
+                // onChange={handleChange}
                 value={values?.email}
-                // {...register("email")}
+                {...register("email")}
               />
             </div>
 
@@ -208,9 +206,9 @@ function UserManagement() {
               <input
                 type="text"
                 className="form-control"
-                onChange={handleChange}
+                // onChange={handleChange}
                 value={values?.soDT}
-                // {...register("soDT")}
+                {...register("soDT")}
               />
             </div>
 
@@ -229,7 +227,9 @@ function UserManagement() {
           <Button variant="primary" onClick={onSubmit}>
             Cập nhật
           </Button>
-          <Button variant="danger">Hủy</Button>
+          <Button variant="danger" onClick={() => setShow(false)}>
+            Hủy
+          </Button>
         </Modal.Footer>
       </Modal>
     </div>

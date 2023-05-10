@@ -55,7 +55,6 @@ function MovieList() {
     const ngayKhoiChieu = dayjs(value.ngayKhoiChieu).format("DD/MM/YYYY");
     const payload = {
       ...value,
-
       ngayKhoiChieu: ngayKhoiChieu,
     };
 
@@ -86,32 +85,29 @@ function MovieList() {
       <table className="table">
         <thead>
           <tr className="">
-            <td>Mã phim</td>
-            <td>Hình ảnh</td>
-            <td>Tên phim</td>
-            <td>Bí danh</td>
-            <td>Mô tả</td>
-            {/* <td>Trailer</td> */}
-            {/* <td>SĐT</td>
-            <td>Nhóm</td> */}
-            <td>Ngày khởi chiếu</td>
-            <td>Thao tác</td>
+            <th>Mã phim</th>
+            <th>Hình ảnh</th>
+            <th>Tên phim</th>
+            <th>Mô tả</th>
+            <th>Ngày khởi chiếu</th>
+            <th>Thao tác</th>
           </tr>
         </thead>
         <tbody>
           {movies.map((movie, index) => {
             return (
               <tr key={index}>
-                {/* <td>{index + 1}</td> */}
                 <td>{movie.maPhim}</td>
-                <td>{movie.hinhAnh}</td>
+                <td>
+                  <img
+                    style={{ height: "100px", width: "70px" }}
+                    src={movie.hinhAnh}
+                    alt=""
+                  />
+                </td>
                 <td>{movie.tenPhim}</td>
-                <td>{movie.biDanh}</td>
-                <td>{movie.moTa}</td>
-                {/* <td>{movie.trailer}</td> */}
+                <td style={{ width: "350px" }}>{movie.moTa}</td>
                 <td>{dayjs(movie.ngayKhoiChieu).format("DD/MM/YYYY")}</td>
-                {/* <td>{movie.ngayKhoiChieu}</td> */}
-                <td></td>
                 <td>
                   <button
                     className="btn btn-primary"
@@ -120,7 +116,7 @@ function MovieList() {
                     <i class="fa-regular fa-pen-to-square"></i>
                   </button>
                   <button
-                    className="btn btn-danger"
+                    className="btn btn-danger ms-1"
                     onClick={() => deleteMovie(movie.maPhim)}
                   >
                     <i class="fa-regular fa-trash-can ml-2"></i>
@@ -145,6 +141,7 @@ function MovieList() {
                 onChange={handleChange}
                 name="maPhim"
                 value={values?.maPhim}
+                disabled="true"
               />
             </div>
             <div className="">
@@ -217,7 +214,9 @@ function MovieList() {
           <Button variant="primary" onClick={() => onSubmit(values)}>
             Cập nhật
           </Button>
-          <Button variant="danger">Hủy</Button>
+          <Button variant="danger" onClick={() => setShow(false)}>
+            Hủy
+          </Button>
         </Modal.Footer>
       </Modal>
     </div>
