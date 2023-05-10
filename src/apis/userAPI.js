@@ -32,8 +32,8 @@ export const apiDeleteUser = async (userId) => {
 };
 
 export const apiUpdateUser = async (user) => {
-  const { data } = await axiosClient.post(
-    `QuanLyNguoiDung/CapNhatThongTinNguoiDung}`,
+  const { data } = await axiosClient.put(
+    `QuanLyNguoiDung/CapNhatThongTinNguoiDung`,
     {
       params: {
         maNhom: "GP06",

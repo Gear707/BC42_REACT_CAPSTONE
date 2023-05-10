@@ -42,12 +42,17 @@ export const apiGetMovieList = async () => {
   return data;
 };
 
-export const apiUpdateMovie = async (movie, movieId) => {
+export const apiUpdateMovie = async (movie) => {
   const formData = new FormData();
   for (let key in movie) {
     formData.append(key, movie[key]);
   }
-  formData.append("maNhom", "GP06");
+  await axiosClient.post(`/QuanLyPhim/CapNhatPhimUpload`, formData);
+};
 
-  await axiosClient.post(`/QuanLyPhim/CapNhatPhimUpload/${movieId}`, formData);
+export const apiDeleteMovie = async (movieId) => {
+  const { data } = await axiosClient.delete(
+    `QuanLyPhim/XoaPhim?MaPhim=${movieId}`
+  );
+  return data;
 };

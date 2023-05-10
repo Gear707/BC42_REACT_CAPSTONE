@@ -7,9 +7,9 @@ import {
 } from "../../../apis/userAPI";
 import Modal from "react-bootstrap/Modal";
 import { Button } from "react-bootstrap";
-import { useForm } from "react-hook-form";
-import * as yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
+// import { useForm } from "react-hook-form";
+// import * as yup from "yup";
+// import { yupResolver } from "@hookform/resolvers/yup";
 // import UserModal from "./UserModal";
 function UserManagement() {
   const [values, setValues] = useState({
@@ -21,29 +21,16 @@ function UserManagement() {
   });
 
   const [show, setShow] = useState(false);
-
-  // state quản lý người dùng đang được chọn
-  // const [selectedUser, setSelectedUser] = useState({});
-
   const [users, setUsers] = useState([]);
-
-  // // state show modal
-  // const [show, setShow] = useState(false);
-
-  // hàm đóng mở modal
-  const handleClose = () => setShow(false);
-  const handleShow = () => {
-    setShow(true);
-  };
   // Hàm xóa user
-  // const handleDeleteUser = async (userId) => {
-  //   try {
-  //     await apiDeleteUser(userId);
-  //     getUserList();
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const handleDeleteUser = async (userId) => {
+    try {
+      await apiDeleteUser(userId);
+      getUserList();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const onSubmit = async (values) => {
     try {
@@ -109,9 +96,9 @@ function UserManagement() {
   //   alertSuccess("Đăng nhập thành công");
   // };
 
-  const onError = (errors) => {
-    console.log(errors);
-  };
+  // const onError = (errors) => {
+  //   console.log(errors);
+  // };
 
   useEffect(() => {
     getUserList();
@@ -162,7 +149,7 @@ function UserManagement() {
           })}
         </tbody>
       </table>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={() => setShow(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Chỉnh sửa thông tin người dùng</Modal.Title>
         </Modal.Header>

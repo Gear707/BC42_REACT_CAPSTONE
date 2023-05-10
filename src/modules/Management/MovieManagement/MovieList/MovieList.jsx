@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { apiGetMovieList, apiUpdateMovie } from "../../../../apis/movieAPI";
+import {
+  apiDeleteMovie,
+  apiGetMovieList,
+  apiUpdateMovie,
+} from "../../../../apis/movieAPI";
 import { Button, Modal } from "react-bootstrap";
 import styles from "../../UserManagement/UserManagement.module.scss";
 import dayjs from "dayjs";
+import axiosClient from "../../../../apis/axiosClient";
 
 function MovieList() {
   // state theo dõi input
@@ -15,53 +20,58 @@ function MovieList() {
     trailer: "",
     hinhAnh: "",
   });
-  // const [selectedMovie, setSelectedMovie] = useState({});
+
+  // state quản lý đóng/mở modal
   const [show, setShow] = useState(false);
+  // state list phim
   const [movies, setMovies] = useState([]);
 
   const handleChange = (evt) => {
-    // const { value, name } = evt.target;
-    console.log(evt.target);
-
-    setValues(evt.target);
-    console.log(evt.target);
+    const { value, name } = evt.target;
+    setValues({
+      ...values,
+      [name]: value,
+    });
   };
 
+  console.log(values);
   const handleSelectMovie = (movie) => {
     setShow(true);
     setValues(movie);
   };
 
-  // hàm đóng mở modal
-  const handleClose = () => setShow(false);
-  const handleShow = () => {
-    setShow(true);
-  };
   // hàm lấy danh sách phim và hiển thị
   const getMovieList = async () => {
     try {
       const data = await apiGetMovieList();
       setMovies(data.content);
-      console.log(data.content);
     } catch (error) {
       console.log(error);
     }
   };
 
   // hàm cập nhật phim
-  const onSubmit = async (values) => {
-    const ngayKhoiChieu = dayjs(values.ngayKhoiChieu).format("DD/MM/YYYY");
+  const onSubmit = async (value) => {
+    const ngayKhoiChieu = dayjs(value.ngayKhoiChieu).format("DD/MM/YYYY");
     const payload = {
-      ...values,
-      // hinhAnh: values.hinhAnh[0],5
+      ...value,
+
       ngayKhoiChieu: ngayKhoiChieu,
     };
-    console.log(payload);
-    // let maPhim = values.maPhim;
-    console.log(payload.maPhim);
+
     try {
-      await apiUpdateMovie(payload, 12292);
-      // console.log(payload.maPhim);
+      await apiUpdateMovie(payload);
+      getMovieList();
+      setShow(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const deleteMovie = async (movieId) => {
+    try {
+      await apiDeleteMovie();
+      getMovieList();
     } catch (error) {
       console.log(error);
     }
@@ -109,7 +119,10 @@ function MovieList() {
                   >
                     <i class="fa-regular fa-pen-to-square"></i>
                   </button>
-                  <button className="btn btn-danger">
+                  <button
+                    className="btn btn-danger"
+                    onClick={() => deleteMovie(movie.maPhim)}
+                  >
                     <i class="fa-regular fa-trash-can ml-2"></i>
                   </button>
                 </td>
@@ -118,7 +131,7 @@ function MovieList() {
           })}
         </tbody>
       </table>
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={show} onHide={() => setShow(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Chỉnh sửa thông tin phim</Modal.Title>
         </Modal.Header>
@@ -130,6 +143,7 @@ function MovieList() {
                 type="text"
                 className="form-control"
                 onChange={handleChange}
+                name="maPhim"
                 value={values?.maPhim}
               />
             </div>
@@ -139,6 +153,7 @@ function MovieList() {
                 type="text"
                 className="form-control"
                 onChange={handleChange}
+                name="tenPhim"
                 value={values?.tenPhim}
               />
             </div>
@@ -148,6 +163,7 @@ function MovieList() {
               <input
                 type="text"
                 className="form-control"
+                name="biDanh"
                 onChange={handleChange}
                 value={values?.biDanh}
               />
@@ -159,6 +175,7 @@ function MovieList() {
                 type="text"
                 className="form-control"
                 onChange={handleChange}
+                name="moTa"
                 value={values?.moTa}
               />
             </div>
@@ -169,6 +186,7 @@ function MovieList() {
                 type="text"
                 className="form-control"
                 onChange={handleChange}
+                name="ngayKhoiChieu"
                 value={dayjs(values?.ngayKhoiChieu).format("DD/MM/YYYY")}
               />
             </div>
@@ -179,6 +197,7 @@ function MovieList() {
                 type="text"
                 className="form-control"
                 onChange={handleChange}
+                name="trailer"
                 value={values?.trailer}
               />
             </div>
@@ -188,6 +207,7 @@ function MovieList() {
               <input
                 type="file"
                 className="form-control"
+                name="hinhAnh"
                 onChange={handleChange}
               />
             </div>
