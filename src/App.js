@@ -10,6 +10,7 @@ import Loading from "./components/Loading/Loading";
 import AdminLayout from "./layouts/AdminLayout/AdminLayout";
 import AdminRoute from "./routes/AdminRoute";
 import PageNotFound from "./components/PageNotFound/PageNotFound";
+import UserManagement from "./modules/Management/UserManagement/UserManagement";
 
 // import Home from "./modules/Home/Home";
 // import MovieDetails from "./modules/MovieDetails/MovieDetails";
@@ -24,7 +25,7 @@ const Booking = lazy(() => import("./modules/Booking/Booking"));
 const Signin = lazy(() => import("./modules/Auth/Signin/Signin"));
 const Signup = lazy(() => import("./modules/Auth/Signup/Signup"));
 const MovieManagement = lazy(() =>
-  import("./modules/MovieManagement/MovieManagement")
+  import("./modules/Management/MovieManagement/MovieManagement")
 );
 
 function App() {
@@ -59,6 +60,7 @@ function App() {
               </AdminRoute>
             }
           >
+            <Route path="users" element={<UserManagement />} />
             <Route path="movies" element={<MovieManagement />} />
             {/* <Route path="users" element={<UserManagement />} /> */}
             {/* <Route path="tickets" element={<TicketsManagement />} /> */}

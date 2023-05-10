@@ -32,3 +32,22 @@ export const apiCreateMovie = async (movie) => {
 
   await axiosClient.post("/QuanLyPhim/ThemPhimUploadHinh", formData);
 };
+
+export const apiGetMovieList = async () => {
+  const { data } = await axiosClient.get("/QuanLyPhim/LayDanhSachPhim", {
+    params: {
+      maNhom: "GP06",
+    },
+  });
+  return data;
+};
+
+export const apiUpdateMovie = async (movie, movieId) => {
+  const formData = new FormData();
+  for (let key in movie) {
+    formData.append(key, movie[key]);
+  }
+  formData.append("maNhom", "GP06");
+
+  await axiosClient.post(`/QuanLyPhim/CapNhatPhimUpload/${movieId}`, formData);
+};

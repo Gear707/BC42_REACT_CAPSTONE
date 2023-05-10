@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { apiSignin } from "../apis/userAPI";
+import { apiSignin, apiGetUserList } from "../apis/userAPI";
 
 // async actions
 export const signin = createAsyncThunk("user/signin", async (values) => {
@@ -14,9 +14,19 @@ export const signin = createAsyncThunk("user/signin", async (values) => {
   }
 });
 
+export const userList = createAsyncThunk("user/getUser", async (values) => {
+  try {
+    const data = await apiGetUserList(values);
+    return data.content;
+  } catch (error) {
+    throw error.response?.data?.content;
+  }
+});
+
 const initialState = {
   // Đồng bộ thông tin user từ localStorage vào state của redux
   user: JSON.parse(localStorage.getItem("user")) || null,
+  userList: [],
   isLoading: false,
   error: null,
 };
@@ -27,6 +37,9 @@ const userSlice = createSlice({
   reducers: {
     signout: (state, action) => {
       return { ...state, user: null };
+    },
+    getuser: (state, action) => {
+      return { ...state, userList: null };
     },
   },
   extraReducers: (builder) => {
@@ -42,6 +55,6 @@ const userSlice = createSlice({
   },
 });
 
-export const { signout } = userSlice.actions;
+export const { signout, getuser } = userSlice.actions;
 
 export default userSlice.reducer;
