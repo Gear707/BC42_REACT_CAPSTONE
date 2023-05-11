@@ -3,7 +3,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import styles from "./Header.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { signout } from "../../slices/userSlice";
 import { alertSuccess, warningSignout } from "../../apis/sweetAlert2";
 
@@ -32,6 +32,13 @@ function Header() {
         navigate("/user");
     };
 
+    const scrollToComponent = (componentId) => {
+        const element = document.getElementById(componentId);
+        if (element) {
+            element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+    };
+
     return (
         <Navbar bg="light" expand="lg" className={styles.header}>
             <Container fluid className="d-flex">
@@ -41,9 +48,21 @@ function Header() {
                 <Navbar.Toggle aria-controls="navbarScroll" />
                 <Navbar.Collapse id="navbarScroll">
                     <Nav className={`${styles.menuMargin} my-2 my-lg-0`} navbarScroll>
-                        <Nav.Link href="/" className={styles.navLink}>Lịch Chiếu</Nav.Link>
-                        <Nav.Link href="/" className={styles.navLink}>Cụm Rạp</Nav.Link>
-                        <Nav.Link href="/" className={styles.navLink}>Liên hệ</Nav.Link>
+                        <Nav.Link as={Link} to="#" className={styles.navLink}
+                            onClick={() => scrollToComponent("schedule")}
+                        >
+                            Lịch Chiếu
+                        </Nav.Link>
+                        <Nav.Link as={Link} to="#" className={styles.navLink}
+                            onClick={() => scrollToComponent("cinema")}
+                        >
+                            Cụm Rạp
+                        </Nav.Link>
+                        <Nav.Link as={Link} to="#" className={styles.navLink}
+                            onClick={() => scrollToComponent("contact")}
+                        >
+                            Liên hệ
+                        </Nav.Link>
                     </Nav>
                     <div className="ms-auto">
                         {user ?

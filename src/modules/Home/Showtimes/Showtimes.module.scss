@@ -10,11 +10,14 @@ $borderColor: #cdcbcb;
     max-width: 100%;
 }
 
+.divPadding {
+    padding: 100px 0;
+}
+
 .showtimesContainer {
     display: flex;
     max-height: 670px;
     padding: 0 !important;
-    margin: 100px auto 100px;
     background-color: white;
     border: 1px solid $borderColor;
     overflow-y: scroll;

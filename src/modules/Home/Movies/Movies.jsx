@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import styles from "./Movie.module.scss";
 import { apiGetMovies } from "../../../apis/movieAPI";
 import ReactPlayer from "react-player";
-import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Slider from "react-slick";
 import Modal from "react-bootstrap/Modal";
@@ -54,7 +53,7 @@ function Movies() {
     if (error) return null;
 
     return (
-        <>
+        <div id="schedule">
             <Slider className="pb-5" style={{ paddingTop: "200px" }} {...settings}>
                 <div>
                     <div style={{ width: "960px", margin: "auto" }}>
@@ -180,7 +179,7 @@ function Movies() {
                     </div>
                 </div>
             </Slider>
-        </>
+        </div>
     );
 }
 

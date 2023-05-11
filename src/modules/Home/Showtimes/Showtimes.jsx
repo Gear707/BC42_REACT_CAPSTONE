@@ -103,8 +103,10 @@ function Showtimes() {
     if (error) return null;
 
     return (
-        <div className={`${styles.showtimesContainer} container`}>
-            {tabs}
+        <div id="cinema" className={styles.divPadding}>
+            <div className={`${styles.showtimesContainer} container`}>
+                {tabs}
+            </div>
         </div>
     );
 }
