@@ -1,3 +1,6 @@
+@import "../../assets/responsive";
+@import "../../assets/breakpoints";
+
 $headerHover: #0354a5;
 
 .header {
@@ -34,12 +37,46 @@ $headerHover: #0354a5;
     &:hover {
         color: $headerHover;
     }
+
+    @include responsive("large") {
+        margin: 10px 0;
+    }
 }
 
 .borderRight {
     border-right: 2px solid black;
+
+    @include responsive("large") {
+        border: none;
+    }
 }
 
 .menuMargin {
     margin-left: 100px;
+
+    @include responsive("large") {
+        margin: 0px;
+    }
+}
+
+.navRight {
+    margin-left: auto;
+
+    @include responsive("large") {
+        padding: 20px 0;
+        border-top: 1px solid gray;
+        margin: 20px 0;
+    }
+}
+
+.toggleBtn {
+    box-shadow: none !important;
+
+    &:focus {
+        box-shadow: none !important;
+    }
+
+    &:hover {
+        background-color: rgba(0, 72, 196, 0.563);
+    }
 }
