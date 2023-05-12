@@ -18,9 +18,6 @@ function Movies() {
     try {
       const data = await apiGetMovies();
       setMovies(data.content);
-      setMovies1(data.content.slice(0, 8));
-      setMovies2(data.content.slice(8, 16));
-      setMovies3(data.content.slice(16, 24));
     } catch (error) {
       console.log(error);
     }
@@ -48,7 +45,7 @@ function Movies() {
         <div>
           <div style={{ width: "960px", margin: "auto" }}>
             <div className="row mb-5">
-              {movies1.map((item, index) => {
+              {movies.slice(0, 8).map((item, index) => {
                 return (
                   <div key={index} className="col-lg-3 mt-3">
                     <MovieCard item={item} />
@@ -62,7 +59,21 @@ function Movies() {
         <div>
           <div style={{ width: "960px", margin: "auto" }}>
             <div className="row mb-5">
-              {movies2.map((item, index) => {
+              {movies.slice(8, 16).map((item, index) => {
+                return (
+                  <div key={index} className="col-lg-3 mt-3">
+                    <MovieCard item={item} />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div style={{ width: "960px", margin: "auto" }}>
+            <div className="row mb-5">
+              {movies.slice(16, 24).map((item, index) => {
                 return (
                   <div key={index} className="col-lg-3 mt-3">
                     <MovieCard item={item} />

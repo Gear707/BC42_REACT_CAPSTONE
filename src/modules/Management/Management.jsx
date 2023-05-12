@@ -1,12 +1,13 @@
-import React from "react";
-import UserManagement from "./UserManagement/UserManagement";
+// import React from "react";
+// import UserManagement from "./UserManagement/UserManagement";
+// import MovieManagement from "./MovieManagement/MovieManagement";
+// function Management() {
+//   return (
+//     <div>
+//       <UserManagement />
+//       <MovieManagement />
+//     </div>
+//   );
+// }
 
-function Management() {
-  return (
-    <div>
-      <UserManagement />
-    </div>
-  );
-}
-
-export default Management;
+// export default Management;

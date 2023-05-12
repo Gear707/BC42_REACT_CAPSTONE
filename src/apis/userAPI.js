@@ -24,16 +24,16 @@ export const apiGetUserList = async () => {
   return data;
 };
 
-export const apiDeleteUser = async (userId) => {
+export const apiDeleteUser = async (taiKhoan) => {
   const { data } = await axiosClient.delete(
-    `QuanLyNguoiDung/XoaNguoiDung/${userId}`
+    `QuanLyNguoiDung/XoaNguoiDung?TaiKhoan=${taiKhoan}`
   );
   return data;
 };
 
-export const apiUpdateUser = async (user) => {
+export const apiUpdateUser = async (values) => {
   const { data } = await axiosClient.put(
-    `QuanLyNguoiDung/CapNhatThongTinNguoiDung`,
+    "QuanLyNguoiDung/CapNhatThongTinNguoiDung",
     {
       params: {
         maNhom: "GP06",

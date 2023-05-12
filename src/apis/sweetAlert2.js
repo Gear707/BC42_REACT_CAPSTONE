@@ -1,16 +1,23 @@
-// import Swal from "sweetalert2";
+import Swal from "sweetalert2";
 
-// // Tạo thông báo popup
-// const Popup = Swal.mixin({
-//   // toast: true,
-//   position: "top-end",
-//   showConfirmButton: false,
-//   timer: 1000,
-// });
+// Tạo thông báo popup
+const Popup = Swal.mixin({
+  // toast: true,
+  position: "top-end",
+  showConfirmButton: false,
+  timer: 1000,
+});
 
-// export const alertSuccess = (text) => {
-//   Popup.fire({
-//     icon: "success",
-//     title: text,
-//   });
-// };
+export const alertSuccess = (text) => {
+  Popup.fire({
+    icon: "success",
+    title: text,
+  });
+};
+
+export const alertError = (text) => {
+  Popup.fire({
+    icon: "error",
+    title: text,
+  });
+};

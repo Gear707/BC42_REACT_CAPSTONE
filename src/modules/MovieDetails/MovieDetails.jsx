@@ -11,7 +11,6 @@ function MovieDetails() {
   const [movieDuration, setMovieDuration] = useState(null);
   const handleMovieDurationChange = (movieDuration) => {
     setMovieDuration(movieDuration);
-    console.log(movieDuration);
   };
   return (
     <div className={styles.background}>

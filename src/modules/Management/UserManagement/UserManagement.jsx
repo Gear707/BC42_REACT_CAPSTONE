@@ -10,35 +10,60 @@ import { Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import UserModal from "./UserModal";
+import { alertError, alertSuccess } from "../../../apis/sweetAlert2";
+
 function UserManagement() {
   const [values, setValues] = useState({
+    // hoTen: "",
+    // taiKhoan: "",
+    // matKhau: "",
+    // email: "",
+    // soDT: "",
     taiKhoan: "",
-    hoTen: "",
-    email: "",
-    soDT: "",
     matKhau: "",
+    email: "",
+    soDt: "",
+    maNhom: "",
+    maLoaiNguoiDung: "",
+    hoTen: "",
   });
+
+  const handleChange = (evt) => {
+    const { value, name } = evt.target;
+    setValues({
+      ...values,
+      [name]: value,
+    });
+  };
 
   const [show, setShow] = useState(false);
   const [users, setUsers] = useState([]);
   // Hàm xóa user
-  const handleDeleteUser = async (userId) => {
+  const handleDeleteUser = async (taiKhoan) => {
     try {
-      await apiDeleteUser(userId);
+      await apiDeleteUser(taiKhoan);
       getUserList();
+      alertError("Xóa user thành công");
     } catch (error) {
-      console.log(error);
+      alertError("Người dùng này đã đặt phim không thể xóa");
     }
   };
 
   const onSubmit = async (values) => {
+    // const payload = { ...value, maNhom: value.maNhom };
+    console.log(values);
     try {
       await apiUpdateUser(values);
       getUserList();
+      alertSuccess("Cập nhật user thành công");
     } catch (error) {
-      console.log(error);
+      alertError("Cập nhật user thất bại");
     }
+  };
+
+  const handleSelectUser = (user) => {
+    setShow(true);
+    setValues(user);
   };
 
   // const handleChange = (evt) => {
@@ -80,12 +105,12 @@ function UserManagement() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm({
     // Khai báo các giá trị khởi tạo cho các input
     defaultValues: {
       taiKhoan: "",
-      matKhau: "",
       hoTen: "",
       email: "",
       soDT: "",
@@ -106,17 +131,17 @@ function UserManagement() {
 
   return (
     <div>
-      <p className={styles.title}>Quản lý tài khoản</p>
+      <p className={styles.title1}>Quản lý tài khoản</p>
+      <p className={styles.title2}>Danh sách người dùng</p>
       <table className="table">
         <thead>
           <tr className="">
             <th>STT</th>
+            <th>Họ tên</th>
             <th>Tài khoản</th>
             <th>Mật khẩu</th>
-            <th>Họ tên</th>
             <th>Email</th>
             <th>SĐT</th>
-            <th>Nhóm</th>
             <th>Thao tác</th>
           </tr>
         </thead>
@@ -125,11 +150,12 @@ function UserManagement() {
             return (
               <tr key={index}>
                 <td>{index + 1}</td>
-                <td>{user.taiKhoan}</td>
                 <td>{user.hoTen}</td>
+                <td>{user.taiKhoan}</td>
+                <td>{user.matKhau}</td>
                 <td>{user.email}</td>
                 <td>{user.soDT}</td>
-                <td>{user.matKhau}</td>
+
                 {/* <td>{user.maLoaiNguoiDung}</td> */}
                 <td>
                   <button
@@ -138,7 +164,10 @@ function UserManagement() {
                   >
                     <i class="fa-regular fa-pen-to-square"></i>
                   </button>
-                  <button className="btn btn-danger ms-1">
+                  <button
+                    className="btn btn-danger ms-1"
+                    onClick={() => handleDeleteUser(user.taiKhoan)}
+                  >
                     <i class="fa-regular fa-trash-can ml-2"></i>
                   </button>
                 </td>
@@ -153,72 +182,106 @@ function UserManagement() {
         </Modal.Header>
         <Modal.Body>
           <form
-            onSubmit={handleSubmit(onSubmit, onError)}
+            // onSubmit={handleSubmit(onSubmit, onError)}
             action=""
             className="form-group"
           >
-            <div className="">
-              <p>Họ tên</p>
+            <div className="form-group mb-2">
+              <label>Họ tên</label>
               <input
                 type="text"
                 className="form-control"
-                // onChange={handleChange}
+                onChange={handleChange}
                 value={values?.hoTen}
-                {...register("hoTen")}
+                name="hoTen"
+                // {...register("hoTen")}
               />
             </div>
+            {errors.hoTen && (
+              <p className="mt-1 text-danger">{errors.hoTen.message}</p>
+            )}
 
-            <div className="">
-              <p>Tài khoản</p>
+            <div className="form-group mb-2">
+              <label>Tài khoản</label>
               <input
                 type="text"
                 className="form-control"
-                // onChange={handleChange}
+                onChange={handleChange}
                 value={values?.taiKhoan}
-                {...register("taiKhoan")}
+                name="taiKhoan"
+                // {...register("taiKhoan")}
               />
             </div>
+            {errors.taiKhoan && (
+              <p className="mt-1 text-danger">{errors.taiKhoan.message}</p>
+            )}
 
-            <div className="">
-              <p>Mật khẩu</p>
+            <div className="form-group mb-2">
+              <label>Mật khẩu</label>
               <input
                 type="text"
                 className="form-control"
-                // onChange={handleChange}
+                onChange={handleChange}
                 value={values?.matKhau}
-                {...register("matKhau")}
+                name="matKhau"
+                // {...register("matKhau")}
               />
             </div>
+            {errors.matKhau && (
+              <p className="mt-1 text-danger">{errors.matKhau.message}</p>
+            )}
 
-            <div className="">
-              <p>Email</p>
+            <div className="form-group mb-2">
+              <label>Email</label>
               <input
                 type="text"
                 className="form-control"
-                // onChange={handleChange}
+                onChange={handleChange}
                 value={values?.email}
-                {...register("email")}
+                name="email"
+                // {...register("email")}
               />
             </div>
+            {errors.email && (
+              <p className="mt-1 text-danger">{errors.email.message}</p>
+            )}
 
-            <div className="">
-              <p>Số điện thoại</p>
+            <div className="form-group mb-2">
+              <label>Số điện thoại</label>
               <input
                 type="text"
                 className="form-control"
-                // onChange={handleChange}
+                onChange={handleChange}
                 value={values?.soDT}
-                {...register("soDT")}
+                name="soDT"
+                // {...register("soDT")}
               />
             </div>
+            {errors.soDT && (
+              <p className="mt-1 text-danger">{errors.soDT.message}</p>
+            )}
 
-            <div className="form-group">
-              <p>Người dùng</p>
-              <select className="form-control" name="" id="">
-                <option selected value="">
-                  Khách hàng
-                </option>
-                <option value="">Quản trị</option>
+            <div className="form-group mb-2">
+              <label>Mã nhóm</label>
+              <input
+                type="text"
+                className="form-control"
+                onChange={handleChange}
+                value={values?.maNhom}
+                name="maNhom"
+                // {...register("soDT")}
+              />
+            </div>
+            {errors.soDT && (
+              <p className="mt-1 text-danger">{errors.soDT.message}</p>
+            )}
+
+            <div className="form-group mb-2">
+              <span>Người dùng</span>
+              <select className="form-control" name="maLoaiNguoiDung" id="">
+                <option selected>{values.maLoaiNguoiDung}</option>
+                <option value="QuanTri">QuanTri</option>
+                <option value="KhachHang">KhachHang</option>
               </select>
             </div>
           </form>
