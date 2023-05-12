@@ -23,3 +23,28 @@ export const apiGetCinemaInfos = async (movieId) => {
   );
   return data;
 };
+
+export const apiGetCinemaBrand = async (movieId) => {
+  const { data } = await axiosClient.get("/QuanLyRap/LayThongTinHeThongRap", {
+    params: {
+      MaPhim: movieId,
+    },
+  });
+  return data;
+};
+
+export const apiGetCinema = async (maHeThongRap) => {
+  const { data } = await axiosClient.get(
+    `QuanLyRap/LayThongTinCumRapTheoHeThong`,
+    {
+      params: {
+        maHeThongRap: maHeThongRap,
+      },
+    }
+  );
+  return data;
+};
+
+export const apiCreateMovieTime = async (payload) => {
+  await axiosClient.post(`/QuanLyDatVe/TaoLichChieu`, payload);
+};

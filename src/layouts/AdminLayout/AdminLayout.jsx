@@ -21,7 +21,7 @@ function AdminLayout() {
             className={`${styles.user} btn`}
             onClick={() => navigate("./users")}
           >
-            <i class="fa-solid fa-user"></i>
+            <i class="fa-solid fa-user me-2"></i>
             Người dùng
           </button>
           <button

@@ -12,6 +12,7 @@ import AdminRoute from "./routes/AdminRoute";
 import PageNotFound from "./components/PageNotFound/PageNotFound";
 import UserManagement from "./modules/Management/UserManagement/UserManagement";
 import MovieForm from "./modules/Management/MovieManagement/MovieForm/MovieForm";
+import MovieShowtime from "./modules/Management/MovieManagement/MovieShowtime/MovieShowtime";
 
 // import Home from "./modules/Home/Home";
 // import MovieDetails from "./modules/MovieDetails/MovieDetails";
@@ -64,6 +65,7 @@ function App() {
             <Route path="users" element={<UserManagement />} />
             <Route path="movies" element={<MovieManagement />} />
             <Route path="movies/addNew" element={<MovieForm />} />
+            <Route path="movies/showtime/:maPhim" element={<MovieShowtime />} />
           </Route>
 
           <Route path="/*" element={<PageNotFound />}></Route>

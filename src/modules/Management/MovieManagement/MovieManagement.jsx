@@ -26,7 +26,8 @@ function MovieManagement() {
   const [show, setShow] = useState(false);
   // state list phim
   const [movies, setMovies] = useState([]);
-
+  // state lưu giữ mã phim trước khi chuyển trang Tạo lịch chiếu
+  const [maPhim, setMaPhim] = useState(null);
   const handleChange = (evt) => {
     const { value, name } = evt.target;
     setValues({
@@ -68,6 +69,7 @@ function MovieManagement() {
     }
   };
 
+  // hàm xóa phim
   const deleteMovie = async (movieId) => {
     try {
       await apiDeleteMovie(movieId);
@@ -77,6 +79,11 @@ function MovieManagement() {
       alertError("Xóa phim thất bại");
     }
   };
+
+  // hàm tạo lịch chiếu cho phim
+  // const showTimeMovie = async () => {
+  //   await apiShowTimMovie();
+  // };
 
   useEffect(() => {
     getMovieList();
@@ -148,7 +155,10 @@ function MovieManagement() {
                   </button>
                   <button
                     className="btn btn-warning ms-1"
-                    onClick={() => deleteMovie(movie.maPhim)}
+                    onClick={() => {
+                      setMaPhim(movie.maPhim);
+                      navigate(`showtime/${movie.maPhim}`);
+                    }}
                   >
                     <i class="fa-solid fa-video ml-1"></i>
                   </button>
