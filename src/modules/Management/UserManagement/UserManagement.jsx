@@ -3,6 +3,7 @@ import styles from "./UserManagement.module.scss";
 import {
   apiDeleteUser,
   apiGetUserList,
+  apiSearchUser,
   apiUpdateUser,
 } from "../../../apis/userAPI";
 import Modal from "react-bootstrap/Modal";
@@ -13,20 +14,17 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { alertError, alertSuccess } from "../../../apis/sweetAlert2";
 
 function UserManagement() {
-  const [values, setValues] = useState({
-    // hoTen: "",
-    // taiKhoan: "",
-    // matKhau: "",
-    // email: "",
-    // soDT: "",
-    taiKhoan: "",
-    matKhau: "",
-    email: "",
-    soDt: "",
-    maNhom: "",
-    maLoaiNguoiDung: "",
-    hoTen: "",
-  });
+  const [values, setValues] = useState([]);
+
+  // const [values, setValues] = useState({
+  //   taiKhoan: "",
+  //   matKhau: "",
+  //   email: "",
+  //   soDt: "",
+  //   maNhom: "",
+  //   maLoaiNguoiDung: "",
+  //   hoTen: "",
+  // });
 
   const handleChange = (evt) => {
     const { value, name } = evt.target;
@@ -36,8 +34,10 @@ function UserManagement() {
     });
   };
 
+  // state đóng mở modal
   const [show, setShow] = useState(false);
   const [users, setUsers] = useState([]);
+
   // Hàm xóa user
   const handleDeleteUser = async (taiKhoan) => {
     try {
@@ -50,11 +50,9 @@ function UserManagement() {
   };
 
   const onSubmit = async (values) => {
-    // const payload = { ...value, maNhom: value.maNhom };
-    console.log(values);
     try {
       await apiUpdateUser(values);
-      getUserList();
+      await getUserList();
       alertSuccess("Cập nhật user thành công");
     } catch (error) {
       alertError("Cập nhật user thất bại");
@@ -86,6 +84,16 @@ function UserManagement() {
     }
   };
 
+  // hàm tìm kiếm user
+  const handleSearchUser = async (keywork) => {
+    try {
+      const data = await apiSearchUser(keywork);
+      setUsers(data.content);
+    } catch (error) {
+      alertError("Không tìm thấy user");
+    }
+  };
+
   // Định nghĩa các xác thực cho thuộc tính
   const schema = yup.object({
     taiKhoan: yup.string().required("Tài khoản không được để trống!"),
@@ -93,13 +101,6 @@ function UserManagement() {
     email: yup.string().required("Email không được để trống!"),
     soDT: yup.string().required("Số điện thoại không được để trống!"),
     matKhau: yup.string().required("Mật khẩu không được để trống!"),
-    // maLoaiNguoiDung: yup
-    //   .string()
-    //   .required("Mã loại người dùng không được để trống!"),
-    // .matches(
-    //   PASSWORD_FORMAT,
-    //   "Mật khẩu phải có ít nhất 8 kí tự, 1 chữ hoa, 1 chữ thường, 1 số và 1 ký tự đặc biệt"
-    // ),
   });
 
   const {
@@ -132,7 +133,26 @@ function UserManagement() {
   return (
     <div>
       <p className={styles.title1}>Quản lý tài khoản</p>
-      <p className={styles.title2}>Danh sách người dùng</p>
+      <div className="d-flex justify-content-between">
+        <p className={styles.title2}>Danh sách người dùng</p>
+        <div className="input-group w-25 mb-3">
+          <input
+            id="txtSearch"
+            type="text"
+            className="form-control"
+            placeholder="Nhập từ khóa"
+            name="keywork"
+            onChange={handleChange}
+          />
+          <button
+            className="btn btn-primary me-3"
+            onClick={() => handleSearchUser(values.keywork)}
+          >
+            <i className="fa fa-search" />
+          </button>
+        </div>
+      </div>
+
       <table className="table">
         <thead>
           <tr className="">

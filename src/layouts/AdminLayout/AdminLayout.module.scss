@@ -47,3 +47,18 @@
     margin-top: 20px;
 }
 
+.activeClass {
+    color: greenyellow !important;
+    position: relative;
+
+    &::after{
+        content: "";
+        height: 0.5px;
+        width:100%;
+        background-color: greenyellow;
+
+        position: absolute;
+        bottom: -2px;
+        left: 0px
+    }
+}

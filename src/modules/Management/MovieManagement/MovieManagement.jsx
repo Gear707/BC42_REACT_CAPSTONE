@@ -80,11 +80,6 @@ function MovieManagement() {
     }
   };
 
-  // hàm tạo lịch chiếu cho phim
-  // const showTimeMovie = async () => {
-  //   await apiShowTimMovie();
-  // };
-
   useEffect(() => {
     getMovieList();
   }, []);

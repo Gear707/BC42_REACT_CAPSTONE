@@ -7,6 +7,14 @@ import { useSelector } from "react-redux";
 function AdminLayout() {
   const { user } = useSelector((state) => state.user);
   const navigate = useNavigate();
+
+  // state dùng để set class active
+  const [activeUser, setActiveUser] = useState(false);
+  const [activeMovie, setActiveMovie] = useState(false);
+
+  // const handleTabClick = (tab) => {
+  //   setActiveTab(tab);
+  // };
   return (
     <div className={styles.theme}>
       <div className="d-flex">
@@ -18,15 +26,27 @@ function AdminLayout() {
             srcset=""
           />
           <button
-            className={`${styles.user} btn`}
-            onClick={() => navigate("./users")}
+            className={`${styles.user} btn ${
+              activeUser ? styles.activeClass : "null"
+            }`}
+            onClick={() => {
+              setActiveUser(true);
+              setActiveMovie(false);
+              navigate("./users");
+            }}
           >
             <i class="fa-solid fa-user me-2"></i>
             Người dùng
           </button>
           <button
-            className={`${styles.movie} btn `}
-            onClick={() => navigate("./movies")}
+            className={`${styles.movie} btn ${
+              activeMovie ? styles.activeClass : "null"
+            }`}
+            onClick={() => {
+              setActiveUser(false);
+              setActiveMovie(true);
+              navigate("./movies");
+            }}
           >
             <i class="fa-solid fa-film me-2"></i>
             Phim

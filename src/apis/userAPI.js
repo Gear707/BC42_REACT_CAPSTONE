@@ -42,3 +42,10 @@ export const apiUpdateUser = async (values) => {
   );
   return data;
 };
+
+export const apiSearchUser = async (keywork) => {
+  const { data } = await axiosClient.get(
+    `QuanLyNguoiDung/TimKiemNguoiDung?MaNhom=GP06&tuKhoa=${keywork}`
+  );
+  return data;
+};
