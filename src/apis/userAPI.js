@@ -12,6 +12,11 @@ export const apiSignup = async (values) => {
   return data;
 };
 
+export const apiUserInfo = async () => {
+  const { data } = await axiosClient.post("/QuanLyNguoiDung/ThongTinTaiKhoan");
+  return data;
+};
+
 export const apiGetUserList = async () => {
   const { data } = await axiosClient.get(
     "QuanLyNguoiDung/LayDanhSachNguoiDung",

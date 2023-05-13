@@ -4,7 +4,7 @@ import "./antClassCustom.scss";
 import { apiGetCinemaShowtimes } from "../../../apis/cinemaAPI";
 import { Tabs } from 'antd';
 import { NavLink, useNavigate } from "react-router-dom";
-import moment from "moment";
+import dayjs from "dayjs";
 
 function Showtimes() {
     const [cinemasShowtimes, setCinemasShowtimes] = useState([]);
@@ -15,7 +15,7 @@ function Showtimes() {
             const data = await apiGetCinemaShowtimes();
             setCinemasShowtimes(data.content);
         } catch (error) {
-            setError(error.response?.data?.content);
+            setError(error?.response?.data?.content);
         }
     };
 
@@ -57,27 +57,27 @@ function Showtimes() {
                                         return (
                                             <div className={styles.movieList} key={movie.maPhim}>
                                                 <div className="d-flex p-3 justify-content-around">
-                                                    <div className="col-2 d-flex justify-content-center">
-                                                        <img
-                                                            src={movie.hinhAnh}
-                                                            alt={movie.tenPhim}
-                                                            className="img-fluid"
-                                                            style={{ width: "auto" }}
+                                                    <div className="col-3 px-3 d-flex justify-content-center">
+                                                        <img src={movie.hinhAnh} alt={movie.tenPhim}
+                                                            className={`img-fluid ${styles.movieImg}`}
                                                         />
                                                     </div>
-                                                    <div className="col-9">
+                                                    <div className="col-9 ps-2">
                                                         <span className={styles.movieIcon}>
                                                             <i className="fa-solid fa-video"></i>
                                                         </span>
                                                         <span className={styles.movieName}>{movie.tenPhim}</span>
                                                         <div className="d-flex flex-wrap mt-3">
-                                                            {movie.lstLichChieuTheoPhim.slice(0, 6).map((schedule, index) => {
+                                                            {movie.lstLichChieuTheoPhim.slice(0, 6).map((schedule) => {
                                                                 return (
-                                                                    <a className={styles.dateTime}
+                                                                    <a className={`${styles.date} fw-bold`}
                                                                         key={`${movie.maPhim}-${schedule.maLichChieu}`}
                                                                         onClick={() => navigate(`/booking/${schedule.maLichChieu}`)}
                                                                     >
-                                                                        {moment(schedule.ngayChieuGioChieu).format("DD-MM-YYYY ~ HH:mm")}
+                                                                        {dayjs(schedule.ngayChieuGioChieu).format("DD-MM-YYYY ")}
+                                                                        <span className={styles.time}>
+                                                                            {dayjs(schedule.ngayChieuGioChieu).format("~ HH:mm")}
+                                                                        </span>
                                                                     </a>
                                                                 );
                                                             })}
@@ -103,8 +103,10 @@ function Showtimes() {
     if (error) return null;
 
     return (
-        <div className={`${styles.showtimesContainer} container`}>
-            {tabs}
+        <div id="cinema" className={styles.divCustom}>
+            <div className={`${styles.showtimesContainer} container`}>
+                {tabs}
+            </div>
         </div>
     );
 }

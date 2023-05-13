@@ -47,7 +47,7 @@ function Movies() {
             <div className="row mb-5">
               {movies.slice(0, 8).map((item, index) => {
                 return (
-                  <div key={index} className="col-lg-3 mt-3">
+                  <div key={index} className="col-sm-3 mt-3">
                     <MovieCard item={item} />
                   </div>
                 );
@@ -61,7 +61,7 @@ function Movies() {
             <div className="row mb-5">
               {movies.slice(8, 16).map((item, index) => {
                 return (
-                  <div key={index} className="col-lg-3 mt-3">
+                  <div key={index} className="col-sm-3 mt-3">
                     <MovieCard item={item} />
                   </div>
                 );
@@ -75,7 +75,7 @@ function Movies() {
             <div className="row mb-5">
               {movies.slice(16, 24).map((item, index) => {
                 return (
-                  <div key={index} className="col-lg-3 mt-3">
+                  <div key={index} className="col-sm-3 mt-3">
                     <MovieCard item={item} />
                   </div>
                 );

@@ -5,19 +5,42 @@ const Popup = Swal.mixin({
   // toast: true,
   position: "top-end",
   showConfirmButton: false,
-  timer: 1000,
+  timer: 1500,
 });
 
-export const alertSuccess = (text) => {
-  Popup.fire({
+export const alertSuccess = (title) => {
+  return Popup.fire({
     icon: "success",
-    title: text,
+    title,
   });
 };
 
-export const alertError = (text) => {
-  Popup.fire({
+export const alertCheckout = (title, text) => {
+  return Popup.fire({
+    icon: "success",
+    title,
+    text,
+    showConfirmButton: true,
+    confirmButtonColor: "#0354a5",
+    timer: null,
+  });
+};
+
+export const alertError = (title) => {
+  return Popup.fire({
     icon: "error",
-    title: text,
+    title,
+  });
+};
+
+export const warningSignout = () => {
+  return Swal.fire({
+    title: "Bạn có chắc muốn đăng xuất không?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Đồng ý",
+    confirmButtonColor: "#0354a5",
+    cancelButtonText: "Hủy",
+    cancelButtonColor: "#d33",
   });
 };

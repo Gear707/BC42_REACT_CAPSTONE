@@ -3,7 +3,7 @@ import styles from "./Footer.module.scss";
 
 function Footer() {
     return (
-        <div className={styles.bgStyle}>
+        <div id="contact" className={styles.bgStyle}>
             <div className={`${styles.bgContainer} ${styles.defaultFontStyle}`}>
                 <div className="row">
                     <div className="col-lg-4 mt-5">

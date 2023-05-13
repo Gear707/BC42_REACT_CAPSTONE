@@ -1,0 +1,113 @@
+$color-1: rgb(45, 146, 45);
+$color-2: rgb(40, 155, 176);
+$color-3: rgb(212, 55, 55);
+$textColor: white;
+$customBorder: 40px solid;
+$font: "Roboto";
+
+@mixin generalSize() {
+    border: none !important;
+    width: 35px;
+    height: 35px;
+    min-width: unset;
+    margin: 10px;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.87);
+    background-color: rgb(233, 233, 233);
+}
+
+.btnHover {
+    &:hover {
+        transform: scale(1.25);
+    }
+}
+
+.bookingFont {
+    font-family: $font;
+}
+
+.headingLeft {
+    margin-top: 90px;
+}
+
+.screen {
+    border-bottom: $customBorder gray;
+    border-left: $customBorder transparent;
+    border-right: $customBorder transparent;
+    height: 0;
+    width: 80%;
+    opacity: 0.4;
+    filter: drop-shadow(0px 128px 63px rgba(8, 8, 8, 0.38));
+}
+
+.emptySeat {
+    @include generalSize();
+}
+
+.vipSeat {
+    @include generalSize();
+    cursor: pointer;
+    color: $textColor;
+    background-color: $color-3;
+}
+
+.reservedSeat {
+    @include generalSize();
+    cursor: no-drop !important;
+    color: $textColor;
+    background-color: rgba(0, 0, 0, 0.7) !important;
+}
+
+.selectedSeat {
+    @include generalSize();
+    cursor: pointer;
+    color: $textColor;
+    background-color: $color-1;
+}
+
+.checkoutSeat {
+    @include generalSize();
+    cursor: no-drop !important;
+    color: $textColor;
+    background-color: $color-2 !important;
+}
+
+
+.customizeRows {
+    margin-left: 8.2%;
+    margin-top: 15px;
+}
+
+.headingRight {
+    margin-top: 70px;
+}
+
+.divBorder {
+    box-shadow: 0 0 5px grey;
+}
+
+.divPadding {
+    padding: 24px 16px;
+}
+
+.headingCustom {
+    margin: 0;
+    font-size: 17px;
+    font-family: $font;
+    font-weight: 700;
+    line-height: 1.167;
+    letter-spacing: 0em;
+}
+
+.textRight {
+    text-align: right !important;
+}
+
+.btnCheckout {
+    width: 100%;
+    padding: 15px;
+    font-size: 35px;
+    text-transform: uppercase;
+}

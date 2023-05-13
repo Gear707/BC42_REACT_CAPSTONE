@@ -10,10 +10,11 @@ import Loading from "./components/Loading/Loading";
 import AdminLayout from "./layouts/AdminLayout/AdminLayout";
 import AdminRoute from "./routes/AdminRoute";
 import PageNotFound from "./components/PageNotFound/PageNotFound";
+import UserLayout from "./layouts/UserLayout/UserLayout";
+import UserRoute from "./routes/UserRoute";
 import UserManagement from "./modules/Management/UserManagement/UserManagement";
 import MovieForm from "./modules/Management/MovieManagement/MovieForm/MovieForm";
 import MovieShowtime from "./modules/Management/MovieManagement/MovieShowtime/MovieShowtime";
-
 // import Home from "./modules/Home/Home";
 // import MovieDetails from "./modules/MovieDetails/MovieDetails";
 // import Booking from "./modules/Booking/Booking";
@@ -26,6 +27,7 @@ const MovieDetails = lazy(() => import("./modules/MovieDetails/MovieDetails"));
 const Booking = lazy(() => import("./modules/Booking/Booking"));
 const Signin = lazy(() => import("./modules/Auth/Signin/Signin"));
 const Signup = lazy(() => import("./modules/Auth/Signup/Signup"));
+const User = lazy(() => import("./modules/User/User"));
 const MovieManagement = lazy(() =>
   import("./modules/Management/MovieManagement/MovieManagement")
 );
@@ -52,6 +54,17 @@ function App() {
           <Route path="/" element={<AuthLayout />}>
             <Route path="/signin" element={<Signin />} />
             <Route path="/signup" element={<Signup />} />
+          </Route>
+
+          <Route path="/" element={<UserLayout />}>
+            <Route
+              path="/user"
+              element={
+                <UserRoute>
+                  <User />
+                </UserRoute>
+              }
+            />
           </Route>
 
           <Route

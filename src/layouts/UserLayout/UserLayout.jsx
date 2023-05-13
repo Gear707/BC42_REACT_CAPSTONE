@@ -1,9 +1,9 @@
 import React from 'react';
 import { Outlet } from "react-router-dom";
 import Header from "../../components/Header/Header";
-import styles from "./AuthLayout.module.scss";
+import styles from "./UserLayout.module.scss";
 
-function AuthLayout() {
+function UserLayout() {
     return (
         <>
             <Header />
@@ -18,4 +18,4 @@ function AuthLayout() {
     );
 }
 
-export default AuthLayout;
+export default UserLayout;
