@@ -6,7 +6,7 @@
 
 .movieTitle {
     color: #000000;
-    height: 55px;
+    height: 42px;
     opacity: 1;
     overflow: hidden;
     font-size: 18px;
@@ -15,6 +15,11 @@
     font-weight: 500;
     line-height: 22px;
     text-transform: uppercase;
+}
+
+.sliderContainer {
+    max-width: 960px;
+    margin: auto;
 }
 
 .orderButton {
@@ -38,12 +43,16 @@
 .movieCard {
     overflow: hidden !important;
     border-width: 0 !important;
+    max-height: 420px;
+    width: 100%;
 }
 
 .description {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    // margin-bottom: 10px !important;
+    height: 40px;
 }
 
 .movieCard:hover {
@@ -102,3 +111,47 @@ iframe,
     left: -7% !important;
     z-index: 888888;
 }
+
+@media screen and  (max-width: 991px) {
+.sliderContainer {
+    margin: 0 100px !important;
+    .movieTitle {
+        font-size: 17px;
+     }
+     .description {
+        font-size: 15px;
+     }
+}
+}
+
+@media screen and  (max-width: 768px) {
+    .sliderContainer {
+        margin: 0 65px !important;
+         .movieTitle {
+            font-size: 16px;
+         }
+         .description {
+            font-size: 14px;
+         }
+    }
+   
+    }
+
+@media screen and (max-width: 576px) {
+    .sliderContainer {
+         .movieTitle {
+            font-size: 14px;
+         }
+    }
+}
+
+
+
+// @media screen and (max-width: 420px) {
+//     .sliderContainer {
+//         margin: 0 120px !important;
+//          .movieTitle {
+//             font-size: 14px;
+//          }
+//     }
+// }

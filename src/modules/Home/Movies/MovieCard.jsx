@@ -16,7 +16,7 @@ function MovieCard({ item }) {
 
   return (
     <>
-      <Card className={styles.movieCard} style={{ maxHeight: "420px" }}>
+      <Card className={styles.movieCard}>
         <Card.Img
           variant="top"
           src={item.hinhAnh}
