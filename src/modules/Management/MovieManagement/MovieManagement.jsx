@@ -169,8 +169,8 @@ function MovieManagement() {
         </Modal.Header>
         <Modal.Body>
           <form action="" className="form-group">
-            <div className="">
-              <p>Mã Phim</p>
+            <div className="form-group mb-2">
+              <label>Mã Phim</label>
               <input
                 type="text"
                 className="form-control"
@@ -180,8 +180,8 @@ function MovieManagement() {
                 disabled="true"
               />
             </div>
-            <div className="">
-              <p>Tên Phim</p>
+            <div className="form-group mb-2">
+              <label>Tên Phim</label>
               <input
                 type="text"
                 className="form-control"
@@ -191,8 +191,8 @@ function MovieManagement() {
               />
             </div>
 
-            <div className="">
-              <p>Bí danh</p>
+            <div className="form-group mb-2">
+              <label>Bí danh</label>
               <input
                 type="text"
                 className="form-control"
@@ -202,8 +202,8 @@ function MovieManagement() {
               />
             </div>
 
-            <div className="">
-              <p>Mô tả</p>
+            <div className="form-group mb-2">
+              <label>Mô tả</label>
               <input
                 type="text"
                 className="form-control"
@@ -213,8 +213,8 @@ function MovieManagement() {
               />
             </div>
 
-            <div className="">
-              <p>Ngày khởi chiếu</p>
+            <div className="form-group mb-2">
+              <label>Ngày khởi chiếu</label>
               <input
                 type="text"
                 className="form-control"
@@ -224,8 +224,8 @@ function MovieManagement() {
               />
             </div>
 
-            <div className="">
-              <p>Trailer</p>
+            <div className="form-group mb-2">
+              <label>Trailer</label>
               <input
                 type="text"
                 className="form-control"
@@ -235,8 +235,8 @@ function MovieManagement() {
               />
             </div>
 
-            <div className="">
-              <p>Hình ảnh</p>
+            <div className="form-group mb-2">
+              <label>Hình ảnh</label>
               <input
                 type="file"
                 className="form-control"

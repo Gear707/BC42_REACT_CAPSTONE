@@ -48,11 +48,25 @@ function UserManagement() {
       alertError("Người dùng này đã đặt phim không thể xóa");
     }
   };
-
+  console.log(values);
   const onSubmit = async (values) => {
+    console.log(values);
     try {
-      await apiUpdateUser(values);
+      const payload = {
+        taiKhoan: values.taiKhoan,
+        matKhau: values.matKhau,
+        email: values.email,
+        soDt: "0933882893",
+        maNhom: values.maNhom,
+        maLoaiNguoiDung: values.maLoaiNguoiDung,
+        hoTen: values.hoTen,
+      };
+      console.log(values);
+      console.log(payload);
+
+      await apiUpdateUser(payload);
       await getUserList();
+      console.log(payload);
       alertSuccess("Cập nhật user thành công");
     } catch (error) {
       alertError("Cập nhật user thất bại");
@@ -86,11 +100,15 @@ function UserManagement() {
 
   // hàm tìm kiếm user
   const handleSearchUser = async (keywork) => {
-    try {
-      const data = await apiSearchUser(keywork);
-      setUsers(data.content);
-    } catch (error) {
-      alertError("Không tìm thấy user");
+    if (keywork) {
+      try {
+        const data = await apiSearchUser(keywork);
+        setUsers(data.content);
+      } catch (error) {
+        alertError("Không tìm thấy user");
+      }
+    } else {
+      getUserList();
     }
   };
 
@@ -116,7 +134,7 @@ function UserManagement() {
       email: "",
       soDT: "",
       matKhau: "",
-      // maLoaiNguoiDung: "",
+      maLoaiNguoiDung: "",
     },
     mode: "onTouched",
     resolver: yupResolver(schema),
@@ -138,7 +156,7 @@ function UserManagement() {
         <div className="input-group w-25 mb-3">
           <input
             id="txtSearch"
-            type="text"
+            type="search"
             className="form-control"
             placeholder="Nhập từ khóa"
             name="keywork"
@@ -214,7 +232,7 @@ function UserManagement() {
                 onChange={handleChange}
                 value={values?.hoTen}
                 name="hoTen"
-                // {...register("hoTen")}
+                {...register("hoTen")}
               />
             </div>
             {errors.hoTen && (
@@ -229,7 +247,7 @@ function UserManagement() {
                 onChange={handleChange}
                 value={values?.taiKhoan}
                 name="taiKhoan"
-                // {...register("taiKhoan")}
+                {...register("taiKhoan")}
               />
             </div>
             {errors.taiKhoan && (
@@ -244,7 +262,7 @@ function UserManagement() {
                 onChange={handleChange}
                 value={values?.matKhau}
                 name="matKhau"
-                // {...register("matKhau")}
+                {...register("matKhau")}
               />
             </div>
             {errors.matKhau && (
@@ -259,7 +277,7 @@ function UserManagement() {
                 onChange={handleChange}
                 value={values?.email}
                 name="email"
-                // {...register("email")}
+                {...register("email")}
               />
             </div>
             {errors.email && (
@@ -274,7 +292,7 @@ function UserManagement() {
                 onChange={handleChange}
                 value={values?.soDT}
                 name="soDT"
-                // {...register("soDT")}
+                {...register("soDT")}
               />
             </div>
             {errors.soDT && (
@@ -289,7 +307,7 @@ function UserManagement() {
                 onChange={handleChange}
                 value={values?.maNhom}
                 name="maNhom"
-                // {...register("soDT")}
+                {...register("soDt")}
               />
             </div>
             {errors.soDT && (
@@ -307,7 +325,7 @@ function UserManagement() {
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={onSubmit}>
+          <Button variant="primary" onClick={() => onSubmit(values)}>
             Cập nhật
           </Button>
           <Button variant="danger" onClick={() => setShow(false)}>
