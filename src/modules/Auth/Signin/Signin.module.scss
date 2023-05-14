@@ -1,9 +1,12 @@
+@import "../../../assets/responsive";
+@import "../../../assets/breakpoints";
+
 $color-1: #0354a5;
 $defaultSize: 50px;
 $borRad: 10px;
 
 .box {
-    margin-top: 50px !important;
+    width: 550px !important;
     padding: 10px;
     background-color: white;
     border-radius: $borRad;
@@ -43,5 +46,8 @@ $borRad: 10px;
     color: white !important;
     background-color: $color-1 !important;
     border-radius: $borRad !important;
-    box-shadow: none !important;
+
+    @include responsive("small") {
+        font-size: 17px !important;
+    }
 }
