@@ -58,7 +58,6 @@ function MovieManagement() {
       ...values,
       ngayKhoiChieu: ngayKhoiChieu,
     };
-
     try {
       await apiUpdateMovie(payload);
       getMovieList();

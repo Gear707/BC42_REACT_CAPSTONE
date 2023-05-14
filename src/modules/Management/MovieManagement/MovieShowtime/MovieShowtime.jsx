@@ -13,7 +13,6 @@ function MovieShowtime() {
   const [values, setValues] = useState([]);
   const [cumRap, setCumRap] = useState([]);
   const { maPhim } = useParams();
-  console.log(maPhim);
   const getCinemaBrand = async () => {
     try {
       const data = await apiGetCinemaBrand();

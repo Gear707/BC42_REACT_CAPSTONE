@@ -36,14 +36,10 @@ export const apiDeleteUser = async (taiKhoan) => {
   return data;
 };
 
-export const apiUpdateUser = async (values) => {
-  const { data } = await axiosClient.put(
+export const apiUpdateUser = async (user) => {
+  const { data } = await axiosClient.post(
     "QuanLyNguoiDung/CapNhatThongTinNguoiDung",
-    {
-      params: {
-        maNhom: "GP06",
-      },
-    }
+    user
   );
   return data;
 };

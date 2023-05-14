@@ -20,7 +20,7 @@ function UserManagement() {
   //   taiKhoan: "",
   //   matKhau: "",
   //   email: "",
-  //   soDt: "",
+  //   soDT: "",
   //   maNhom: "",
   //   maLoaiNguoiDung: "",
   //   hoTen: "",
@@ -51,33 +51,45 @@ function UserManagement() {
   console.log(values);
   const onSubmit = async (values) => {
     console.log(values);
+    const payload = {
+      taiKhoan: values.taiKhoan,
+      matKhau: values.matKhau,
+      email: values.email,
+      soDt: "0933882893",
+      maNhom: values.maNhom,
+      maLoaiNguoiDung: values.maLoaiNguoiDung,
+      hoTen: values.hoTen,
+    };
+    console.log(payload);
     try {
-      const payload = {
-        taiKhoan: values.taiKhoan,
-        matKhau: values.matKhau,
-        email: values.email,
-        soDt: "0933882893",
-        maNhom: values.maNhom,
-        maLoaiNguoiDung: values.maLoaiNguoiDung,
-        hoTen: values.hoTen,
-      };
-      console.log(values);
-      console.log(payload);
-
       await apiUpdateUser(payload);
       await getUserList();
-      console.log(payload);
+      reset({
+        taiKhoan: "",
+        matKhau: "",
+        email: "",
+        soDT: "",
+        maNhom: "",
+        maLoaiNguoiDung: "",
+        hoTen: "",
+      });
       alertSuccess("Cập nhật user thành công");
     } catch (error) {
       alertError("Cập nhật user thất bại");
+      console.log(error.response?.headers);
+      // console.log(data.content);
+      console.log(error.response.data); // Thông tin lỗi trả về từ server
+      console.log(error.response.status); // Mã lỗi HTTP (ví dụ: 404, 500, ...)
+      console.log(error.response.headers);
     }
   };
 
   const handleSelectUser = (user) => {
     setShow(true);
     setValues(user);
+    console.log(user);
   };
-
+  console.log(values);
   // const handleChange = (evt) => {
   //   setValues(evt.target);
   // };
@@ -126,6 +138,7 @@ function UserManagement() {
     handleSubmit,
     setValue,
     formState: { errors },
+    reset,
   } = useForm({
     // Khai báo các giá trị khởi tạo cho các input
     defaultValues: {
@@ -220,10 +233,21 @@ function UserManagement() {
         </Modal.Header>
         <Modal.Body>
           <form
-            // onSubmit={handleSubmit(onSubmit, onError)}
+            onSubmit={handleSubmit(onSubmit, onError)}
             action=""
             className="form-group"
           >
+            <div className="form-group mb-2">
+              <label>Tài khoản</label>
+              <input
+                type="text"
+                className="form-control"
+                value={values?.taiKhoan}
+                name="taiKhoan"
+                disabled="true"
+              />
+            </div>
+
             <div className="form-group mb-2">
               <label>Họ tên</label>
               <input
@@ -232,26 +256,11 @@ function UserManagement() {
                 onChange={handleChange}
                 value={values?.hoTen}
                 name="hoTen"
-                {...register("hoTen")}
+                // {...register("hoTen")}
               />
             </div>
             {errors.hoTen && (
               <p className="mt-1 text-danger">{errors.hoTen.message}</p>
-            )}
-
-            <div className="form-group mb-2">
-              <label>Tài khoản</label>
-              <input
-                type="text"
-                className="form-control"
-                onChange={handleChange}
-                value={values?.taiKhoan}
-                name="taiKhoan"
-                {...register("taiKhoan")}
-              />
-            </div>
-            {errors.taiKhoan && (
-              <p className="mt-1 text-danger">{errors.taiKhoan.message}</p>
             )}
 
             <div className="form-group mb-2">
@@ -262,7 +271,7 @@ function UserManagement() {
                 onChange={handleChange}
                 value={values?.matKhau}
                 name="matKhau"
-                {...register("matKhau")}
+                // {...register("matKhau")}
               />
             </div>
             {errors.matKhau && (
@@ -307,11 +316,11 @@ function UserManagement() {
                 onChange={handleChange}
                 value={values?.maNhom}
                 name="maNhom"
-                {...register("soDt")}
+                // {...register("soDt")}
               />
             </div>
-            {errors.soDT && (
-              <p className="mt-1 text-danger">{errors.soDT.message}</p>
+            {errors.maNhom && (
+              <p className="mt-1 text-danger">{errors.maNhom.message}</p>
             )}
 
             <div className="form-group mb-2">
