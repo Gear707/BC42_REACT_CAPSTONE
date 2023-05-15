@@ -44,6 +44,16 @@ export const apiUpdateUser = async (user) => {
   return data;
 };
 
+export const apiCreateNewUser = async (values) => {
+  const payload = { ...values, maNhom: "GP06" };
+
+  const { data } = await axiosClient.post(
+    "/QuanLyNguoiDung/ThemNguoiDung",
+    payload
+  );
+  return data;
+};
+
 export const apiSearchUser = async (keywork) => {
   const { data } = await axiosClient.get(
     `QuanLyNguoiDung/TimKiemNguoiDung?MaNhom=GP06&tuKhoa=${keywork}`

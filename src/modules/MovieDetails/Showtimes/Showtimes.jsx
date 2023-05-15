@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { apiGetCinemaInfos } from "../../../apis/cinemaAPI";
 import styles from "./Showtimes.module.scss";
+import antClass from "./antClass.scss";
 import { Tabs } from "antd";
 import CumRapChieu from "./CumRapChieu";
 import HeThongRap from "./HeThongRap";

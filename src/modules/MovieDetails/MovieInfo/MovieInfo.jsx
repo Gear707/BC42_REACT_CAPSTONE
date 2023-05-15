@@ -37,13 +37,17 @@ function MovieInfo({ movieId, movieDuration }) {
     <>
       <div className={styles.container}>
         <div style={{ marinTop: "100px" }} className="row">
-          <div className={`col-lg-3 ${styles.detailFormat}`}>
+          <div
+            className={`col-md-3 col-sm-4 col-12 text-center ${styles.detailFormat}`}
+          >
             <MovieTrailer movie={movie} cinema={cinema} />
           </div>
-          <div className={`col-lg-7 ${styles.detailFormat}`}>
+          <div className={`col-md-7 col-sm-8 ${styles.detailFormat}`}>
             <MovieScript movieDuration={movieDuration} movie={movie} />
           </div>
-          <div className={`col-lg-2 ${styles.detailFormat}`}>
+          <div
+            className={`d-none col-2 d-sm-none d-md-block ${styles.detailFormat}`}
+          >
             <div className="d-flex flex-column ">
               <img
                 className={styles.ratedImg}

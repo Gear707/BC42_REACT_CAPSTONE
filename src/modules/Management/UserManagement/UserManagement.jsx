@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./UserManagement.module.scss";
 import {
+  apiCreateNewUser,
   apiDeleteUser,
   apiGetUserList,
   apiSearchUser,
@@ -14,18 +15,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { alertError, alertSuccess } from "../../../apis/sweetAlert2";
 
 function UserManagement() {
-  const [values, setValues] = useState([]);
+  //state quản lý input search
+  const [values, setValues] = useState(null);
 
-  // const [values, setValues] = useState({
-  //   taiKhoan: "",
-  //   matKhau: "",
-  //   email: "",
-  //   soDT: "",
-  //   maNhom: "",
-  //   maLoaiNguoiDung: "",
-  //   hoTen: "",
-  // });
-
+  // hàm cập nhật state cho input search
   const handleChange = (evt) => {
     const { value, name } = evt.target;
     setValues({
@@ -37,6 +30,78 @@ function UserManagement() {
   // state đóng mở modal
   const [show, setShow] = useState(false);
   const [users, setUsers] = useState([]);
+  const [user, setUser] = useState(null);
+
+  // Định nghĩa các xác thực cho thuộc tính
+  const schema = yup.object({
+    taiKhoan: yup.string().required("Tài khoản không được để trống!"),
+    hoTen: yup.string().required("Họ tên không được để trống!"),
+    email: yup.string().required("Email không được để trống!"),
+    soDT: yup.string().required("Số điện thoại không được để trống!"),
+    matKhau: yup.string().required("Mật khẩu không được để trống!"),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    // Khai báo các giá trị khởi tạo cho các input
+    defaultValues: {
+      taiKhoan: "",
+      hoTen: "",
+      email: "",
+      soDT: "",
+      matKhau: "",
+      maLoaiNguoiDung: "",
+    },
+    mode: "onTouched",
+    resolver: yupResolver(schema),
+  });
+
+  // hàm cập nhật user
+  const onSubmit = async (values) => {
+    if (user) {
+      try {
+        await apiUpdateUser(values);
+        await getUserList();
+        alertSuccess("Cập nhật user thành công");
+        reset({
+          taiKhoan: "",
+          hoTen: "",
+          email: "",
+          soDT: "",
+          matKhau: "",
+          maLoaiNguoiDung: "",
+        });
+      } catch (error) {
+        alertError("Cập nhật user thất bại");
+      }
+    } else {
+      try {
+        await apiCreateNewUser(values);
+        await getUserList();
+        alertSuccess("Cập nhật user thành công");
+        reset({
+          taiKhoan: "",
+          hoTen: "",
+          email: "",
+          soDT: "",
+          matKhau: "",
+          maLoaiNguoiDung: "",
+        });
+      } catch (error) {
+        alertError("Thêm user thất bại");
+      }
+    }
+
+    setShow(false);
+  };
+
+  const onError = (errors) => {
+    console.log(errors);
+  };
 
   // Hàm xóa user
   const handleDeleteUser = async (taiKhoan) => {
@@ -48,59 +113,36 @@ function UserManagement() {
       alertError("Người dùng này đã đặt phim không thể xóa");
     }
   };
-  console.log(values);
-  const onSubmit = async (values) => {
-    console.log(values);
-    const payload = {
-      taiKhoan: values.taiKhoan,
-      matKhau: values.matKhau,
-      email: values.email,
-      soDt: "0933882893",
-      maNhom: values.maNhom,
-      maLoaiNguoiDung: values.maLoaiNguoiDung,
-      hoTen: values.hoTen,
-    };
-    console.log(payload);
-    try {
-      await apiUpdateUser(payload);
-      await getUserList();
+
+  // hàm dom giá trị input của user được chọn
+  const handleSelectUser = (user) => {
+    setShow(true);
+    if (user) {
+      setUser(user);
+      reset({
+        taiKhoan: user.taiKhoan,
+        hoTen: user.hoTen,
+        email: user.email,
+        soDT: user.soDT,
+        matKhau: user.matKhau,
+        maNhom: "GP06",
+        maLoaiNguoiDung: user.maLoaiNguoiDung,
+      });
+    } else {
+      setUser(null);
       reset({
         taiKhoan: "",
-        matKhau: "",
+        hoTen: "",
         email: "",
         soDT: "",
+        matKhau: "",
         maNhom: "",
         maLoaiNguoiDung: "",
-        hoTen: "",
       });
-      alertSuccess("Cập nhật user thành công");
-    } catch (error) {
-      alertError("Cập nhật user thất bại");
-      console.log(error.response?.headers);
-      // console.log(data.content);
-      console.log(error.response.data); // Thông tin lỗi trả về từ server
-      console.log(error.response.status); // Mã lỗi HTTP (ví dụ: 404, 500, ...)
-      console.log(error.response.headers);
     }
   };
 
-  const handleSelectUser = (user) => {
-    setShow(true);
-    setValues(user);
-    console.log(user);
-  };
-  console.log(values);
-  // const handleChange = (evt) => {
-  //   setValues(evt.target);
-  // };
-
-  // const onSubmit = (user) => {
-  //   // setSelectedUser(user);
-  //   setShow(true);
-  //   console.log(user);
-  //   setValues(user);
-  // };
-
+  // hàm lấy danh sách user (của GP06) về và hiển thị
   const getUserList = async () => {
     try {
       const data = await apiGetUserList();
@@ -124,39 +166,6 @@ function UserManagement() {
     }
   };
 
-  // Định nghĩa các xác thực cho thuộc tính
-  const schema = yup.object({
-    taiKhoan: yup.string().required("Tài khoản không được để trống!"),
-    hoTen: yup.string().required("Họ tên không được để trống!"),
-    email: yup.string().required("Email không được để trống!"),
-    soDT: yup.string().required("Số điện thoại không được để trống!"),
-    matKhau: yup.string().required("Mật khẩu không được để trống!"),
-  });
-
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors },
-    reset,
-  } = useForm({
-    // Khai báo các giá trị khởi tạo cho các input
-    defaultValues: {
-      taiKhoan: "",
-      hoTen: "",
-      email: "",
-      soDT: "",
-      matKhau: "",
-      maLoaiNguoiDung: "",
-    },
-    mode: "onTouched",
-    resolver: yupResolver(schema),
-  });
-
-  const onError = (errors) => {
-    console.log(errors);
-  };
-
   useEffect(() => {
     getUserList();
   }, []);
@@ -166,24 +175,31 @@ function UserManagement() {
       <p className={styles.title1}>Quản lý tài khoản</p>
       <div className="d-flex justify-content-between">
         <p className={styles.title2}>Danh sách người dùng</p>
-        <div className="input-group w-25 mb-3">
-          <input
-            id="txtSearch"
-            type="search"
-            className="form-control"
-            placeholder="Nhập từ khóa"
-            name="keywork"
-            onChange={handleChange}
-          />
+        <div className="d-flex mb-3">
+          <div className="input-group w-75">
+            <input
+              id="txtSearch"
+              type="search"
+              className="form-control"
+              placeholder="Nhập từ khóa"
+              name="keywork"
+              onChange={handleChange}
+            />
+            <button
+              className="btn btn-primary me-3"
+              onClick={() => handleSearchUser(values.keywork)}
+            >
+              <i className="fa fa-search" />
+            </button>
+          </div>
           <button
-            className="btn btn-primary me-3"
-            onClick={() => handleSearchUser(values.keywork)}
+            className="btn btn-success"
+            onClick={() => handleSelectUser(null)}
           >
-            <i className="fa fa-search" />
+            Thêm
           </button>
         </div>
       </div>
-
       <table className="table">
         <thead>
           <tr className="">
@@ -227,14 +243,15 @@ function UserManagement() {
           })}
         </tbody>
       </table>
-      <Modal show={show} onHide={() => setShow(false)}>
+      <Modal user={user} show={show} onHide={() => setShow(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Chỉnh sửa thông tin người dùng</Modal.Title>
+          <Modal.Title>
+            {user ? "Chỉnh sửa thông tin người dùng" : "Thêm mới người dùng"}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form
             onSubmit={handleSubmit(onSubmit, onError)}
-            action=""
             className="form-group"
           >
             <div className="form-group mb-2">
@@ -242,65 +259,48 @@ function UserManagement() {
               <input
                 type="text"
                 className="form-control"
-                value={values?.taiKhoan}
-                name="taiKhoan"
-                disabled="true"
+                disabled={user}
+                {...register("taiKhoan")}
               />
             </div>
-
             <div className="form-group mb-2">
               <label>Họ tên</label>
               <input
                 type="text"
                 className="form-control"
-                onChange={handleChange}
-                value={values?.hoTen}
-                name="hoTen"
-                // {...register("hoTen")}
+                {...register("hoTen")}
               />
             </div>
             {errors.hoTen && (
               <p className="mt-1 text-danger">{errors.hoTen.message}</p>
             )}
-
             <div className="form-group mb-2">
               <label>Mật khẩu</label>
               <input
                 type="text"
                 className="form-control"
-                onChange={handleChange}
-                value={values?.matKhau}
-                name="matKhau"
-                // {...register("matKhau")}
+                {...register("matKhau")}
               />
             </div>
             {errors.matKhau && (
               <p className="mt-1 text-danger">{errors.matKhau.message}</p>
             )}
-
             <div className="form-group mb-2">
               <label>Email</label>
               <input
                 type="text"
                 className="form-control"
-                onChange={handleChange}
-                value={values?.email}
-                name="email"
                 {...register("email")}
               />
             </div>
             {errors.email && (
               <p className="mt-1 text-danger">{errors.email.message}</p>
             )}
-
             <div className="form-group mb-2">
               <label>Số điện thoại</label>
               <input
                 type="text"
                 className="form-control"
-                onChange={handleChange}
-                value={values?.soDT}
-                name="soDT"
                 {...register("soDT")}
               />
             </div>
@@ -309,38 +309,34 @@ function UserManagement() {
             )}
 
             <div className="form-group mb-2">
-              <label>Mã nhóm</label>
-              <input
-                type="text"
-                className="form-control"
-                onChange={handleChange}
-                value={values?.maNhom}
-                name="maNhom"
-                // {...register("soDt")}
-              />
-            </div>
-            {errors.maNhom && (
-              <p className="mt-1 text-danger">{errors.maNhom.message}</p>
-            )}
-
-            <div className="form-group mb-2">
               <span>Người dùng</span>
-              <select className="form-control" name="maLoaiNguoiDung" id="">
-                <option selected>{values.maLoaiNguoiDung}</option>
+              <select
+                className="form-control"
+                name="maLoaiNguoiDung"
+                {...register("maLoaiNguoiDung")}
+                id=""
+              >
+                <option selected>Chọn loại người dùng</option>
                 <option value="QuanTri">QuanTri</option>
                 <option value="KhachHang">KhachHang</option>
               </select>
+              {errors.maLoaiNguoiDung && (
+                <p className="mt-1 text-danger">
+                  {errors.maLoaiNguoiDung.message}
+                </p>
+              )}
+            </div>
+
+            <div className="d-flex justify-content-end">
+              <button disabled={user} className="btn btn-success me-2">
+                Thêm
+              </button>
+              <button disabled={!user} className="btn btn-primary">
+                Cập nhật
+              </button>
             </div>
           </form>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" onClick={() => onSubmit(values)}>
-            Cập nhật
-          </Button>
-          <Button variant="danger" onClick={() => setShow(false)}>
-            Hủy
-          </Button>
-        </Modal.Footer>
       </Modal>
     </div>
   );

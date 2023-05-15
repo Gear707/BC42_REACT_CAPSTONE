@@ -6,27 +6,94 @@ function Footer() {
     <div id="contact" className={styles.bgStyle}>
       <div className={`${styles.bgContainer} ${styles.defaultFontStyle}`}>
         <div className="row">
-          <div className="col-md-4 mt-5">
+          <div className="col-md-4 col-sm-6 mt-5">
             <h6 className={styles.subTitle}>TIX</h6>
             <div className="row mt-3">
-              <div className="col-md-6">
+              <div className="col-6">
                 <a className={styles.fontStyle1}>FAQ</a>
               </div>
-              <div className="col-md-6">
+              <div className="col-6">
                 <a className={styles.fontStyle1}>Thỏa thuận sử dụng</a>
               </div>
-              <div className="col-md-6">
+              <div className="col-6">
                 <a className={styles.fontStyle1}>Brand Guidelines</a>
               </div>
-              <div className="col-md-6">
+              <div className="col-6">
                 <a className={styles.fontStyle1}>Chính sách bảo mật</a>
               </div>
             </div>
+            <div className="col-sm-12 d-md-none mt-5">
+              <div className="row">
+                <div className="col-sm-12 col-6">
+                  <h6 className={styles.subTitle}>MOBILE APP</h6>
+                  <div className="row mt-3 mb-3">
+                    <div className="col-6">
+                      <a
+                        target="_blank"
+                        href="https://apps.apple.com/vn/app/tix-%C4%91%E1%BA%B7t-v%C3%A9-nhanh-nh%E1%BA%A5t/id615186197"
+                        rel="noreferrer"
+                      >
+                        <img
+                          src="https://www.linkpicture.com/q/apple_12.png"
+                          className={styles.logoStyle}
+                          alt="appleLogo"
+                        />
+                      </a>
+                    </div>
+                    <div className="col-6">
+                      <a
+                        target="_blank"
+                        href="https://play.google.com/store/apps/details?id=vn.com.vng.phim123"
+                        rel="noreferrer"
+                      >
+                        <img
+                          alt="androidLogo"
+                          src="https://www.linkpicture.com/q/android_1.png"
+                          className={styles.logoStyle}
+                        />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-sm-12 col-6">
+                  <h6 className={styles.subTitle}>SOCIAL</h6>
+                  <div className="row mt-3">
+                    <div className="col-6">
+                      <a
+                        target="_blank"
+                        href="https://apps.apple.com/vn/app/tix-%C4%91%E1%BA%B7t-v%C3%A9-nhanh-nh%E1%BA%A5t/id615186197"
+                        rel="noreferrer"
+                      >
+                        <img
+                          alt="facebookLogo"
+                          src="https://www.linkpicture.com/q/facebook_8.png"
+                          className={styles.logoStyle}
+                        />
+                      </a>
+                    </div>
+                    <div className="col-6">
+                      <a
+                        target="_blank"
+                        href="https://play.google.com/store/apps/details?id=vn.com.vng.phim123"
+                        rel="noreferrer"
+                      >
+                        <img
+                          className={styles.logoStyle}
+                          alt="zaloLogo"
+                          src="https://www.linkpicture.com/q/zalo.png"
+                          width={30}
+                        />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="col-md-4 mt-5">
+          <div className="col-md-4 col-sm-6 mt-5">
             <h6 className={styles.subTitle}>ĐỐI TÁC</h6>
             <div className="row mt-3">
-              <div className="mb-3 col-md-3">
+              <div className="col-3 mb-3">
                 <a
                   target="_blank"
                   href="https://www.cgv.vn/"
@@ -40,7 +107,7 @@ function Footer() {
                   />
                 </a>
               </div>
-              <div className="mb-3 col-md-3">
+              <div className="col-3 mb-3">
                 <a
                   target="_blank"
                   href="https://www.bhdstar.vn/"
@@ -54,7 +121,7 @@ function Footer() {
                   />
                 </a>
               </div>
-              <div className="mb-3 col-md-3">
+              <div className="col-3 mb-3">
                 <a
                   target="_blank"
                   href="https://www.galaxycine.vn/"
@@ -68,7 +135,7 @@ function Footer() {
                   />
                 </a>
               </div>
-              <div className="mb-3 col-md-3">
+              <div className="col-3 mb-3">
                 <a
                   target="_blank"
                   href="http://cinestar.com.vn/"
@@ -82,7 +149,7 @@ function Footer() {
                   />
                 </a>
               </div>
-              <div className="col-md-3 mb-3">
+              <div className="col-3 mb-3">
                 <a
                   target="_blank"
                   href="http://lottecinemavn.com/LCHS/index.aspx"
@@ -96,7 +163,7 @@ function Footer() {
                   />
                 </a>
               </div>
-              <div className={`col-md-3 ${styles.logoStyssle}`}>
+              <div className={`col-3 mb-3 ${styles.logoStyssle}`}>
                 <a
                   target="_blank"
                   href="https://www.megagscinemas.vn/"
@@ -110,7 +177,7 @@ function Footer() {
                   />
                 </a>
               </div>
-              <div className="col-md-3">
+              <div className="col-3 mb-3">
                 <a
                   target="_blank"
                   href="https://www.betacinemas.vn/home.htm"
@@ -123,7 +190,7 @@ function Footer() {
                   />
                 </a>
               </div>
-              <div className="col-md-3 mb-3">
+              <div className="col-3 mb-3">
                 <a target="_blank" href="http://ddcinema.vn/" rel="noreferrer">
                   <img
                     src="https://www.linkpicture.com/q/ddc_4.png"
@@ -132,7 +199,7 @@ function Footer() {
                   />
                 </a>
               </div>
-              <div className="col-md-3 mb-3">
+              <div className="col-3 mb-3">
                 <a
                   target="_blank"
                   href="https://touchcinema.com/"
@@ -145,7 +212,7 @@ function Footer() {
                   />
                 </a>
               </div>
-              <div className="col-md-3 mb-3">
+              <div className="col-3 mb-3">
                 <a
                   target="_blank"
                   href="https://cinemaxvn.com/"
@@ -158,7 +225,7 @@ function Footer() {
                   />
                 </a>
               </div>
-              <div className="col-md-3 mb-3">
+              <div className="col-3 mb-3">
                 <a
                   target="_blank"
                   href="https://starlight.vn/"
@@ -171,7 +238,7 @@ function Footer() {
                   />
                 </a>
               </div>
-              <div className="col-md-3 mb-3">
+              <div className="col-3 mb-3">
                 <a
                   target="_blank"
                   href="https://www.dcine.vn/"
@@ -184,7 +251,7 @@ function Footer() {
                   />
                 </a>
               </div>
-              <div className="col-md-3 mb-3">
+              <div className="col-3 mb-3">
                 <a target="_blank" href="https://zalopay.vn/" rel="noreferrer">
                   <img
                     src="https://www.linkpicture.com/q/zaloPay.png"
@@ -193,7 +260,7 @@ function Footer() {
                   />
                 </a>
               </div>
-              <div className="col-md-3 mb-3">
+              <div className="col-3 mb-3">
                 <a
                   target="_blank"
                   href="https://www.payoo.vn/"
@@ -206,7 +273,7 @@ function Footer() {
                   />
                 </a>
               </div>
-              <div className="col-md-3 mb-3">
+              <div className="col-3 mb-3">
                 <a
                   target="_blank"
                   href="https://portal.vietcombank.com.vn/Pages/Home.aspx"
@@ -219,7 +286,7 @@ function Footer() {
                   />
                 </a>
               </div>
-              <div className="col-md-3 mb-3">
+              <div className="col-3 mb-3">
                 <a
                   target="_blank"
                   href="https://www.payoo.vn/"
@@ -232,7 +299,7 @@ function Footer() {
                   />
                 </a>
               </div>
-              <div className="col-md-3 mb-3">
+              <div className="col-3 mb-3">
                 <a
                   target="_blank"
                   href="https://www.vietinbank.vn/web/home/vn/index.html"
@@ -245,7 +312,7 @@ function Footer() {
                   />
                 </a>
               </div>
-              <div className="col-md-3 mb-3">
+              <div className="col-3 mb-3">
                 <a
                   target="_blank"
                   href="https://www.indovinabank.com.vn/"
@@ -258,7 +325,7 @@ function Footer() {
                   />
                 </a>
               </div>
-              <div className="col-md-3 mb-3">
+              <div className="col-3 mb-3">
                 <a
                   target="_blank"
                   href="https://webv3.123go.vn/"
@@ -271,7 +338,7 @@ function Footer() {
                   />
                 </a>
               </div>
-              <div className="col-md-3 mb-3">
+              <div className="col-3 mb-3">
                 <a target="_blank" href="https://laban.vn/" rel="noreferrer">
                   <img
                     src="https://www.linkpicture.com/q/laban_1.jpeg"
@@ -283,7 +350,7 @@ function Footer() {
             </div>
             <p />
           </div>
-          <div className="col-md-4 mt-5">
+          <div className="col-4 d-none d-md-block mt-5">
             <div className="row">
               <div className="col-md-6 col-sm-12">
                 <h6 className={styles.subTitle}>MOBILE APP</h6>
@@ -355,6 +422,7 @@ function Footer() {
         <div className="row text-center">
           <div className="col-sm-2">
             <img
+              className={`${styles.daThongBao} mb-3`}
               alt="zizonLogo"
               src="https://www.linkpicture.com/q/zion.jpeg"
               width={100}
@@ -381,6 +449,7 @@ function Footer() {
           </div>
           <div className="col-sm-2">
             <img
+              className={styles.daThongBao}
               alt="daThongBaoLogo"
               src="https://www.linkpicture.com/q/daThongBao.png"
               width={100}

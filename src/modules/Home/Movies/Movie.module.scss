@@ -18,7 +18,7 @@
 }
 
 .sliderContainer {
-    max-width: 960px;
+   width: 67%;
     margin: auto;
 }
 
@@ -112,46 +112,80 @@ iframe,
     z-index: 888888;
 }
 
-@media screen and  (max-width: 991px) {
-.sliderContainer {
-    margin: 0 100px !important;
-    .movieTitle {
-        font-size: 17px;
-     }
-     .description {
-        font-size: 15px;
-     }
-}
+@media screen and (max-width: 991px) {
+    .sliderContainer {
+        .movieTitle {
+            font-size: 17px;
+        }
+
+        .description {
+            font-size: 15px;
+        }
+    }
 }
 
-@media screen and  (max-width: 768px) {
+@media screen and (max-width: 768px) {
     .sliderContainer {
-        margin: 0 65px !important;
-         .movieTitle {
-            font-size: 16px;
-         }
-         .description {
+        width: 70% !important;
+        .movieCard {
             font-size: 14px;
-         }
+            max-height: 380px;
+
+            .movieTitle {
+                font-size: 16px;
+            }
+
+            .movieImg {
+                height: 260px;
+            }
+
+            .description {
+                font-size: 14px;
+            }
+
+            .orderButton {
+                font-size: 16px;
+            }
+        }
+
     }
-   
-    }
+}
+
 
 @media screen and (max-width: 576px) {
     .sliderContainer {
-         .movieTitle {
+        .movieCard {
             font-size: 14px;
-         }
+            max-height: 360px;
+
+            .movieTitle {
+                font-size: 15px;
+            }
+
+            .movieImg {
+                height: 245px;
+            }
+        }
     }
 }
 
+@media screen and (max-width: 420px) {
+    .sliderContainer {
+        .movieCard {
+            font-size: 14px;
+            max-height: 340px;
 
+            .movieTitle {
+                font-size: 14px;
+            }
 
-// @media screen and (max-width: 420px) {
-//     .sliderContainer {
-//         margin: 0 120px !important;
-//          .movieTitle {
-//             font-size: 14px;
-//          }
-//     }
-// }
+            .movieImg {
+                height: 225px;
+            }
+
+            .orderButton {
+                font-size: 15px;
+            }
+        }
+    }
+}

@@ -1,5 +1,5 @@
 .container {
-    width: 70%;
+    width: 80%;
     margin: auto;
     display: flex;
     margin: 120px auto 0px;
@@ -7,6 +7,7 @@
     overflow-y: scroll;
     color: black;
     padding: 15px 0;
+    margin-top: 30px;
 }
 
 .logo {
@@ -18,6 +19,7 @@
     position: relative;
     width: 60px;
     height: auto;
+
     &::after {
         content: "";
         width: 100%;
@@ -62,3 +64,51 @@
     margin-bottom: 5px;
 }
 
+@media screen and (max-width: 576px) {
+    .container {
+        .logo {
+            width: 85%;
+            height: auto;
+        }
+
+        .tenCumRap {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .ngayChieu {
+            font-size: 13px;
+            margin-bottom: 10px !important;
+            padding: 4px
+        }
+
+        .gioChieu {
+            font-size: 15px !important;
+        }
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .container {
+        .logo {
+            width: 70%;
+            height: auto;
+        }
+
+        .tenCumRap {
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .ngayChieu {
+            font-size: 12px;
+            margin-bottom: 10px !important;
+            padding: 4px;
+            width: 150px !important;
+        }
+
+        .gioChieu {
+            font-size: 12px !important;
+        }
+    }
+}

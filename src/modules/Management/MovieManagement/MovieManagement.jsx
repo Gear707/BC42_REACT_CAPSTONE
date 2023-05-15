@@ -9,47 +9,73 @@ import {
 } from "../../../apis/movieAPI";
 import { useNavigate } from "react-router-dom";
 import styles from "./MovieManagement.module.scss";
+import { useForm } from "react-hook-form";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 function MovieManagement() {
-  const navigate = useNavigate();
-  // state theo dõi input
-  const [values, setValues] = useState({
-    maPhim: "",
-    tenPhim: "",
-    biDanh: "",
-    moTa: "",
-    ngayKhoiChieu: "",
-    trailer: "",
-    hinhAnh: "",
-  });
+  // Định dạng file ảnh
+  const PHOTO_FORMAT = /\.(jpeg|jpg|png|webp)$/i;
+  // Định dạng đường dẫn Youtube
+  const YOUTUBE_URL = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$/;
 
+  const navigate = useNavigate();
   // state quản lý đóng/mở modal
   const [show, setShow] = useState(false);
   // state list phim
   const [movies, setMovies] = useState([]);
+  // state quản lý phim được chọn để cập nhật
+  const [movie, setMovie] = useState([]);
   // state lưu giữ mã phim trước khi chuyển trang Tạo lịch chiếu
   const [maPhim, setMaPhim] = useState(null);
-  const handleChange = (evt) => {
-    const { value, name } = evt.target;
-    setValues({
-      ...values,
-      [name]: value,
-    });
-  };
+  // Định nghĩa các xác thực cho thuộc tính
+  const schema = yup.object({
+    tenPhim: yup.string().required("Tên phim không được để trống!"),
+    moTa: yup.string().required("Mô tả không được để trống!"),
+    trailer: yup
+      .string()
+      .required("Trailer không được để trống!")
+      .matches(YOUTUBE_URL, "Đường dẫn phải là đường dẫn từ Youtube"),
+    hinhAnh: yup
+      .mixed()
+      .required("Hình ảnh không được để trống!")
+      .test(
+        "fileType",
+        "File không đúng định dạng (jpg, jpeg, png)",
+        (value) => {
+          if (value.length > 0) {
+            return PHOTO_FORMAT.test(value[0].name);
+          }
+          return false;
+        }
+      )
+      .test(
+        "fileSize",
+        "Kích thước file không được vượt quá 1MB",
+        (value) => value.length && value[0].size <= 1000000
+      ),
+    ngayKhoiChieu: yup
+      .string()
+      .required("Ngày khởi chiếu không được để trống!"),
+  });
 
-  const handleSelectMovie = (movie) => {
-    setShow(true);
-    setValues(movie);
-  };
-
-  // hàm lấy danh sách phim và hiển thị
-  const getMovieList = async () => {
-    try {
-      const data = await apiGetMovieList();
-      setMovies(data.content);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm({
+    // Khai báo các giá trị khởi tạo cho các input
+    defaultValues: {
+      maPhim: "",
+      tenPhim: "",
+      moTa: "",
+      ngayKhoiChieu: "",
+      trailer: "",
+      hinhAnh: "",
+    },
+    mode: "onTouched",
+    resolver: yupResolver(schema),
+  });
 
   // hàm cập nhật phim
   const onSubmit = async (values) => {
@@ -65,6 +91,35 @@ function MovieManagement() {
       alertSuccess("Cập nhật phim thành công");
     } catch (error) {
       alertError("Cập nhật phim thất bại");
+    }
+  };
+  const onError = (errors) => {
+    console.log(errors);
+  };
+
+  const handleSelectMovie = (movie) => {
+    setShow(true);
+    console.log(movie);
+    setMovie(movie);
+    reset({
+      maPhim: movie.maPhim,
+      tenPhim: movie.tenPhim,
+      moTa: movie.moTa,
+      ngayKhoiChieu: dayjs(movie.ngayKhoiChieu).format("YYYY-MM-DD"),
+      trailer: movie.trailer,
+      hinhAnh: movie.hinhAnh,
+      maNhom: "GP06",
+      danhGia: movie.danhGia,
+    });
+  };
+
+  // hàm lấy danh sách phim và hiển thị
+  const getMovieList = async () => {
+    try {
+      const data = await apiGetMovieList();
+      setMovies(data.content);
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -87,7 +142,7 @@ function MovieManagement() {
       <p className={styles.title1}>Quản lý phim</p>
       <div className="d-flex justify-content-between">
         <p className={styles.title2}>Danh sách phim</p>
-        <div className="d-flex me-5">
+        <div className="d-flex me-3">
           <div className="input-group w-75">
             <input
               id="txtSearch"
@@ -167,16 +222,17 @@ function MovieManagement() {
           <Modal.Title>Chỉnh sửa thông tin phim</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <form action="" className="form-group">
+          <form
+            onSubmit={handleSubmit(onSubmit, onError)}
+            className="form-group"
+          >
             <div className="form-group mb-2">
               <label>Mã Phim</label>
               <input
                 type="text"
                 className="form-control"
-                onChange={handleChange}
-                name="maPhim"
-                value={values?.maPhim}
                 disabled="true"
+                {...register("maPhim")}
               />
             </div>
             <div className="form-group mb-2">
@@ -184,21 +240,11 @@ function MovieManagement() {
               <input
                 type="text"
                 className="form-control"
-                onChange={handleChange}
-                name="tenPhim"
-                value={values?.tenPhim}
+                {...register("tenPhim")}
               />
-            </div>
-
-            <div className="form-group mb-2">
-              <label>Bí danh</label>
-              <input
-                type="text"
-                className="form-control"
-                name="biDanh"
-                onChange={handleChange}
-                value={values?.biDanh}
-              />
+              {errors.tenPhim && (
+                <p className="mt-1 text-danger">{errors.tenPhim.message}</p>
+              )}
             </div>
 
             <div className="form-group mb-2">
@@ -206,21 +252,25 @@ function MovieManagement() {
               <input
                 type="text"
                 className="form-control"
-                onChange={handleChange}
-                name="moTa"
-                value={values?.moTa}
+                {...register("moTa")}
               />
+              {errors.moTa && (
+                <p className="mt-1 text-danger">{errors.moTa.message}</p>
+              )}
             </div>
 
             <div className="form-group mb-2">
               <label>Ngày khởi chiếu</label>
               <input
-                type="text"
+                type="date"
                 className="form-control"
-                onChange={handleChange}
-                name="ngayKhoiChieu"
-                value={dayjs(values?.ngayKhoiChieu).format("DD/MM/YYYY")}
+                {...register("ngayKhoiChieu")}
               />
+              {errors.ngayKhoiChieu && (
+                <p className="mt-1 text-danger">
+                  {errors.ngayKhoiChieu.message}
+                </p>
+              )}
             </div>
 
             <div className="form-group mb-2">
@@ -228,10 +278,25 @@ function MovieManagement() {
               <input
                 type="text"
                 className="form-control"
-                onChange={handleChange}
-                name="trailer"
-                value={values?.trailer}
+                {...register("trailer")}
               />
+              {errors.trailer && (
+                <p className="mt-1 text-danger">{errors.trailer.message}</p>
+              )}
+            </div>
+
+            <div className="form-group mb-2">
+              <label>Số điểm</label>
+              <input
+                type="number"
+                min="1"
+                max="10"
+                className="form-control"
+                {...register("danhGia")}
+              />
+              {errors.trailer && (
+                <p className="mt-1 text-danger">{errors.danhGia.message}</p>
+              )}
             </div>
 
             <div className="form-group mb-2">
@@ -239,20 +304,20 @@ function MovieManagement() {
               <input
                 type="file"
                 className="form-control"
-                name="hinhAnh"
-                onChange={handleChange}
+                {...register("hinhAnh")}
               />
+              {errors.hinhAnh && (
+                <p className="mt-1 text-danger">{errors.hinhAnh.message}</p>
+              )}
+            </div>
+            <div className="d-flex justify-content-end mt-3">
+              <button className="btn btn-primary me-2">Cập nhật</button>
+              <button className="btn btn-danger" onClick={() => setShow(false)}>
+                Hủy
+              </button>
             </div>
           </form>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" onClick={() => onSubmit(values)}>
-            Cập nhật
-          </Button>
-          <Button variant="danger" onClick={() => setShow(false)}>
-            Hủy
-          </Button>
-        </Modal.Footer>
       </Modal>
     </div>
   );

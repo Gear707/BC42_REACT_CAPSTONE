@@ -5,13 +5,18 @@ function MovieScript({ movieDuration, movie }) {
     <div>
       <span className={styles.movieTitle}>{movie.tenPhim}</span>
       <span className={styles.description}>{movie.moTa}</span>
-      <span className="mb-2 d-block">
+      <span className={styles.extraInfo}>
         Khởi chiếu: {dayjs(movie.ngayKhoiChieu).format("DD-MM-YYYY ")}
       </span>
+      <span className={styles.extraInfo}>Đánh giá: {movie.danhGia}</span>
       {movieDuration ? (
-        <span> Thời lượng phim: {movieDuration} phút</span>
+        <span className={styles.extraInfo}>
+          Thời lượng phim: {movieDuration} phút
+        </span>
       ) : (
-        <span> Thời lượng phim: Chưa có thông tin</span>
+        <span className={styles.extraInfo}>
+          Thời lượng phim: Chưa có thông tin
+        </span>
       )}
     </div>
   );

@@ -16,7 +16,6 @@ function MovieForm() {
   // Định nghĩa các xác thực cho thuộc tính
   const schema = yup.object({
     tenPhim: yup.string().required("Tên phim không được để trống!"),
-    biDanh: yup.string().required("Bí danh không được để trống!"),
     moTa: yup.string().required("Mô tả không được để trống!"),
     trailer: yup
       .string()
@@ -53,17 +52,18 @@ function MovieForm() {
   } = useForm({
     defaultValues: {
       tenPhim: "",
-      biDanh: "",
       moTa: "",
       trailer: "",
       hinhAnh: "",
       ngayKhoiChieu: "",
+      danhGia: "",
     },
     mode: "onTouched",
     resolver: yupResolver(schema),
   });
 
   const onSubmit = async (values) => {
+    console.log(values);
     const ngayKhoiChieu = dayjs(values.ngayKhoiChieu).format("DD/MM/YYYY");
     const payload = {
       ...values,
@@ -76,11 +76,11 @@ function MovieForm() {
       // reset các ô input sau khi thêm thành công
       reset({
         tenPhim: "",
-        biDanh: "",
         moTa: "",
         trailer: "",
         hinhAnh: "",
         ngayKhoiChieu: "",
+        danhGia: "",
       });
     } catch (error) {
       alertError(error.content);
@@ -114,16 +114,7 @@ function MovieForm() {
             <p className="mt-1 text-danger">{errors.tenPhim.message}</p>
           )}
         </div>
-        <div>
-          <input
-            className="form-control w-50 mb-3"
-            placeholder="Bí Danh"
-            {...register("biDanh")}
-          />
-          {errors.biDanh && (
-            <p className="mt-1 text-danger">{errors.biDanh.message}</p>
-          )}
-        </div>
+
         <div>
           <input
             className="form-control w-50 mb-3"
@@ -163,6 +154,17 @@ function MovieForm() {
             alt=""
             value={imageURL}
           />
+        </div>
+        <div>
+          <input
+            className="form-control w-50 mb-3"
+            type="number"
+            placeholder="Đánh giá phim"
+            {...register("danhGia")}
+          />
+          {errors.danhGia && (
+            <p className="mt-1 text-danger">{errors.danhGia.message}</p>
+          )}
         </div>
         <div>
           <input
