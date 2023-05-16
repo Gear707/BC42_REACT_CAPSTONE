@@ -1,9 +1,5 @@
 .container {
-<<<<<<< HEAD
-    width: 70%;
-=======
     width: 80%;
->>>>>>> quyen-branch
     margin: auto;
     display: flex;
     margin: 120px auto 0px;
@@ -11,10 +7,7 @@
     overflow-y: scroll;
     color: black;
     padding: 15px 0;
-<<<<<<< HEAD
-=======
     margin-top: 30px;
->>>>>>> quyen-branch
 }
 
 .logo {
@@ -48,11 +41,7 @@
 
 .maCumRap {
     display: block;
-<<<<<<< HEAD
-    margin: 15px 20px 25px 0
-=======
     margin: 10px 20px 0 0;
->>>>>>> quyen-branch
 }
 
 .ngayChieu {
@@ -61,31 +50,12 @@
     margin: 0px 10px 16px 0px;
     padding: 6px;
     border-radius: 4px;
-<<<<<<< HEAD
-=======
     text-decoration: none;
->>>>>>> quyen-branch
     background-color: rgba(246, 246, 246, 0.5);
     display: inline;
     color: #108f3e;
     font-weight: 500;
     font-size: 14px;
-<<<<<<< HEAD
-
-    .gioChieu {
-        color: #fa5238;
-        font-size: 16px;
-        margin-bottom: 5px;
-        transition: all .3s;
-    }
-
-    &:hover {
-        color: white;
-        background-color: rgba(127, 124, 124, 0.8);
-
-        .gioChieu {
-            color: white;
-=======
 }
 
 .gioChieu {
@@ -139,7 +109,6 @@
 
         .gioChieu {
             font-size: 12px !important;
->>>>>>> quyen-branch
         }
     }
 }

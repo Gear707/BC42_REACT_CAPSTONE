@@ -1,0 +1,223 @@
+.container {
+    width: 70%;
+    // margin: auto;
+    margin: 150px auto;
+
+}
+
+.detailFormat {
+    margin-top: 150px !important;
+    position: relative;
+    height: 350px;
+    padding-left: 30px;
+}
+
+.movieImg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform: translate(-50%, 0%);
+    left: 50%;
+}
+
+.ratedImg {
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.star {
+    color: rgb(251, 66, 38);
+    display: inline;
+}
+
+.starGroup {
+    position: absolute;
+    bottom: 70px;
+    left: 50%;
+    transform: translate(-50%, 0%);
+    // text-align: center;
+}
+
+.movieTitle {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    display: block;
+    text-transform: uppercase;
+}
+
+.purchaseButton {
+    position: absolute;
+    transform: translate(-50%, 0%);
+    left: 50%;
+    top: 370px;
+    text-transform: uppercase;
+    background-color: #108f3e;
+    color: white;
+    width: 120px !important;
+}
+
+.detailFormat .purchaseButton:hover {
+    transition: all .5s !important;
+    color: #108f3e;
+    background-color: white;
+}
+
+.noPurchaseButton {
+    position: absolute;
+    transform: translate(-50%, 0%);
+    left: 50%;
+    top: 370px;
+    text-transform: uppercase;
+    color: gray;
+    cursor: no-drop;
+}
+
+.extraInfo {
+    margin-bottom: 5px;
+    display: block;
+    font-size: 15px
+}
+
+.trailerButton {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    position: absolute;
+    background: linear-gradient(to top, #000, transparent 100%);
+    // transition: all 40s;
+    // visibility: hidden;
+    border-radius: 4px;
+
+    .playButton {
+        top: 50%;
+        left: 50%;
+        width: 60px;
+        border: none;
+        height: 60px;
+        z-index: 3;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        background: transparent;
+        display: block !important;
+
+        &:hover img {
+            opacity: 0.6 !important;
+        }
+
+    }
+}
+
+iframe,
+.trailerModal {
+    position: absolute !important;
+    top: 50% !important;
+    left: -7% !important;
+    z-index: 888888;
+}
+
+.description {
+    color: gray;
+    margin-bottom: 15px;
+    display: block;
+}
+
+@media screen and (max-width: 992px) {
+    .container {
+        .detailFormat {
+            .movieImg {}
+
+            .movieTitle {
+                font-size: 22px;
+                font-weight: 550;
+            }
+
+            .description {
+                font-size: 15px;
+            }
+
+            .trailerButton {}
+
+            .purchaseButton {
+                font-size: 15px
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .container {
+        height: 800px;
+
+        .detailFormat {
+            margin-top: 100px !important;
+            height: 400px;
+
+            .movieImg {
+                display: block;
+            }
+
+            .movieTitle {
+                font-size: 20px;
+                font-weight: 550;
+                text-align: center;
+            }
+
+            .description {
+                font-size: 15px;
+            }
+
+            .trailerButton {}
+
+            .purchaseButton {
+                font-size: 15px;
+                top: 420px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .container {
+        .detailFormat {
+            margin-top: 100px !important;
+            height: 350px;
+
+            .movieImg {
+                // width: 220px;
+                // height: 300px;
+            }
+
+            .movieTitle {
+                font-size: 20px;
+                font-weight: 550;
+                text-align: center;
+            }
+
+            .description {
+                font-size: 14px;
+            }
+
+            .trailerButton {
+                // width: 220px;
+                // height: 300px;
+
+            }
+
+            .purchaseButton {
+                font-size: 16px;
+                top: 370px
+            }
+
+            .extraInfo {
+                font-size: 14px
+            }
+        }
+    }
+}
