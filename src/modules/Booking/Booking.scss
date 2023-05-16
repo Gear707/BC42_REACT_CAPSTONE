@@ -1,3 +1,6 @@
+@import "../../assets/responsive";
+@import "../../assets/breakpoints";
+
 $color-1: rgb(45, 146, 45);
 $color-2: rgb(40, 155, 176);
 $color-3: rgb(212, 55, 55);
@@ -9,13 +12,55 @@ $font: "Roboto";
     border: none !important;
     width: 35px;
     height: 35px;
-    min-width: unset;
-    margin: 10px;
+    margin: 0.7rem;
     border-radius: 5px;
     font-size: 1rem;
     font-weight: 700;
     color: rgba(0, 0, 0, 0.87);
     background-color: rgb(233, 233, 233);
+
+    @include responsive("largest") {
+        font-size: 1.2rem;
+        margin: 0.9rem;
+        width: 40px;
+        height: 40px;
+    }
+
+
+    @include responsive("medium") {
+        font-size: 14px;
+        margin: 0.6rem;
+        width: 30px;
+        height: 30px;
+    }
+
+    @include responsive("low-medium") {
+        font-size: 13px;
+        margin: 0.45rem;
+        width: 28px;
+        height: 28px;
+    }
+
+    @include responsive("small") {
+        font-size: 12px;
+        margin: 0.35rem;
+        width: 25px;
+        height: 25px;
+    }
+
+    @include responsive("smaller") {
+        font-size: 11px;
+        margin: 0.2rem;
+        width: 21px;
+        height: 21px;
+    }
+
+    @include responsive("smallest") {
+        font-size: 10px;
+        margin: 0.1rem;
+        width: 18px;
+        height: 18px;
+    }
 }
 
 .btnHover {
@@ -33,6 +78,11 @@ $font: "Roboto";
 }
 
 .screen {
+    width: 80%;
+    height: 10px;
+}
+
+.screenLight {
     border-bottom: $customBorder gray;
     border-left: $customBorder transparent;
     border-right: $customBorder transparent;
@@ -74,6 +124,18 @@ $font: "Roboto";
     background-color: $color-2 !important;
 }
 
+.tableHeading {
+    font-size: 1rem;
+
+    @include responsive("medium") {
+        font-size: 14px;
+    }
+
+    @include responsive("smaller") {
+        font-size: 12px;
+    }
+}
+
 
 .customizeRows {
     margin-left: 8.2%;
@@ -92,13 +154,25 @@ $font: "Roboto";
     padding: 24px 16px;
 }
 
+.priceTitle {
+    font-size: 30px;
+    font-weight: 400;
+
+    @include responsive("medium") {
+        font-size: 20px;
+    }
+}
+
 .headingCustom {
     margin: 0;
     font-size: 17px;
     font-family: $font;
     font-weight: 700;
     line-height: 1.167;
-    letter-spacing: 0em;
+
+    @include responsive("medium") {
+        font-size: 14px;
+    }
 }
 
 .textRight {
@@ -108,6 +182,12 @@ $font: "Roboto";
 .btnCheckout {
     width: 100%;
     padding: 15px;
-    font-size: 35px;
+    font-size: 30px;
+    font-weight: 700;
     text-transform: uppercase;
+    letter-spacing: 0.1rem;
+
+    @include responsive("medium") {
+        font-size: 20px;
+    }
 }
