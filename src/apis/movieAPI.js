@@ -34,11 +34,9 @@ export const apiCreateMovie = async (movie) => {
 };
 
 export const apiGetMovieList = async () => {
-  const { data } = await axiosClient.get("/QuanLyPhim/LayDanhSachPhim", {
-    params: {
-      maNhom: "GP06",
-    },
-  });
+  const { data } = await axiosClient.get(
+    `/QuanLyPhim/LayDanhSachPhim?maNhom=GP06`
+  );
   return data;
 };
 

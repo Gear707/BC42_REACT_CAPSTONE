@@ -27,10 +27,13 @@ function MovieManagement() {
   const [movie, setMovie] = useState([]);
   // state lưu giữ mã phim trước khi chuyển trang Tạo lịch chiếu
   const [maPhim, setMaPhim] = useState(null);
+  // state theo dõi ô input tìm kiếm
+  const [values, setValues] = useState(null);
   // Định nghĩa các xác thực cho thuộc tính
   const schema = yup.object({
     tenPhim: yup.string().required("Tên phim không được để trống!"),
     moTa: yup.string().required("Mô tả không được để trống!"),
+    danhGia: yup.string().required("Số điểm không được để trống!"),
     trailer: yup
       .string()
       .required("Trailer không được để trống!")
@@ -72,6 +75,7 @@ function MovieManagement() {
       ngayKhoiChieu: "",
       trailer: "",
       hinhAnh: "",
+      danhGia: "",
     },
     mode: "onTouched",
     resolver: yupResolver(schema),
@@ -99,7 +103,6 @@ function MovieManagement() {
 
   const handleSelectMovie = (movie) => {
     setShow(true);
-    console.log(movie);
     setMovie(movie);
     reset({
       maPhim: movie.maPhim,
@@ -134,9 +137,31 @@ function MovieManagement() {
     }
   };
 
+  const handleChange = (evt) => {
+    const { value, name } = evt.target;
+    setValues({
+      ...values,
+      [name]: value,
+    });
+  };
+
+  // hàm tìm kiếm phim theo tên
+  const handleSearch = () => {
+    let keywork = values.keywork.toLowerCase();
+    if (keywork) {
+      const newMovieList = movies.filter((movie) => {
+        const tenPhim = movie.tenPhim.toLowerCase();
+        return tenPhim.indexOf(keywork) !== -1;
+      });
+      setMovies(newMovieList);
+    } else {
+      getMovieList();
+    }
+  };
+
   useEffect(() => {
     getMovieList();
-  }, []);
+  }, [values]);
   return (
     <div>
       <p className={styles.title1}>Quản lý phim</p>
@@ -149,8 +174,10 @@ function MovieManagement() {
               type="text"
               className="form-control"
               placeholder="Nhập từ khóa"
+              name="keywork"
+              onChange={handleChange}
             />
-            <button className="btn btn-primary">
+            <button className="btn btn-primary" onClick={handleSearch}>
               <i className="fa fa-search" />
             </button>
           </div>
@@ -194,13 +221,13 @@ function MovieManagement() {
                     className="btn btn-primary"
                     onClick={() => handleSelectMovie(movie)}
                   >
-                    <i class="fa-regular fa-pen-to-square"></i>
+                    <i className="fa-regular fa-pen-to-square"></i>
                   </button>
                   <button
                     className="btn btn-danger ms-1"
                     onClick={() => deleteMovie(movie.maPhim)}
                   >
-                    <i class="fa-regular fa-trash-can ml-2"></i>
+                    <i className="fa-regular fa-trash-can ml-2"></i>
                   </button>
                   <button
                     className="btn btn-warning ms-1"
@@ -294,7 +321,7 @@ function MovieManagement() {
                 className="form-control"
                 {...register("danhGia")}
               />
-              {errors.trailer && (
+              {errors.danhGia && (
                 <p className="mt-1 text-danger">{errors.danhGia.message}</p>
               )}
             </div>
@@ -311,10 +338,7 @@ function MovieManagement() {
               )}
             </div>
             <div className="d-flex justify-content-end mt-3">
-              <button className="btn btn-primary me-2">Cập nhật</button>
-              <button className="btn btn-danger" onClick={() => setShow(false)}>
-                Hủy
-              </button>
+              <button className="btn btn-primary me-2">Lưu</button>
             </div>
           </form>
         </Modal.Body>

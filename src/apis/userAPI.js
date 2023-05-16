@@ -46,7 +46,6 @@ export const apiUpdateUser = async (user) => {
 
 export const apiCreateNewUser = async (values) => {
   const payload = { ...values, maNhom: "GP06" };
-
   const { data } = await axiosClient.post(
     "/QuanLyNguoiDung/ThemNguoiDung",
     payload

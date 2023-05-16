@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { apiCreateMovie } from "../../../../apis/movieAPI";
 import dayjs from "dayjs";
@@ -6,8 +6,17 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { alertError, alertSuccess } from "../../../../apis/sweetAlert2";
-import styles from "../MovieManagement.module.scss";
+import styles from "./MovieForm.module.scss";
+import { Modal } from "react-bootstrap";
+import ReactPlayer from "react-player";
 function MovieForm() {
+  // state show modal trailer
+  const [show, setShow] = useState(false);
+
+  // hàm đóng mở trailer
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   // Định dạng file ảnh
   const PHOTO_FORMAT = /\.(jpeg|jpg|png|webp)$/i;
   // Định dạng đường dẫn Youtube
@@ -63,7 +72,6 @@ function MovieForm() {
   });
 
   const onSubmit = async (values) => {
-    console.log(values);
     const ngayKhoiChieu = dayjs(values.ngayKhoiChieu).format("DD/MM/YYYY");
     const payload = {
       ...values,
@@ -90,97 +98,139 @@ function MovieForm() {
   const onError = (errors) => {
     console.log(errors);
   };
-  const [imageURL, setImageURL] = useState("");
-  console.log(imageURL);
-  console.info(imageURL);
-  const handleChange = (event) => {
-    const selectedFile = event.target.files[0];
-    const imageUrl = URL.createObjectURL(selectedFile);
-    setImageURL(imageUrl);
-    console.info(imageUrl);
+
+  // state theo dõi file ảnh phim
+  const [imageUrl, setImageUrl] = useState("");
+  const handleImageChange = (evt) => {
+    const file = evt.target.files[0];
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      setImageUrl(reader.result);
+    };
+
+    reader.readAsDataURL(file);
   };
+
+  const [youtubeLink, setYoutubeLink] = useState("");
+
+  const handleTrailerChange = (event) => {
+    const { value } = event.target;
+    setYoutubeLink(value);
+  };
+
   return (
-    <div className="ms-5">
-      <p className={styles.title1}>Quản lý phim</p>
-      <p className={styles.title2}>Thêm phim mới</p>
-      <form onSubmit={handleSubmit(onSubmit, onError)}>
-        <div className="form-group">
-          <input
-            className="form-control w-50 mb-2"
-            placeholder="Tên Phim"
-            {...register("tenPhim")}
-          />
-          {errors.tenPhim && (
-            <p className="mt-1 text-danger">{errors.tenPhim.message}</p>
-          )}
-        </div>
+    <div className="d-flex">
+      <div className="ms-5 col-6">
+        <p className={styles.title1}>Quản lý phim</p>
+        <p className={styles.title2}>Thêm phim mới</p>
+        <form onSubmit={handleSubmit(onSubmit, onError)}>
+          <div className="form-group">
+            <input
+              className="form-control mb-2"
+              placeholder="Tên Phim"
+              {...register("tenPhim")}
+            />
+            {errors.tenPhim && (
+              <p className="mt-1 text-danger">{errors.tenPhim.message}</p>
+            )}
+          </div>
 
-        <div>
-          <input
-            className="form-control w-50 mb-3"
-            placeholder="Mô Tả"
-            {...register("moTa")}
-          />
-          {errors.moTa && (
-            <p className="mt-1 text-danger">{errors.moTa.message}</p>
-          )}
-        </div>
-        <div>
-          <input
-            className="form-control w-50 mb-3"
-            placeholder="Trailer"
-            {...register("trailer")}
-          />
-          {errors.trailer && (
-            <p className="mt-1 text-danger">{errors.trailer.message}</p>
-          )}
-        </div>
-        <div>
-          <input
-            className="form-control w-50 mb-2"
-            onChange={handleChange}
-            type="file"
-            placeholder="Hình Ảnh"
-            name="hinhAnh"
-            {...register("hinhAnh")}
-          />
-          {errors.hinhAnh && (
-            <p className="mt-1 text-danger">{errors.hinhAnh.message}</p>
-          )}
+          <div>
+            <input
+              className="form-control mb-2"
+              placeholder="Mô Tả"
+              {...register("moTa")}
+            />
+            {errors.moTa && (
+              <p className="mt-1 text-danger">{errors.moTa.message}</p>
+            )}
+          </div>
+          <div>
+            <input
+              className="form-control mb-2"
+              placeholder="Trailer"
+              {...register("trailer")}
+              onChange={handleTrailerChange}
+            />
+            {errors.trailer && (
+              <p className="mt-1 text-danger">{errors.trailer.message}</p>
+            )}
+          </div>
+          <div>
+            <input
+              className="form-control mb-2"
+              type="file"
+              placeholder="Hình Ảnh"
+              name="hinhAnh"
+              {...register("hinhAnh")}
+              onChange={handleImageChange}
+            />
+            {errors.hinhAnh && (
+              <p className="mt-1 text-danger">{errors.hinhAnh.message}</p>
+            )}
+          </div>
+          <div>
+            <input
+              className="form-control mb-2"
+              type="number"
+              min="1"
+              max="10"
+              placeholder="Đánh giá phim"
+              {...register("danhGia")}
+            />
+            {errors.danhGia && (
+              <p className="mt-1 text-danger">{errors.danhGia.message}</p>
+            )}
+          </div>
+          <div>
+            <input
+              className="form-control mb-2"
+              type="date"
+              placeholder="Ngày Khởi Chiếu"
+              {...register("ngayKhoiChieu")}
+            />
+            {errors.ngayKhoiChieu && (
+              <p className="mt-1 text-danger">{errors.ngayKhoiChieu.message}</p>
+            )}
+          </div>
+          <button className="btn btn-success mb-5" onClick={onSubmit}>
+            Thêm phim
+          </button>
+        </form>
+      </div>
+      <div className={`col-5 ${styles.trailer}`}>
+        {imageUrl && (
+          <div className={styles.trailer}>
+            <img className={styles.poster} src={imageUrl} alt="Chosen image" />
 
-          <img
-            style={{ height: "100px", width: "auto" }}
-            src={imageURL}
-            alt=""
-            value={imageURL}
+            <div className={styles.trailerButton}>
+              <button
+                className={styles.playButton}
+                tabIndex={0}
+                type="button"
+                disabled={!youtubeLink}
+                onClick={() => setShow(true)}
+              >
+                <img src="https://www.linkpicture.com/q/playButton.png" />
+              </button>
+            </div>
+          </div>
+        )}
+        <Modal show={show} onHide={handleClose}>
+          <ReactPlayer
+            className={styles.trailerModal}
+            url={youtubeLink}
+            config={{
+              video: {
+                playerVars: {
+                  autoplay: 1,
+                },
+              },
+            }}
           />
-        </div>
-        <div>
-          <input
-            className="form-control w-50 mb-3"
-            type="number"
-            placeholder="Đánh giá phim"
-            {...register("danhGia")}
-          />
-          {errors.danhGia && (
-            <p className="mt-1 text-danger">{errors.danhGia.message}</p>
-          )}
-        </div>
-        <div>
-          <input
-            className="form-control w-50 mb-3"
-            type="date"
-            placeholder="Ngày Khởi Chiếu"
-            {...register("ngayKhoiChieu")}
-          />
-          {errors.ngayKhoiChieu && (
-            <p className="mt-1 text-danger">{errors.ngayKhoiChieu.message}</p>
-          )}
-        </div>
-        <button className="btn btn-success mb-5" onClick={onSubmit}>
-          Thêm phim
-        </button>
-      </form>
+        </Modal>
+      </div>
     </div>
   );
 }
