@@ -26,6 +26,7 @@ function MovieForm() {
   const schema = yup.object({
     tenPhim: yup.string().required("Tên phim không được để trống!"),
     moTa: yup.string().required("Mô tả không được để trống!"),
+    danhGia: yup.string().required("Đánh giá không được để trống!"),
     trailer: yup
       .string()
       .required("Trailer không được để trống!")
