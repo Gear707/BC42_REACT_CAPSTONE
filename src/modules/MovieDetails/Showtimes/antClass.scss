@@ -1,0 +1,9 @@
+@media screen and (max-width: 420px) {
+    .ant-tabs .ant-tabs-tab {
+        padding: 8px 8px !important
+    }
+    .ant-tabs-tabpane.ant-tabs-tabpane-active{
+        padding-left: 0px !important;
+    }
+
+}
