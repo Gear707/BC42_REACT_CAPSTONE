@@ -12,7 +12,11 @@ import { Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { alertError, alertSuccess } from "../../../apis/sweetAlert2";
+import {
+  alertError,
+  alertSuccess,
+  warningDeleteUser,
+} from "../../../apis/sweetAlert2";
 
 function UserManagement() {
   //state quản lý input search
@@ -32,13 +36,27 @@ function UserManagement() {
   const [users, setUsers] = useState([]);
   const [user, setUser] = useState(null);
 
+  //Regex số điện thoại có 10-11 chữ số
+  const PHONENUMBER = /^(0|84)+([1-9]{1})+([0-9]{8})\b/;
+  const EMAIL = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+  const USERCODE = /^(?!Chọn loại người dùng$).*$/;
   // Định nghĩa các xác thực cho thuộc tính
   const schema = yup.object({
     taiKhoan: yup.string().required("Tài khoản không được để trống!"),
     hoTen: yup.string().required("Họ tên không được để trống!"),
-    email: yup.string().required("Email không được để trống!"),
-    soDT: yup.string().required("Số điện thoại không được để trống!"),
+    email: yup
+      .string()
+      .required("Email không được để trống!")
+      .matches(EMAIL, "Email không đúng định dạng!"),
+    soDT: yup
+      .string()
+      .required("Số điện thoại không được để trống!")
+      .matches(PHONENUMBER, "Số điện thoại không dúng định dạng!"),
     matKhau: yup.string().required("Mật khẩu không được để trống!"),
+    maLoaiNguoiDung: yup
+      .string()
+      .required("Mã loại người dùng không được để trống!")
+      .matches(USERCODE, "Mã loại người dùng không được để trống!"),
   });
 
   const {
@@ -105,12 +123,15 @@ function UserManagement() {
 
   // Hàm xóa user
   const handleDeleteUser = async (taiKhoan) => {
-    try {
-      await apiDeleteUser(taiKhoan);
-      getUserList();
-      alertError("Xóa user thành công");
-    } catch (error) {
-      alertError("Người dùng này đã đặt phim không thể xóa");
+    const result = await warningDeleteUser();
+    if (result.isConfirmed) {
+      try {
+        await apiDeleteUser(taiKhoan);
+        getUserList();
+        alertSuccess("Xóa user thành công");
+      } catch (error) {
+        alertError("Người dùng này đã đặt phim không thể xóa");
+      }
     }
   };
 
@@ -187,7 +208,7 @@ function UserManagement() {
             />
             <button
               className="btn btn-primary me-3"
-              onClick={() => handleSearchUser(values.keywork)}
+              onClick={() => handleSearchUser(values?.keywork)}
             >
               <i className="fa fa-search" />
             </button>
@@ -262,6 +283,9 @@ function UserManagement() {
                 disabled={user}
                 {...register("taiKhoan")}
               />
+              {errors.taiKhoan && (
+                <p className="mt-1 text-danger">{errors.taiKhoan.message}</p>
+              )}
             </div>
             <div className="form-group mb-2">
               <label>Họ tên</label>

@@ -44,3 +44,27 @@ export const warningSignout = () => {
     cancelButtonColor: "#d33",
   });
 };
+
+export const warningDeleteUser = () => {
+  return Swal.fire({
+    title: "Bạn có chắc muốn xóa người dùng này không?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Đồng ý",
+    confirmButtonColor: "#0354a5",
+    cancelButtonText: "Hủy",
+    cancelButtonColor: "#d33",
+  });
+};
+
+export const warningDeleteMovie = () => {
+  return Swal.fire({
+    title: "Bạn có chắc muốn xóa phim này không?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Đồng ý",
+    confirmButtonColor: "#0354a5",
+    cancelButtonText: "Hủy",
+    cancelButtonColor: "#d33",
+  });
+};
