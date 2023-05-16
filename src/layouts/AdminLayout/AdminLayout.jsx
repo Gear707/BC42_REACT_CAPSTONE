@@ -40,7 +40,7 @@ function AdminLayout() {
             onClick={() => {
               setActiveUser(true);
               setActiveMovie(false);
-              navigate("admin/users");
+              navigate("/admin");
             }}
           >
             <i className="fa-solid fa-user me-2"></i>
@@ -60,23 +60,23 @@ function AdminLayout() {
             Phim
           </button>
         </div>
-        <div className="col-sm-10 bg-light">
-          <div className="bg-white mt-5">
-            <div className="d-flex justify-content-end me-3">
-              <img
-                className={styles.avatarUser}
-                src="https://i.pravatar.cc/300?u=abc123"
-                alt={user.taiKhoan}
-              />
-              <span className={styles.accountUser}>{user.taiKhoan}</span>
-              <button
-                className={`${styles.userLogOut} mt-3 ms-2`}
-                onClick={handleSignout}
-              >
-                <i className="fa-solid fa-arrow-right-from-bracket mt-2 me-2"></i>
-                <span>Đăng xuất</span>
-              </button>
-            </div>
+        <div className="col-sm-10 bg-light px-3 rounded">
+          <div className="d-flex justify-content-end me-3">
+            <img
+              className={styles.avatarUser}
+              src="https://i.pravatar.cc/300?u=abc123"
+              alt={user.taiKhoan}
+            />
+            <span className={styles.accountUser}>{user.taiKhoan}</span>
+            <button
+              className={`${styles.userLogOut} mt-3 ms-2`}
+              onClick={handleSignout}
+            >
+              <i className="fa-solid fa-arrow-right-from-bracket mt-2 me-2"></i>
+              <span>Đăng xuất</span>
+            </button>
+          </div>
+          <div className="bg-white mt-2 pt-2">
             <Outlet />
           </div>
         </div>
