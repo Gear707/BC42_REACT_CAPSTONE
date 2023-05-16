@@ -52,8 +52,7 @@ function MovieInfo({ movieId, movieDuration }) {
               <img
                 className={styles.ratedImg}
                 src="https://www.linkpicture.com/q/Screenshot_2023-05-02_at_00.10.44-removebg-preview_6.png"
-                alt=""
-                srcset=""
+                alt="Số điểm"
               />
               <div className={styles.starGroup}>
                 <i className={`fa-solid fa-star ${styles.star}`} />

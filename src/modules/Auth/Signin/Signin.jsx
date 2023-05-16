@@ -53,8 +53,8 @@ function Signin() {
     };
 
     return (
-        <div className={`col-md-7 col-lg-5 ${styles.box}`}>
-            <div className="p-3 p-md-4">
+        <div className={styles.box}>
+            <div className="p-4">
                 <div className={`${styles.icon} d-flex align-items-center justify-content-center`}>
                     <i className="fa-solid fa-user-large text-white"></i>
                 </div>

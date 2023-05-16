@@ -1,12 +1,26 @@
 import styles from "./Showtimes.module.scss";
 import { useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
-function CumRapChieu({ onMovieDurationChange, heThongRap }) {
+function CumRapChieu({ heThongRap, onMovieDurationChange }) {
   const navigate = useNavigate();
-  const [count, setCount] = useState(0); // cờ hiệu để truyền giá trị props onMovieDurationChange 1 lần khi duyệt qua phần tử lichChieu đầu tiên
-  console.log(count);
+  const [count, setCount] = useState(0);
+
+  // Tạo một hàm callback lichchieu mới bên ngoài component
+  const handleClick = useCallback(
+    (lichChieu) => {
+      navigate(`/booking/${lichChieu.maLichChieu}`);
+    },
+    [navigate]
+  );
+
+  useEffect(() => {
+    // Truyền giá trị props onMovieDurationChange 1 lần khi duyệt qua phần tử lichChieu đầu tiên
+    onMovieDurationChange(heThongRap.cumRapChieu[0].lichChieuPhim[0].thoiLuong);
+    setCount(1);
+  }, [heThongRap.cumRapChieu, onMovieDurationChange]);
+
   return (
     <div>
       {heThongRap.cumRapChieu.map((rap, index) => {
@@ -17,16 +31,11 @@ function CumRapChieu({ onMovieDurationChange, heThongRap }) {
           >
             <span className={styles.tenCumRap}>{rap.tenCumRap}</span>
             {rap.lichChieuPhim.map((lichChieu, index) => {
-              if (!count) {
-                onMovieDurationChange(lichChieu.thoiLuong);
-                setCount(count + 1);
-                console.log(count);
-              }
               return (
                 <button
                   key={`${lichChieu.maLichChieu}-${index}`}
                   className={styles.ngayChieu}
-                  onClick={() => navigate(`/booking/${lichChieu.maLichChieu}`)}
+                  onClick={() => handleClick(lichChieu)}
                 >
                   {dayjs(lichChieu.ngayChieuGioChieu).format("DD-MM-YYYY ")}
                   <span className={styles.gioChieu}>
@@ -41,4 +50,5 @@ function CumRapChieu({ onMovieDurationChange, heThongRap }) {
     </div>
   );
 }
+
 export default CumRapChieu;

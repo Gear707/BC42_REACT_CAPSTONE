@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Modal } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 import dayjs from "dayjs";
 import { alertError, alertSuccess } from "../../../apis/sweetAlert2";
 import {
@@ -19,6 +19,7 @@ function MovieManagement() {
   const YOUTUBE_URL = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$/;
 
   const navigate = useNavigate();
+
   // state quản lý đóng/mở modal
   const [show, setShow] = useState(false);
   // state list phim
@@ -29,6 +30,7 @@ function MovieManagement() {
   const [maPhim, setMaPhim] = useState(null);
   // state theo dõi ô input tìm kiếm
   const [values, setValues] = useState(null);
+
   // Định nghĩa các xác thực cho thuộc tính
   const schema = yup.object({
     tenPhim: yup.string().required("Tên phim không được để trống!"),
@@ -122,7 +124,7 @@ function MovieManagement() {
       const data = await apiGetMovieList();
       setMovies(data.content);
     } catch (error) {
-      console.log(error);
+      alertError("Lấy danh sách phim thất bại");
     }
   };
 
@@ -210,7 +212,7 @@ function MovieManagement() {
                   <img
                     style={{ height: "100px", width: "70px" }}
                     src={movie.hinhAnh}
-                    alt=""
+                    alt={movie.tenPhim}
                   />
                 </td>
                 <td>{movie.tenPhim}</td>
@@ -236,7 +238,7 @@ function MovieManagement() {
                       navigate(`showtime/${movie.maPhim}`);
                     }}
                   >
-                    <i class="fa-solid fa-video ml-1"></i>
+                    <i className="fa-solid fa-video ml-1"></i>
                   </button>
                 </td>
               </tr>

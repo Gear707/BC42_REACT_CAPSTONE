@@ -1,20 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import styles from "./AdminLayout.module.scss";
-// import { apiGetUserList } from "../../apis/userAPI";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { alertSuccess, warningSignout } from "../../apis/sweetAlert2";
+import { signout } from "../../slices/userSlice";
 
 function AdminLayout() {
   const { user } = useSelector((state) => state.user);
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
+  const handleSignout = () => {
+    warningSignout()
+      .then((result) => {
+        if (result.isConfirmed) {
+          dispatch(signout());
+          localStorage.removeItem("user");
+          alertSuccess("Bạn đã đăng xuất thành công!");
+        }
+      })
+      .catch((error) => console.log(error));
+  };
   // state dùng để set class active
   const [activeUser, setActiveUser] = useState(false);
   const [activeMovie, setActiveMovie] = useState(false);
 
-  // const handleTabClick = (tab) => {
-  //   setActiveTab(tab);
-  // };
   return (
     <div className={styles.theme}>
       <div className="d-flex">
@@ -23,7 +32,6 @@ function AdminLayout() {
             className={styles.logo}
             src="https://i.imgur.com/lC22izJ.png"
             alt=""
-            srcset=""
           />
           <button
             className={`${styles.user} btn ${
@@ -32,10 +40,10 @@ function AdminLayout() {
             onClick={() => {
               setActiveUser(true);
               setActiveMovie(false);
-              navigate("./users");
+              navigate("admin/users");
             }}
           >
-            <i class="fa-solid fa-user me-2"></i>
+            <i className="fa-solid fa-user me-2"></i>
             Người dùng
           </button>
           <button
@@ -45,10 +53,10 @@ function AdminLayout() {
             onClick={() => {
               setActiveUser(false);
               setActiveMovie(true);
-              navigate("./movies");
+              navigate("admin/films");
             }}
           >
-            <i class="fa-solid fa-film me-2"></i>
+            <i className="fa-solid fa-film me-2"></i>
             Phim
           </button>
         </div>
@@ -58,9 +66,16 @@ function AdminLayout() {
               <img
                 className={styles.avatarUser}
                 src="https://i.pravatar.cc/300?u=abc123"
-                alt=""
+                alt={user.taiKhoan}
               />
               <span className={styles.accountUser}>{user.taiKhoan}</span>
+              <button
+                className={`${styles.userLogOut} mt-3 ms-2`}
+                onClick={handleSignout}
+              >
+                <i className="fa-solid fa-arrow-right-from-bracket mt-2 me-2"></i>
+                <span>Đăng xuất</span>
+              </button>
             </div>
             <Outlet />
           </div>

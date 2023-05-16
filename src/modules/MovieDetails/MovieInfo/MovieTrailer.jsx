@@ -13,13 +13,17 @@ function MovieTrailer({ movie, cinema }) {
 
   return (
     <div>
-      <img className={styles.movieImg} src={movie.hinhAnh} alt="" srcset="" />
+      <img
+        className={styles.movieImg}
+        src={movie.hinhAnh}
+        alt={movie.tenPhim}
+      />
       <a href="#lichChieu">
         <button
           className={`btn ${styles.purchaseButton}`}
           disabled={cinema?.heThongRapChieu?.length === 0}
         >
-          <i class="fa fa-ticket me-2"></i>
+          <i className="fa fa-ticket me-2"></i>
           Mua vé
         </button>
       </a>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import MovieInfo from "./MovieInfo/MovieInfo";
 import Showtimes from "./Showtimes/Showtimes";
 import { useParams } from "react-router-dom";
@@ -9,9 +9,13 @@ function MovieDetails() {
   const { movieId } = useParams();
   // state quản lý thời lượng bộ phim được chọn
   const [movieDuration, setMovieDuration] = useState(null);
-  const handleMovieDurationChange = (movieDuration) => {
-    setMovieDuration(movieDuration);
-  };
+  const handleMovieDurationChange = useCallback(
+    (movieDuration) => {
+      setMovieDuration(movieDuration);
+    },
+    [movieId]
+  );
+
   return (
     <div className={styles.background}>
       <MovieInfo movieId={movieId} movieDuration={movieDuration} />

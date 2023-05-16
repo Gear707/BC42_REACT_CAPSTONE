@@ -229,13 +229,13 @@ function UserManagement() {
                     className="btn btn-primary"
                     onClick={() => handleSelectUser(user)}
                   >
-                    <i class="fa-regular fa-pen-to-square"></i>
+                    <i className="fa-regular fa-pen-to-square"></i>
                   </button>
                   <button
                     className="btn btn-danger ms-1"
                     onClick={() => handleDeleteUser(user.taiKhoan)}
                   >
-                    <i class="fa-regular fa-trash-can ml-2"></i>
+                    <i className="fa-regular fa-trash-can ml-2"></i>
                   </button>
                 </td>
               </tr>

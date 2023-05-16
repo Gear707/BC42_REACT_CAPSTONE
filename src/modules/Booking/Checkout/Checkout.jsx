@@ -28,8 +28,8 @@ function Checkout({ bookingId }) {
 
     return (
         <div className="divBorder headingRight">
-            <div className="divPadding fs-2 text-center">
-                <p className="m-0 text-success">
+            <div className="divPadding text-center">
+                <p className="m-0 text-success priceTitle">
                     {selectedSeats.reduce((total, seat) => total += seat.giaVe, 0).toLocaleString()} VNĐ
                 </p>
             </div>

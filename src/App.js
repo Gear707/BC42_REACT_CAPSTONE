@@ -75,10 +75,13 @@ function App() {
               </AdminRoute>
             }
           >
-            <Route path="users" element={<UserManagement />} />
-            <Route path="movies" element={<MovieManagement />} />
-            <Route path="movies/addNew" element={<MovieForm />} />
-            <Route path="movies/showtime/:maPhim" element={<MovieShowtime />} />
+            <Route path="admin/users" element={<UserManagement />} />
+            <Route path="admin/films" element={<MovieManagement />} />
+            <Route path="admin/films/addNew" element={<MovieForm />} />
+            <Route
+              path="admin/films/showtime/:maPhim"
+              element={<MovieShowtime />}
+            />
           </Route>
 
           <Route path="/*" element={<PageNotFound />}></Route>
