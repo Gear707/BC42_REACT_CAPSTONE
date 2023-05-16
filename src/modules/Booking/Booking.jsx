@@ -11,10 +11,10 @@ function Booking() {
     return (
         <div className="bookingFont">
             <div className="row">
-                <div className="col-8">
+                <div className="col-12 col-xxl-8">
                     <SeatInfo bookingId={bookingId} />
                 </div>
-                <div className="col-4">
+                <div className="col-12 col-xxl-4 mb-5">
                     <Checkout bookingId={bookingId} />
                 </div>
             </div>

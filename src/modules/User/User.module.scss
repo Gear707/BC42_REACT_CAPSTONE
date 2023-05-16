@@ -1,8 +1,11 @@
+@import "../../assets/responsive";
+@import "../../assets/breakpoints";
+
 $color-1: #0354a5;
 $borRad: 10px;
 
 .box {
-    margin: 50px 0 !important;
+    max-width: 1000px !important;
     padding: 10px;
     background-color: white;
     border-radius: $borRad;
@@ -12,6 +15,10 @@ $borRad: 10px;
     display: grid !important;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
+
+    @include responsive("medium") {
+        grid-template-columns: 1fr;
+    }
 }
 
 .column {
@@ -37,10 +44,23 @@ $borRad: 10px;
 }
 
 .movieTitle {
-    font-size: 22px;
+    font-size: 20px;
     font-weight: 700;
     color: $color-1;
     line-height: 22px;
     margin-bottom: 8px;
     letter-spacing: -0.00833em;
+
+    @include responsive("extra-small") {
+        font-size: 19px;
+    }
+}
+
+.cinemaName {
+    font-size: 19px;
+    font-weight: 700;
+
+    @include responsive("extra-small") {
+        font-size: 17px;
+    }
 }

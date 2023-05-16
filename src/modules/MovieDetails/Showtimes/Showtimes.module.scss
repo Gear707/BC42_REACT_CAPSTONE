@@ -49,16 +49,25 @@
     margin: 0px 10px 16px 0px;
     padding: 6px;
     border-radius: 4px;
-    text-decoration: none;
     background-color: rgba(246, 246, 246, 0.5);
     display: inline;
     color: #108f3e;
     font-weight: 500;
     font-size: 14px;
-}
 
-.gioChieu {
-    color: #fa5238 !important;
-    font-size: 16px !important;
-    margin-bottom: 5px;
+    .gioChieu {
+        color: #fa5238;
+        font-size: 16px;
+        margin-bottom: 5px;
+        transition: all .3s;
+    }
+
+    &:hover {
+        color: white;
+        background-color: rgba(127, 124, 124, 0.8);
+
+        .gioChieu {
+            color: white;
+        }
+    }
 }

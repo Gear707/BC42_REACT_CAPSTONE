@@ -5,6 +5,7 @@ import Loading from "../../../components/Loading/Loading";
 
 function SeatInfo({ bookingId }) {
     const { allSeats, selectedSeats, checkoutSeats, isLoading } = useSelector((state) => state.booking);
+    const { user } = useSelector((state) => state.user);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -31,7 +32,31 @@ function SeatInfo({ bookingId }) {
             let checkoutIndex = checkoutSeats?.findIndex(
                 (checkoutSeat) => checkoutSeat.maGhe === seat.maGhe
             );
-            let checkoutSeatClass = checkoutIndex !== -1 ? "checkoutSeat" : "";
+            let checkoutSeatClass = "";
+            if (checkoutIndex !== -1) {
+                checkoutSeatClass = "checkoutSeat";
+            }
+            else if (user.taiKhoan === seat.taiKhoanNguoiDat) {
+                checkoutSeatClass = "checkoutSeat";
+            }
+
+            const checkBookedSeats = () => {
+                if (seat.daDat) {
+                    if (checkoutSeatClass !== "") {
+                        return <i className="fa-solid fa-user"></i>;
+                    } else {
+                        return <i className="fa-solid fa-xmark"></i>;
+                    }
+                }
+                else {
+                    if (checkoutIndex !== -1) {
+                        checkoutSeatClass = "checkoutSeat";
+                        return <i className="fa-solid fa-user"></i>;
+                    } else {
+                        return seat.tenGhe;
+                    }
+                }
+            };
 
             let btnHoverClass = seat.daDat || checkoutSeatClass !== "" ? "" : "btnHover";
 
@@ -41,7 +66,7 @@ function SeatInfo({ bookingId }) {
                         disabled={seat.daDat || checkoutSeatClass !== ""}
                         onClick={() => handleAddSeat(seat)}
                     >
-                        {seat.daDat ? <i className="fa-solid fa-xmark"></i> : seat.tenGhe}
+                        {checkBookedSeats()}
                     </button>
 
                     {(index + 1) % 16 === 0 ? <br /> : ""}
@@ -53,8 +78,8 @@ function SeatInfo({ bookingId }) {
     return (
         <div className="headingLeft">
             <div className="d-flex flex-column align-items-center mt-2">
-                <div className="bg-dark" style={{ width: "80%", height: "10px" }}></div>
-                <div className="screen text-center">
+                <div className="bg-dark screen"></div>
+                <div className="screenLight text-center">
                     <h6 className="mt-2 text-dark">Màn hình</h6>
                 </div>
                 <div>
@@ -65,12 +90,12 @@ function SeatInfo({ bookingId }) {
             <div className="my-5 d-flex">
                 <table className="table table-borderless text-center">
                     <thead>
-                        <tr>
+                        <tr className="tableHeading">
                             <th>Ghế chưa đặt (thường)</th>
                             <th>Ghế chưa đặt (vip)</th>
-                            <th>Ghế đã đặt trước</th>
+                            <th>Ghế người khác đặt</th>
                             <th>Ghế đang chọn</th>
-                            <th>Ghế bạn vừa đặt</th>
+                            <th>Ghế bạn đặt</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -97,7 +122,7 @@ function SeatInfo({ bookingId }) {
                             </td>
                             <td>
                                 <button className="checkoutSeat">
-                                    <i className="fa-solid fa-check"></i>
+                                    <i className="fa-solid fa-user"></i>
                                 </button>
                             </td>
                         </tr>

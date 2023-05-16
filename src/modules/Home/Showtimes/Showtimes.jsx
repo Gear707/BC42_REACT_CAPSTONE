@@ -57,12 +57,12 @@ function Showtimes() {
                                         return (
                                             <div className={styles.movieList} key={movie.maPhim}>
                                                 <div className="d-flex p-3 justify-content-around">
-                                                    <div className="col-2 d-flex justify-content-center">
+                                                    <div className="col-3 px-3 d-flex justify-content-center">
                                                         <img src={movie.hinhAnh} alt={movie.tenPhim}
-                                                            className="img-fluid"
+                                                            className={`img-fluid ${styles.movieImg}`}
                                                         />
                                                     </div>
-                                                    <div className="col-9">
+                                                    <div className="col-9 ps-2">
                                                         <span className={styles.movieIcon}>
                                                             <i className="fa-solid fa-video"></i>
                                                         </span>
@@ -103,8 +103,10 @@ function Showtimes() {
     if (error) return null;
 
     return (
-        <div className={`${styles.showtimesContainer} container`}>
-            {tabs}
+        <div id="cinema" className={styles.divCustom}>
+            <div className={`${styles.showtimesContainer} container`}>
+                {tabs}
+            </div>
         </div>
     );
 }
