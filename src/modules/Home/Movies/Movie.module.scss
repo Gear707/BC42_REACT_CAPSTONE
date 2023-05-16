@@ -6,7 +6,7 @@
 
 .movieTitle {
     color: #000000;
-    height: 55px;
+    height: 42px;
     opacity: 1;
     overflow: hidden;
     font-size: 18px;
@@ -15,6 +15,11 @@
     font-weight: 500;
     line-height: 22px;
     text-transform: uppercase;
+}
+
+.sliderContainer {
+   width: 67%;
+    margin: auto;
 }
 
 .orderButton {
@@ -38,12 +43,16 @@
 .movieCard {
     overflow: hidden !important;
     border-width: 0 !important;
+    max-height: 420px;
+    width: 100%;
 }
 
 .description {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    // margin-bottom: 10px !important;
+    height: 40px;
 }
 
 .movieCard:hover {
@@ -89,12 +98,10 @@
     transform: translate(-50%, -50%);
     background: transparent;
     display: none !important;
+}
 
-    &:hover{
-        img {
-            opacity: 0.6 !important;
-        }
-    }
+.playButton:hover img {
+    opacity: 0.6 !important;
 }
 
 iframe,
@@ -103,4 +110,82 @@ iframe,
     top: 50% !important;
     left: -7% !important;
     z-index: 888888;
+}
+
+@media screen and (max-width: 991px) {
+    .sliderContainer {
+        .movieTitle {
+            font-size: 17px;
+        }
+
+        .description {
+            font-size: 15px;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .sliderContainer {
+        width: 70% !important;
+        .movieCard {
+            font-size: 14px;
+            max-height: 380px;
+
+            .movieTitle {
+                font-size: 16px;
+            }
+
+            .movieImg {
+                height: 260px;
+            }
+
+            .description {
+                font-size: 14px;
+            }
+
+            .orderButton {
+                font-size: 16px;
+            }
+        }
+
+    }
+}
+
+
+@media screen and (max-width: 576px) {
+    .sliderContainer {
+        .movieCard {
+            font-size: 14px;
+            max-height: 360px;
+
+            .movieTitle {
+                font-size: 15px;
+            }
+
+            .movieImg {
+                height: 245px;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .sliderContainer {
+        .movieCard {
+            font-size: 14px;
+            max-height: 340px;
+
+            .movieTitle {
+                font-size: 14px;
+            }
+
+            .movieImg {
+                height: 225px;
+            }
+
+            .orderButton {
+                font-size: 15px;
+            }
+        }
+    }
 }

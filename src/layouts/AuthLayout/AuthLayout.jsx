@@ -8,8 +8,8 @@ function AuthLayout() {
         <>
             <Header />
             <div className={styles.background}>
-                <div className="container px-4 py-5">
-                    <div className="d-flex justify-content-center">
+                <div className="container">
+                    <div className="row justify-content-center">
                         <Outlet />
                     </div>
                 </div>

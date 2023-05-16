@@ -1,5 +1,5 @@
 .container {
-    width: 70%;
+    width: 80%;
     margin: auto;
     display: flex;
     margin: 120px auto 0px;
@@ -7,6 +7,7 @@
     overflow-y: scroll;
     color: black;
     padding: 15px 0;
+    margin-top: 250px;
 }
 
 .logo {
@@ -40,7 +41,7 @@
 
 .maCumRap {
     display: block;
-    margin: 15px 20px 25px 0
+    margin: 10px 20px 0 0;
 }
 
 .ngayChieu {
@@ -49,25 +50,65 @@
     margin: 0px 10px 16px 0px;
     padding: 6px;
     border-radius: 4px;
+    text-decoration: none;
     background-color: rgba(246, 246, 246, 0.5);
     display: inline;
     color: #108f3e;
     font-weight: 500;
     font-size: 14px;
+}
 
-    .gioChieu {
-        color: #fa5238;
-        font-size: 16px;
-        margin-bottom: 5px;
-        transition: all .3s;
-    }
+.gioChieu {
+    color: #fa5238 !important;
+    font-size: 16px !important;
+    margin-bottom: 5px;
+}
 
-    &:hover {
-        color: white;
-        background-color: rgba(127, 124, 124, 0.8);
+@media screen and (max-width: 576px) {
+    .container {
+        .logo {
+            width: 85%;
+            height: auto;
+        }
+
+        .tenCumRap {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .ngayChieu {
+            font-size: 13px;
+            margin-bottom: 10px !important;
+            padding: 4px
+        }
 
         .gioChieu {
-            color: white;
+            font-size: 15px !important;
+        }
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .container {
+        .logo {
+            width: 70%;
+            height: auto;
+        }
+
+        .tenCumRap {
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .ngayChieu {
+            font-size: 12px;
+            margin-bottom: 10px !important;
+            padding: 4px;
+            width: 150px !important;
+        }
+
+        .gioChieu {
+            font-size: 12px !important;
         }
     }
 }

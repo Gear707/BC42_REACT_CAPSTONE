@@ -5,28 +5,44 @@ import MainLayout from "./layouts/MainLayout/MainLayout";
 import AuthLayout from "./layouts/AuthLayout/AuthLayout";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Loading from "./components/Loading/Loading";
+// import MovieManagement from "./modules/MovieManagement/MovieManagement";
+// import AdminLayout from "./layouts/AdminLayout/AdminLayout";
 import AdminLayout from "./layouts/AdminLayout/AdminLayout";
 import AdminRoute from "./routes/AdminRoute";
+import PageNotFound from "./components/PageNotFound/PageNotFound";
 import UserLayout from "./layouts/UserLayout/UserLayout";
 import UserRoute from "./routes/UserRoute";
+import UserManagement from "./modules/Management/UserManagement/UserManagement";
+import MovieForm from "./modules/Management/MovieManagement/MovieForm/MovieForm";
+import MovieShowtime from "./modules/Management/MovieManagement/MovieShowtime/MovieShowtime";
+// import Home from "./modules/Home/Home";
+// import MovieDetails from "./modules/MovieDetails/MovieDetails";
+// import Booking from "./modules/Booking/Booking";
+// import Signin from "./modules/Auth/Signin/Signin";
+// import Signup from "./modules/Auth/Signup/Signup";
 
+//lazy: thực hiện cơ chế tải chậm. Bắt đầu tại thời điểm gọi component mới bắt đầu tải về. Tránh các component không cần thiết tải dữ liệu từ ban đầu
 const Home = lazy(() => import("./modules/Home/Home"));
 const MovieDetails = lazy(() => import("./modules/MovieDetails/MovieDetails"));
 const Booking = lazy(() => import("./modules/Booking/Booking"));
 const Signin = lazy(() => import("./modules/Auth/Signin/Signin"));
 const Signup = lazy(() => import("./modules/Auth/Signup/Signup"));
 const User = lazy(() => import("./modules/User/User"));
-const MovieManagement = lazy(() => import("./modules/MovieManagement/MovieManagement"));
+const MovieManagement = lazy(() =>
+  import("./modules/Management/MovieManagement/MovieManagement")
+);
 
 function App() {
   return (
+    // Tại thời điểm component tải dữ liệu component Suspense sẽ hiển thị giao diện thay thế
     <Suspense fallback={<Loading />}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<MainLayout />}>
             <Route index element={<Home />} />
             <Route path="/movies/:movieId" element={<MovieDetails />} />
-            <Route path="/booking/:bookingId"
+            <Route
+              path="/booking/:bookingId"
               element={
                 <ProtectedRoute>
                   <Booking />
@@ -41,7 +57,8 @@ function App() {
           </Route>
 
           <Route path="/" element={<UserLayout />}>
-            <Route path="/user"
+            <Route
+              path="/user"
               element={
                 <UserRoute>
                   <User />
@@ -50,17 +67,24 @@ function App() {
             />
           </Route>
 
-          <Route path="/admin"
+          <Route
+            path="/"
             element={
               <AdminRoute>
                 <AdminLayout />
               </AdminRoute>
             }
           >
-            <Route path="movies" element={<MovieManagement />} />
-            {/* <Route path="users" element={<UserManagement />} />
-            <Route path="tickets" element={<TicketManagement />} /> */}
+            <Route path="admin/users" element={<UserManagement />} />
+            <Route path="admin/films" element={<MovieManagement />} />
+            <Route path="admin/films/addNew" element={<MovieForm />} />
+            <Route
+              path="admin/films/showtime/:maPhim"
+              element={<MovieShowtime />}
+            />
           </Route>
+
+          <Route path="/*" element={<PageNotFound />}></Route>
         </Routes>
       </BrowserRouter>
     </Suspense>
