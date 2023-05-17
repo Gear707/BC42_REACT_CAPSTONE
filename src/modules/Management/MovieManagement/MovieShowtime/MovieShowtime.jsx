@@ -23,7 +23,7 @@ function MovieShowtime() {
   //Chuỗi regex để validation
   const TICKET_PRICE = /^[1-9]\d{4,}$/;
   const HETHONGRAP = /^(?!Chọn Hệ thống rạp$).*$/;
-  const MARAP = /^(?!Chọn Cụm Rạp$).*$/;
+  const MARAP = /^(?!Chọn Cụm rạp$).*$/;
 
   // Định nghĩa các xác thực cho thuộc tính
   const schema = yup.object({
@@ -37,7 +37,7 @@ function MovieShowtime() {
     maRap: yup
       .string()
       .required("Cụm rạp không được để trống!")
-      .matches(MARAP, "Cụm rạp không được để trống!"),
+      .matches(MARAP, "Cụm rạp không được để trống, chọn Hệ thống rạp trước!"),
     giaVe: yup
       .string()
       .required("Giá vé không được để trống!")
@@ -51,9 +51,10 @@ function MovieShowtime() {
     reset,
   } = useForm({
     defaultValues: {
-      maPhim: "",
+      maHeThongRap: "Chọn Hệ thống rạp",
+      maPhim: maPhim,
       ngayChieuGioChieu: "",
-      maRap: "",
+      maRap: "Chọn Cụm rạp",
       giaVe: "",
     },
     mode: "onTouched",
@@ -73,6 +74,13 @@ function MovieShowtime() {
     try {
       const data = await apiCreateMovieTime(payload);
       alertSuccess("Tạo lịch chiếu phim thành công");
+      reset({
+        maHeThongRap: "Chọn Hệ thống rạp",
+        maPhim: "",
+        ngayChieuGioChieu: "",
+        maRap: "Chọn Cụm rạp",
+        giaVe: "",
+      });
     } catch (error) {
       alertError(error.content);
     }
@@ -124,7 +132,7 @@ function MovieShowtime() {
     getCinemaBrand();
     getCinema();
     getMovieDetails();
-  }, [values, maPhim]);
+  }, [values.maHeThongRap, maPhim]);
 
   return (
     <div className="d-flex">
@@ -140,7 +148,6 @@ function MovieShowtime() {
             <select
               className="form-control mb-3"
               name="maHeThongRap"
-              placeholder="Chọn hệ thống rạp"
               value={values.maHeThongRap}
               {...register("maHeThongRap")}
               onChange={handleChange}
@@ -163,12 +170,9 @@ function MovieShowtime() {
             <select
               className="form-control mb-3"
               name="maRap"
-              placeholder="Chọn cụm rạp"
-              value={values.maCumRap || "Chọn Cụm Rạp"}
-              onChange={handleChange}
               {...register("maRap")}
             >
-              <option>Chọn Cụm Rạp</option>
+              <option>Chọn Cụm rạp</option>
               {cumRap?.map((cumRap, index) => {
                 return <option key={index}>{cumRap.maCumRap}</option>;
               })}
@@ -185,9 +189,7 @@ function MovieShowtime() {
               type="datetime-local"
               placeholder="Ngày chiếu giờ chiếu"
               name="ngayChieuGioChieu"
-              value={values.ngayChieuGioChieu}
               {...register("ngayChieuGioChieu")}
-              onChange={handleChange}
             />
             {errors.ngayChieuGioChieu && (
               <p className="mt-1 text-danger">
@@ -201,12 +203,10 @@ function MovieShowtime() {
               type="number"
               placeholder="Giá vé"
               name="giaVe"
-              value={values.giaVe}
               min="10000"
               max="500000"
               step="5000"
               {...register("giaVe")}
-              onChange={handleChange}
             />
             {errors.giaVe && (
               <p className="mt-1 text-danger">{errors.giaVe.message}</p>

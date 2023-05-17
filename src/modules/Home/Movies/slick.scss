@@ -1,0 +1,17 @@
+@media screen and (max-width: 992px) {
+    .slick-dots li button::before {
+        font-size: 17px !important
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .slick-dots li button::before {
+        font-size: 16px !important
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .slick-dots li button::before {
+        font-size: 15px !important
+    }
+}

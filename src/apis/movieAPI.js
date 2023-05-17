@@ -33,13 +33,18 @@ export const apiCreateMovie = async (movie) => {
   await axiosClient.post("/QuanLyPhim/ThemPhimUploadHinh", formData);
 };
 
-export const apiGetMovieList = async (tenPhim) => {
-  const { data } = await axiosClient.get(`/QuanLyPhim/LayDanhSachPhim`, {
-    params: {
-      maNhom: "GP06",
-      tenPhim: tenPhim || undefined,
-    },
-  });
+export const apiGetMovieList = async (tenPhim, currentPage) => {
+  const { data } = await axiosClient.get(
+    `/QuanLyPhim/LayDanhSachPhimPhanTrang`,
+    {
+      params: {
+        maNhom: "GP06",
+        tenPhim: tenPhim || undefined,
+        soTrang: currentPage,
+        soPhanTuTrenTrang: 4,
+      },
+    }
+  );
   return data;
 };
 

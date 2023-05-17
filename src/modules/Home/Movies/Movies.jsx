@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import Slider from "react-slick";
 import MovieCard from "./MovieCard";
 import useWindowSize from "./useWindowSize";
-
+import slick from "./slick.scss";
 function Movies() {
   // Các state quản lý movies show ở trang Home
   const [movies, setMovies] = useState([]);

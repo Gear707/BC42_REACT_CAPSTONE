@@ -174,10 +174,10 @@ function UserManagement() {
   };
 
   // hàm tìm kiếm user
-  const handleSearchUser = async (keyword) => {
-    if (keyword) {
+  const handleSearchUser = async (keywork) => {
+    if (keywork) {
       try {
-        const data = await apiSearchUser(keyword);
+        const data = await apiSearchUser(keywork);
         setUsers(data.content);
       } catch (error) {
         alertError("Không tìm thấy user");
@@ -203,12 +203,12 @@ function UserManagement() {
               type="search"
               className="form-control"
               placeholder="Nhập từ khóa"
-              name="keyword"
+              name="keywork"
               onChange={handleChange}
             />
             <button
               className="btn btn-primary me-3"
-              onClick={() => handleSearchUser(values?.keyword)}
+              onClick={() => handleSearchUser(values?.keywork)}
             >
               <i className="fa fa-search" />
             </button>
