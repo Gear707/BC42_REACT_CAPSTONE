@@ -49,7 +49,7 @@ function Header() {
     <Navbar bg="light" expand="xxl" className={styles.header} collapseOnSelect>
       <Container fluid className="d-flex">
         <Navbar.Brand href="/" className="col-4 fw-bold">
-          <i className="fa-solid fa-film"></i> MovieParadise
+          <i className="fa-solid fa-film"></i> CyberMovie
         </Navbar.Brand>
         <Navbar.Toggle
           aria-controls="offcanvasNavbar-expand"
