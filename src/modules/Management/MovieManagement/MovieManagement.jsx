@@ -17,7 +17,8 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Pagination from "react-paginate";
-import PaginationstyleSCSS from "./Pagination.scss";
+import "./Pagination.scss";
+
 function MovieManagement() {
   // Định dạng đường dẫn Youtube
   const YOUTUBE_URL = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$/;
