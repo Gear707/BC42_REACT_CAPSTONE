@@ -70,9 +70,9 @@ function App() {
               </AdminRoute>
             }
           >
-            <Route path="admin/users" element={<UserManagement />} />
-            <Route path="admin/films" element={<MovieManagement />} />
-            <Route path="admin/films/addNew" element={<MovieForm />} />
+            <Route path="/admin" element={<UserManagement />} />
+            <Route path="/admin/films" element={<MovieManagement />} />
+            <Route path="/admin/films/addNew" element={<MovieForm />} />
             <Route
               path="admin/films/showtime/:maPhim"
               element={<MovieShowtime />}

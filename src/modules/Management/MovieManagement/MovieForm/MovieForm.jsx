@@ -184,11 +184,11 @@ function MovieForm() {
               <p className="mt-1 text-danger">{errors.danhGia.message}</p>
             )}
           </div>
-          <div>
+          <div className="form-group mt-3">
+            <label className="mb-2">Ngày khởi chiếu</label>
             <input
               className="form-control mb-2"
               type="date"
-              placeholder="Ngày Khởi Chiếu"
               {...register("ngayKhoiChieu")}
             />
             {errors.ngayKhoiChieu && (

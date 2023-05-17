@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Modal } from "react-bootstrap";
 import dayjs from "dayjs";
-import { alertError, alertSuccess } from "../../../apis/sweetAlert2";
+import {
+  alertError,
+  alertSuccess,
+  warningDeleteMovie,
+} from "../../../apis/sweetAlert2";
 import {
   apiDeleteMovie,
   apiGetMovieList,
@@ -130,12 +134,15 @@ function MovieManagement() {
 
   // hàm xóa phim
   const deleteMovie = async (movieId) => {
-    try {
-      await apiDeleteMovie(movieId);
-      getMovieList();
-      alertSuccess("Xóa phim thành công");
-    } catch (error) {
-      alertError("Xóa phim thất bại");
+    const result = await warningDeleteMovie();
+    if (result.isConfirmed) {
+      try {
+        await apiDeleteMovie(movieId);
+        getMovieList();
+        alertSuccess("Xóa phim thành công");
+      } catch (error) {
+        alertError("Xóa phim thất bại");
+      }
     }
   };
 
@@ -215,7 +222,7 @@ function MovieManagement() {
                     alt={movie.tenPhim}
                   />
                 </td>
-                <td>{movie.tenPhim}</td>
+                <td style={{ width: "300px" }}>{movie.tenPhim}</td>
                 <td style={{ width: "350px" }}>{movie.moTa}</td>
                 <td>{dayjs(movie.ngayKhoiChieu).format("DD/MM/YYYY")}</td>
                 <td>
