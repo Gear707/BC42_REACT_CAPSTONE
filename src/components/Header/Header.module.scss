@@ -56,14 +56,6 @@ $headerHover: #0354a5;
     }
 }
 
-.menuMargin {
-    margin-left: 100px;
-
-    @include responsive("large") {
-        margin: 0px;
-    }
-}
-
 .navRight {
     margin-left: auto;
 

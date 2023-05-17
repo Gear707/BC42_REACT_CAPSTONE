@@ -34,6 +34,10 @@ function Header() {
     navigate("/user");
   };
 
+  const handleNavigateAdmin = () => {
+    navigate("/admin");
+  };
+
   const scrollToComponent = (componentId) => {
     const element = document.getElementById(componentId);
     if (element) {
@@ -42,7 +46,7 @@ function Header() {
   };
 
   return (
-    <Navbar bg="light" expand="xl" className={styles.header} collapseOnSelect>
+    <Navbar bg="light" expand="xxl" className={styles.header} collapseOnSelect>
       <Container fluid className="d-flex">
         <Navbar.Brand href="/" className="col-4 fw-bold">
           <i className="fa-solid fa-film"></i> MovieParadise
@@ -54,7 +58,7 @@ function Header() {
         <Navbar.Offcanvas id="offcanvasNavbar-expand" placement="start">
           <Offcanvas.Body>
             <Nav
-              className={`${styles.menuMargin} ${styles.navMenu} my-lg-0`}
+              className={`${styles.navMenu} m-0 my-lg-0`}
               navbarScroll
             >
               <Nav.Link
@@ -80,6 +84,11 @@ function Header() {
                 onClick={() => scrollToComponent("contact")}
               >
                 Liên hệ
+              </Nav.Link>
+              <Nav.Link onClick={handleNavigateAdmin}
+                className={styles.navLink}
+              >
+                Đến trang quản trị
               </Nav.Link>
             </Nav>
             <div className={styles.navRight}>
