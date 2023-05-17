@@ -208,7 +208,7 @@ function UserManagement() {
             />
             <button
               className="btn btn-primary me-3"
-              onClick={() => handleSearchUser(values?.keywork)}
+              onClick={() => handleSearchUser(values?.keyword)}
             >
               <i className="fa fa-search" />
             </button>

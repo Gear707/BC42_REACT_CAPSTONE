@@ -123,9 +123,9 @@ function MovieManagement() {
   };
 
   // hàm lấy danh sách phim và hiển thị
-  const getMovieList = async () => {
+  const getMovieList = async (tenPhim) => {
     try {
-      const data = await apiGetMovieList();
+      const data = await apiGetMovieList(tenPhim);
       setMovies(data.content);
     } catch (error) {
       alertError("Lấy danh sách phim thất bại");
@@ -155,22 +155,13 @@ function MovieManagement() {
   };
 
   // hàm tìm kiếm phim theo tên
-  const handleSearch = () => {
-    let keyword = values.keyword.toLowerCase();
-    if (keyword) {
-      const newMovieList = movies.filter((movie) => {
-        const tenPhim = movie.tenPhim.toLowerCase();
-        return tenPhim.indexOf(keyword) !== -1;
-      });
-      setMovies(newMovieList);
-    } else {
-      getMovieList();
-    }
-  };
+  // const handleSearch = () => {
+  //   getMovieList();
+  // };
 
   useEffect(() => {
     getMovieList();
-  }, [values]);
+  }, []);
   return (
     <div>
       <p className={styles.title1}>Quản lý phim</p>
@@ -186,7 +177,10 @@ function MovieManagement() {
               name="keyword"
               onChange={handleChange}
             />
-            <button className="btn btn-primary" onClick={handleSearch}>
+            <button
+              className="btn btn-primary"
+              onClick={() => getMovieList(values?.keyword)}
+            >
               <i className="fa fa-search" />
             </button>
           </div>
