@@ -38,8 +38,8 @@ $headerHover: #0354a5;
         color: $headerHover;
     }
 
-    @include responsive("large") {
-        margin: 10px 0;
+    @include responsive("largest") {
+        margin: 10px;
     }
 }
 
@@ -51,7 +51,7 @@ $headerHover: #0354a5;
 .borderRight {
     border-right: 2px solid black;
 
-    @include responsive("large") {
+    @include responsive("largest") {
         border: none;
     }
 }
@@ -59,7 +59,7 @@ $headerHover: #0354a5;
 .navRight {
     margin-left: auto;
 
-    @include responsive("large") {
+    @include responsive("largest") {
         padding: 20px 0;
         border-top: 1px solid gray;
         margin: 20px 0;

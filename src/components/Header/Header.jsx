@@ -88,7 +88,7 @@ function Header() {
               <Nav.Link onClick={handleNavigateAdmin}
                 className={styles.navLink}
               >
-                Đến trang quản trị
+                Trang quản trị
               </Nav.Link>
             </Nav>
             <div className={styles.navRight}>
