@@ -19,8 +19,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Pagination from "react-paginate";
 import PaginationstyleSCSS from "./Pagination.scss";
 function MovieManagement() {
-  // Định dạng file ảnh
-  const PHOTO_FORMAT = /\.(jpeg|jpg|png|webp)$/i;
   // Định dạng đường dẫn Youtube
   const YOUTUBE_URL = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$/;
   // Định dạng điểm đánh giá phim
@@ -52,24 +50,6 @@ function MovieManagement() {
       .string()
       .required("Trailer không được để trống!")
       .matches(YOUTUBE_URL, "Đường dẫn phải là đường dẫn từ Youtube"),
-    hinhAnh: yup
-      .mixed()
-      .required("Hình ảnh không được để trống!")
-      .test(
-        "fileType",
-        "File không đúng định dạng (jpg, jpeg, png)",
-        (value) => {
-          if (value.length > 0) {
-            return PHOTO_FORMAT.test(value[0].name);
-          }
-          return false;
-        }
-      )
-      .test(
-        "fileSize",
-        "Kích thước file không được vượt quá 1MB",
-        (value) => value.length && value[0].size <= 1000000
-      ),
     ngayKhoiChieu: yup
       .string()
       .required("Ngày khởi chiếu không được để trống!"),
@@ -88,7 +68,6 @@ function MovieManagement() {
       moTa: "",
       ngayKhoiChieu: "",
       trailer: "",
-      hinhAnh: "",
       danhGia: "",
     },
     mode: "onTouched",
@@ -124,7 +103,6 @@ function MovieManagement() {
       moTa: movie.moTa,
       ngayKhoiChieu: dayjs(movie.ngayKhoiChieu).format("YYYY-MM-DD"),
       trailer: movie.trailer,
-      hinhAnh: movie.hinhAnh,
       maNhom: "GP06",
       danhGia: movie.danhGia,
     });
@@ -348,17 +326,6 @@ function MovieManagement() {
               )}
             </div>
 
-            <div className="form-group mb-2">
-              <label>Hình ảnh</label>
-              <input
-                type="file"
-                className="form-control"
-                {...register("hinhAnh")}
-              />
-              {errors.hinhAnh && (
-                <p className="mt-1 text-danger">{errors.hinhAnh.message}</p>
-              )}
-            </div>
             <div className="d-flex justify-content-end mt-3">
               <button className="btn btn-primary me-2">Lưu</button>
             </div>
