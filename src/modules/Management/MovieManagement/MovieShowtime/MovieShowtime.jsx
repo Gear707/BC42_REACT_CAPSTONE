@@ -12,12 +12,14 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { apiGetMovieDetails } from "../../../../apis/movieAPI";
 import styles from "./MovieShowtime.module.scss";
+
 function MovieShowtime() {
   const [heThongRap, setHeThongRap] = useState([]);
   const [values, setValues] = useState([]);
   const [cumRap, setCumRap] = useState([]);
   const { maPhim } = useParams();
   const [movie, setMovie] = useState({});
+
   //Chuỗi regex để validation
   const TICKET_PRICE = /^[1-9]\d{4,}$/;
   const HETHONGRAP = /^(?!Chọn Hệ thống rạp$).*$/;
@@ -72,7 +74,6 @@ function MovieShowtime() {
       const data = await apiCreateMovieTime(payload);
       alertSuccess("Tạo lịch chiếu phim thành công");
     } catch (error) {
-      console.log(error);
       alertError(error.content);
     }
   };
@@ -87,7 +88,7 @@ function MovieShowtime() {
       const data = await apiGetCinemaBrand();
       setHeThongRap(data.content);
     } catch (error) {
-      console.log(error);
+      alertError("Lấy dữ liệu hệ thống rạp thất bại");
     }
   };
 
@@ -107,27 +108,9 @@ function MovieShowtime() {
       const data = await apiGetMovieDetails(maPhim);
       setMovie(data.content);
     } catch (error) {
-      console.log(error);
+      alertError("Lấy mã phim thất bại");
     }
   };
-
-  // const handleCreateMovieTime = async () => {
-  //   const payload = {
-  //     maPhim: maPhim || null,
-  //     ngayChieuGioChieu: dayjs(values.ngayChieuGioChieu).format(
-  //       "DD/MM/YYYY hh:mm:ss"
-  //     ),
-  //     maRap: values.maCumRap,
-  //     giaVe: values.giaVe,
-  //   };
-  //   try {
-  //     const data = await apiCreateMovieTime(payload);
-  //     alertSuccess("Tạo lịch chiếu phim thành công");
-  //   } catch (error) {
-  //     console.log(error);
-  //     alertError(error.content);
-  //   }
-  // };
 
   const handleChange = (evt) => {
     const { value, name } = evt.target;
@@ -153,11 +136,10 @@ function MovieShowtime() {
           onSubmit={handleSubmit(onSubmit, onError)}
           className="d-flex flex-column form-group mt-3"
         >
-          <div>
+          <div className={styles.heThongRap}>
             <select
               className="form-control mb-3"
               name="maHeThongRap"
-              id=""
               placeholder="Chọn hệ thống rạp"
               value={values.maHeThongRap}
               {...register("maHeThongRap")}
@@ -181,9 +163,8 @@ function MovieShowtime() {
             <select
               className="form-control mb-3"
               name="maRap"
-              id=""
               placeholder="Chọn cụm rạp"
-              value={values.maCumRap}
+              value={values.maCumRap || "Chọn Cụm Rạp"}
               onChange={handleChange}
               {...register("maRap")}
             >
@@ -197,22 +178,6 @@ function MovieShowtime() {
             )}
           </div>
 
-          {/* <select
-          className="form-control w-50 mb-3"
-          name="maRap"
-          id=""
-          placeholder="Chọn mã rạp"
-          value={values.maCumRap}
-          onChange={handleChange}
-        >
-          <option selected>Chọn Mã Cụm Rạp</option>
-          {cumRap.map((cumRapChieu, index) => {
-            if (cumRapChieu.tenCumRap === values.tenCumRap) {
-              return <option key={index}>{cumRapChieu.maCumRap}</option>;
-            }
-            return null;
-          })}
-        </select> */}
           <div className="form-group">
             <label className="mb-2">Ngày chiếu, giờ chiếu</label>
             <input

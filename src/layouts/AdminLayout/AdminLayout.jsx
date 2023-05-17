@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import styles from "./AdminLayout.module.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { alertSuccess, warningSignout } from "../../apis/sweetAlert2";
+import {
+  alertError,
+  alertSuccess,
+  warningSignout,
+} from "../../apis/sweetAlert2";
 import { signout } from "../../slices/userSlice";
 
 function AdminLayout() {
@@ -18,7 +22,7 @@ function AdminLayout() {
           alertSuccess("Bạn đã đăng xuất thành công!");
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => alertError("Đăng xuất không thành công!"));
   };
   // state dùng để set class active
   const [activeUser, setActiveUser] = useState(false);

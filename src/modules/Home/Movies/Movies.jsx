@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import Slider from "react-slick";
 import MovieCard from "./MovieCard";
 import useWindowSize from "./useWindowSize";
+import { alertError } from "../../../apis/sweetAlert2";
 
 function Movies() {
   // Các state quản lý movies show ở trang Home
@@ -17,7 +18,7 @@ function Movies() {
       const data = await apiGetMovies();
       setMovies(data.content);
     } catch (error) {
-      console.log(error);
+      alertError("Lấy dữ liệu phim thất bại");
     }
   };
 

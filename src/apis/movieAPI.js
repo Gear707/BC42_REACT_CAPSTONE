@@ -33,9 +33,9 @@ export const apiCreateMovie = async (movie) => {
   await axiosClient.post("/QuanLyPhim/ThemPhimUploadHinh", formData);
 };
 
-export const apiGetMovieList = async () => {
+export const apiGetMovieList = async (currentPage) => {
   const { data } = await axiosClient.get(
-    `/QuanLyPhim/LayDanhSachPhim?maNhom=GP06`
+    `/QuanLyPhim/LayDanhSachPhimPhanTrang?maNhom=GP06&soTrang=${currentPage}&soPhanTuTrenTrang=4`
   );
   return data;
 };

@@ -1,8 +1,6 @@
 .container {
     width: 70%;
-    // margin: auto;
     margin: 70px auto;
-
 }
 
 .detailFormat {
@@ -91,8 +89,6 @@
     opacity: 1;
     position: absolute;
     background: linear-gradient(to top, #000, transparent 100%);
-    // transition: all 40s;
-    // visibility: hidden;
     border-radius: 4px;
 
     .playButton {
@@ -110,7 +106,6 @@
         &:hover img {
             opacity: 0.6 !important;
         }
-
     }
 }
 
@@ -130,9 +125,8 @@ iframe,
 
 @media screen and (max-width: 992px) {
     .container {
+        
         .detailFormat {
-            .movieImg {}
-
             .movieTitle {
                 font-size: 22px;
                 font-weight: 550;
@@ -141,9 +135,7 @@ iframe,
             .description {
                 font-size: 15px;
             }
-
-            .trailerButton {}
-
+            
             .purchaseButton {
                 font-size: 15px
             }
@@ -154,7 +146,6 @@ iframe,
 @media screen and (max-width: 576px) {
     .container {
         height: 800px;
-
         .detailFormat {
             margin-top: 100px !important;
             height: 400px;
@@ -173,8 +164,6 @@ iframe,
                 font-size: 15px;
             }
 
-            .trailerButton {}
-
             .purchaseButton {
                 font-size: 15px;
                 top: 420px;
@@ -189,11 +178,6 @@ iframe,
             margin-top: 100px !important;
             height: 350px;
 
-            .movieImg {
-                // width: 220px;
-                // height: 300px;
-            }
-
             .movieTitle {
                 font-size: 20px;
                 font-weight: 550;
@@ -202,12 +186,6 @@ iframe,
 
             .description {
                 font-size: 14px;
-            }
-
-            .trailerButton {
-                // width: 220px;
-                // height: 300px;
-
             }
 
             .purchaseButton {

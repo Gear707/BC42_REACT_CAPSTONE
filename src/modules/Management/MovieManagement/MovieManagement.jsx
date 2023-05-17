@@ -16,12 +16,15 @@ import styles from "./MovieManagement.module.scss";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
+import Pagination from "react-paginate";
+import PaginationstyleSCSS from "./Pagination.scss";
 function MovieManagement() {
   // Định dạng file ảnh
   const PHOTO_FORMAT = /\.(jpeg|jpg|png|webp)$/i;
   // Định dạng đường dẫn Youtube
   const YOUTUBE_URL = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$/;
-
+  // Định dạng điểm đánh giá phim
+  const RATEMPOINT = /^(10|[1-9])(\.\d+)?$/;
   const navigate = useNavigate();
 
   // state quản lý đóng/mở modal
@@ -34,12 +37,17 @@ function MovieManagement() {
   const [maPhim, setMaPhim] = useState(null);
   // state theo dõi ô input tìm kiếm
   const [values, setValues] = useState(null);
+  // state theo dõi phân trang
+  const [currentPage, setCurrentPage] = useState(1);
 
   // Định nghĩa các xác thực cho thuộc tính
   const schema = yup.object({
     tenPhim: yup.string().required("Tên phim không được để trống!"),
     moTa: yup.string().required("Mô tả không được để trống!"),
-    danhGia: yup.string().required("Số điểm không được để trống!"),
+    danhGia: yup
+      .string()
+      .required("Số điểm không được để trống!")
+      .matches(RATEMPOINT, "Số điểm phải nằm trong khoảng 1~10"),
     trailer: yup
       .string()
       .required("Trailer không được để trống!")
@@ -125,15 +133,15 @@ function MovieManagement() {
   // hàm lấy danh sách phim và hiển thị
   const getMovieList = async () => {
     try {
-      const data = await apiGetMovieList();
-      setMovies(data.content);
+      const data = await apiGetMovieList(currentPage);
+      setMovies(data.content.items);
     } catch (error) {
       alertError("Lấy danh sách phim thất bại");
     }
   };
 
   // hàm xóa phim
-  const deleteMovie = async (movieId) => {
+  const handleDeleteMovie = async (movieId) => {
     const result = await warningDeleteMovie();
     if (result.isConfirmed) {
       try {
@@ -168,9 +176,14 @@ function MovieManagement() {
     }
   };
 
+  const handlePageChange = (data) => {
+    setCurrentPage(data.selected + 1); // Cập nhật trang hiện tại với setPage
+  };
+
   useEffect(() => {
     getMovieList();
-  }, [values]);
+  }, [values, currentPage]);
+
   return (
     <div>
       <p className={styles.title1}>Quản lý phim</p>
@@ -206,15 +219,15 @@ function MovieManagement() {
             <th>Hình ảnh</th>
             <th>Tên phim</th>
             <th>Mô tả</th>
-            <th>Ngày khởi chiếu</th>
+            <th>Khởi chiếu</th>
             <th>Thao tác</th>
           </tr>
         </thead>
         <tbody>
           {movies.map((movie, index) => {
             return (
-              <tr key={index}>
-                <td>{movie.maPhim}</td>
+              <tr key={movie.maPhim}>
+                <td style={{ width: "100px" }}>{movie.maPhim}</td>
                 <td>
                   <img
                     style={{ height: "100px", width: "70px" }}
@@ -222,10 +235,12 @@ function MovieManagement() {
                     alt={movie.tenPhim}
                   />
                 </td>
-                <td style={{ width: "300px" }}>{movie.tenPhim}</td>
-                <td style={{ width: "350px" }}>{movie.moTa}</td>
-                <td>{dayjs(movie.ngayKhoiChieu).format("DD/MM/YYYY")}</td>
-                <td>
+                <td style={{ width: "250px" }}>{movie.tenPhim}</td>
+                <td style={{ width: "500px" }}>{movie.moTa}</td>
+                <td style={{ width: "150px" }}>
+                  {dayjs(movie.ngayKhoiChieu).format("DD/MM/YYYY")}
+                </td>
+                <td style={{ width: "185px" }}>
                   <button
                     className="btn btn-primary"
                     onClick={() => handleSelectMovie(movie)}
@@ -234,7 +249,7 @@ function MovieManagement() {
                   </button>
                   <button
                     className="btn btn-danger ms-1"
-                    onClick={() => deleteMovie(movie.maPhim)}
+                    onClick={() => handleDeleteMovie(movie.maPhim)}
                   >
                     <i className="fa-regular fa-trash-can ml-2"></i>
                   </button>
@@ -253,6 +268,15 @@ function MovieManagement() {
           })}
         </tbody>
       </table>
+      <Pagination
+        className="react-pagination mt-3"
+        previousLabel="<"
+        nextLabel=">"
+        pageCount={5} // Số trang hiển thị
+        pageRangeDisplayed={3} // Số trang hiển thị trong phân trang
+        marginPagesDisplayed={2} // Số lượng trang được hiển thị ở hai bên mỗi phần phân trang
+        onPageChange={handlePageChange}
+      />
       <Modal show={show} onHide={() => setShow(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Chỉnh sửa thông tin phim</Modal.Title>
@@ -267,7 +291,7 @@ function MovieManagement() {
               <input
                 type="text"
                 className="form-control"
-                disabled="true"
+                disabled={true}
                 {...register("maPhim")}
               />
             </div>
@@ -285,9 +309,10 @@ function MovieManagement() {
 
             <div className="form-group mb-2">
               <label>Mô tả</label>
-              <input
+              <textarea
                 type="text"
                 className="form-control"
+                rows={3}
                 {...register("moTa")}
               />
               {errors.moTa && (

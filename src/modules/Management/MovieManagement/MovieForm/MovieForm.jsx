@@ -9,7 +9,9 @@ import { alertError, alertSuccess } from "../../../../apis/sweetAlert2";
 import styles from "./MovieForm.module.scss";
 import { Modal } from "react-bootstrap";
 import ReactPlayer from "react-player";
+import { useNavigate } from "react-router-dom";
 function MovieForm() {
+  const navigate = useNavigate();
   // state show modal trailer
   const [show, setShow] = useState(false);
 
@@ -21,12 +23,17 @@ function MovieForm() {
   const PHOTO_FORMAT = /\.(jpeg|jpg|png|webp)$/i;
   // Định dạng đường dẫn Youtube
   const YOUTUBE_URL = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$/;
+  // Định dạng điểm đánh giá phim
+  const RATEMPOINT = /^(10|[1-9])(\.\d+)?$/;
 
   // Định nghĩa các xác thực cho thuộc tính
   const schema = yup.object({
     tenPhim: yup.string().required("Tên phim không được để trống!"),
     moTa: yup.string().required("Mô tả không được để trống!"),
-    danhGia: yup.string().required("Đánh giá không được để trống!"),
+    danhGia: yup
+      .string()
+      .required("Đánh giá không được để trống!")
+      .matches(RATEMPOINT, "Số điểm phải nằm trong khoảng 1~10"),
     trailer: yup
       .string()
       .required("Trailer không được để trống!")
@@ -138,9 +145,10 @@ function MovieForm() {
           </div>
 
           <div>
-            <input
+            <textarea
               className="form-control mb-2"
               placeholder="Mô Tả"
+              rows={5}
               {...register("moTa")}
             />
             {errors.moTa && (
@@ -201,6 +209,13 @@ function MovieForm() {
         </form>
       </div>
       <div className={`col-5 ${styles.trailer}`}>
+        <button
+          style={{ marginLeft: "320px", width: "150px" }}
+          className="btn btn-primary"
+          onClick={() => navigate("/admin/films")}
+        >
+          Danh sách phim
+        </button>
         {imageUrl && (
           <div className={styles.trailer}>
             <img className={styles.poster} src={imageUrl} alt="Chosen image" />

@@ -18,7 +18,7 @@
 }
 
 .sliderContainer {
-   width: 67%;
+    width: 67%;
     margin: auto;
 }
 
@@ -127,6 +127,7 @@ iframe,
 @media screen and (max-width: 768px) {
     .sliderContainer {
         width: 70% !important;
+
         .movieCard {
             font-size: 14px;
             max-height: 380px;
