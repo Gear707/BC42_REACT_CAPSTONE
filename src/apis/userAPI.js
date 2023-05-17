@@ -53,9 +53,9 @@ export const apiCreateNewUser = async (values) => {
   return data;
 };
 
-export const apiSearchUser = async (keywork) => {
+export const apiSearchUser = async (keyword) => {
   const { data } = await axiosClient.get(
-    `QuanLyNguoiDung/TimKiemNguoiDung?MaNhom=GP06&tuKhoa=${keywork}`
+    `QuanLyNguoiDung/TimKiemNguoiDung?MaNhom=GP06&tuKhoa=${keyword}`
   );
   return data;
 };

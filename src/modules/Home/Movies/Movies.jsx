@@ -38,7 +38,7 @@ function Movies() {
   if (error) return null;
 
   return (
-    <>
+    <div id="schedule">
       {size.width >= 992 ? (
         <Slider className="pb-5" style={{ paddingTop: "200px" }} {...settings}>
           <div>
@@ -146,7 +146,7 @@ function Movies() {
           </div>
         </Slider>
       )}
-    </>
+    </div>
   );
 }
 

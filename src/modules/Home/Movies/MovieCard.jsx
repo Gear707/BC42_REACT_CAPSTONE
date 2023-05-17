@@ -4,6 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router-dom";
 import styles from "./Movie.module.scss";
 import Card from "react-bootstrap/Card";
+
 function MovieCard({ item }) {
   // state show modal trailer
   const [show, setShow] = useState(false);

@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./Showtimes.module.scss";
+
 function HeThongRap({ heThongRap }) {
   return (
     <div>

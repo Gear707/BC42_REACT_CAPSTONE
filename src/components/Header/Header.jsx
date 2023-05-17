@@ -89,7 +89,10 @@ function Header() {
                     className={`${styles.userLink} ${styles.borderRight} me-4`}
                     onClick={handleNavigateUser}
                   >
-                    <i className="fa-solid fa-user me-2" />
+                    <img className={`${styles.userAvatar} me-2`}
+                      src="https://i.pravatar.cc/300?u=abc123"
+                      alt={user.taiKhoan}
+                    />
                     <span className="me-4">{user.taiKhoan}</span>
                   </button>
                   <button className={styles.userLink} onClick={handleSignout}>

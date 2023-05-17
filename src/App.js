@@ -5,8 +5,7 @@ import MainLayout from "./layouts/MainLayout/MainLayout";
 import AuthLayout from "./layouts/AuthLayout/AuthLayout";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Loading from "./components/Loading/Loading";
-// import MovieManagement from "./modules/MovieManagement/MovieManagement";
-// import AdminLayout from "./layouts/AdminLayout/AdminLayout";
+
 import AdminLayout from "./layouts/AdminLayout/AdminLayout";
 import AdminRoute from "./routes/AdminRoute";
 import PageNotFound from "./components/PageNotFound/PageNotFound";
@@ -15,11 +14,7 @@ import UserRoute from "./routes/UserRoute";
 import UserManagement from "./modules/Management/UserManagement/UserManagement";
 import MovieForm from "./modules/Management/MovieManagement/MovieForm/MovieForm";
 import MovieShowtime from "./modules/Management/MovieManagement/MovieShowtime/MovieShowtime";
-// import Home from "./modules/Home/Home";
-// import MovieDetails from "./modules/MovieDetails/MovieDetails";
-// import Booking from "./modules/Booking/Booking";
-// import Signin from "./modules/Auth/Signin/Signin";
-// import Signup from "./modules/Auth/Signup/Signup";
+
 
 //lazy: thực hiện cơ chế tải chậm. Bắt đầu tại thời điểm gọi component mới bắt đầu tải về. Tránh các component không cần thiết tải dữ liệu từ ban đầu
 const Home = lazy(() => import("./modules/Home/Home"));

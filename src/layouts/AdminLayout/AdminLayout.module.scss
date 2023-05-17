@@ -53,10 +53,10 @@
     color: greenyellow !important;
     position: relative;
 
-    &::after{
+    &::after {
         content: "";
         height: 0.5px;
-        width:100%;
+        width: 100%;
         background-color: greenyellow;
 
         position: absolute;

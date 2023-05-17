@@ -14,11 +14,7 @@ $borderColor: #cdcbcb;
 }
 
 .divCustom {
-    padding: 100px 0;
-
-    @include responsive("medium") {
-        display: none;
-    }
+    padding: 30px 20px 100px;
 }
 
 .showtimesContainer {
@@ -28,10 +24,14 @@ $borderColor: #cdcbcb;
     background-color: white;
     border: 1px solid $borderColor;
     overflow-y: scroll;
+}
 
-    // @include responsive("medium") {
-    //     display: none;
-    // }
+.logoSize {
+    width: 70px;
+
+    @include responsive("smaller") {
+        width: 50px;
+    }
 }
 
 .logoBorder {
@@ -75,6 +75,10 @@ $borderColor: #cdcbcb;
     line-height: 1.4;
     letter-spacing: 0.00735em;
     @extend %ellipsis;
+
+    @include responsive("smaller") {
+        font-size: 14px;
+    }
 }
 
 .branchAddress {
@@ -82,12 +86,17 @@ $borderColor: #cdcbcb;
     font-weight: 400;
     letter-spacing: 0.0075em;
     @extend %ellipsis;
+
+    @include responsive("smaller") {
+        font-size: 14px;
+    }
 }
 
 .branchDetails {
     color: $secondaryColor;
     font-size: 13px;
     letter-spacing: 1px;
+
 
     &:hover {
         color: $secondaryColor;
@@ -122,6 +131,12 @@ $borderColor: #cdcbcb;
     text-align: center;
     margin-right: 12px;
     border-radius: 4px;
+
+    @include responsive("smaller") {
+        font-size: 14px;
+        min-width: 28px;
+        height: 20px;
+    }
 }
 
 .movieName {
@@ -130,6 +145,10 @@ $borderColor: #cdcbcb;
     line-height: 22px;
     margin-bottom: 8px;
     letter-spacing: -0.00833em;
+
+    @include responsive("smaller") {
+        font-size: 19px;
+    }
 }
 
 .date {
@@ -143,15 +162,15 @@ $borderColor: #cdcbcb;
     color: #108f3e;
     font-size: 14px;
 
-
-
     .time {
         color: $secondaryColor;
         font-size: 16px;
         margin-bottom: 5px;
         transition: all .3s;
 
-
+        @include responsive("smaller") {
+            font-size: 14px;
+        }
     }
 
     &:hover {
@@ -161,5 +180,9 @@ $borderColor: #cdcbcb;
         .time {
             color: white;
         }
+    }
+
+    @include responsive("smaller") {
+        font-size: 12px;
     }
 }

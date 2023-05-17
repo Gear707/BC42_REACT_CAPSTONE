@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ReactPlayer from "react-player";
 import { Modal } from "react-bootstrap";
 import styles from "./MovieInfo.module.scss";
+
 function MovieTrailer({ movie, cinema }) {
   // state show modal trailer
   const [error, setError] = useState(null);

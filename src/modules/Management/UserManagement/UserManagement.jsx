@@ -108,7 +108,7 @@ function UserManagement() {
     try {
       await apiDeleteUser(taiKhoan);
       getUserList();
-      alertError("Xóa user thành công");
+      alertSuccess("Xóa user thành công");
     } catch (error) {
       alertError("Người dùng này đã đặt phim không thể xóa");
     }
@@ -153,10 +153,10 @@ function UserManagement() {
   };
 
   // hàm tìm kiếm user
-  const handleSearchUser = async (keywork) => {
-    if (keywork) {
+  const handleSearchUser = async (keyword) => {
+    if (keyword) {
       try {
-        const data = await apiSearchUser(keywork);
+        const data = await apiSearchUser(keyword);
         setUsers(data.content);
       } catch (error) {
         alertError("Không tìm thấy user");
@@ -182,12 +182,12 @@ function UserManagement() {
               type="search"
               className="form-control"
               placeholder="Nhập từ khóa"
-              name="keywork"
+              name="keyword"
               onChange={handleChange}
             />
             <button
               className="btn btn-primary me-3"
-              onClick={() => handleSearchUser(values.keywork)}
+              onClick={() => handleSearchUser(values.keyword)}
             >
               <i className="fa fa-search" />
             </button>

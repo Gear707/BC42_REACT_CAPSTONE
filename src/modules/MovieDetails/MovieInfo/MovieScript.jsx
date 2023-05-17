@@ -1,5 +1,6 @@
 import styles from "./MovieInfo.module.scss";
 import dayjs from "dayjs";
+
 function MovieScript({ movieDuration, movie }) {
   return (
     <div>

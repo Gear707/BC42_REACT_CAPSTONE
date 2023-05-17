@@ -8,7 +8,7 @@ function UserLayout() {
         <>
             <Header />
             <div className={styles.background}>
-                <div className="container px-4 py-5">
+                <div className="container">
                     <div className="row justify-content-center">
                         <Outlet />
                     </div>

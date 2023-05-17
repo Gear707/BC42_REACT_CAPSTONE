@@ -149,11 +149,11 @@ function MovieManagement() {
 
   // hàm tìm kiếm phim theo tên
   const handleSearch = () => {
-    let keywork = values.keywork.toLowerCase();
-    if (keywork) {
+    let keyword = values.keyword.toLowerCase();
+    if (keyword) {
       const newMovieList = movies.filter((movie) => {
         const tenPhim = movie.tenPhim.toLowerCase();
-        return tenPhim.indexOf(keywork) !== -1;
+        return tenPhim.indexOf(keyword) !== -1;
       });
       setMovies(newMovieList);
     } else {
@@ -176,7 +176,7 @@ function MovieManagement() {
               type="text"
               className="form-control"
               placeholder="Nhập từ khóa"
-              name="keywork"
+              name="keyword"
               onChange={handleChange}
             />
             <button className="btn btn-primary" onClick={handleSearch}>
