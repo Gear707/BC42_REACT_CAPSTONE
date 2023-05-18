@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import styles from "./Movie.module.scss";
 import { apiGetMovies } from "../../../apis/movieAPI";
-import Button from "react-bootstrap/Button";
 import Slider from "react-slick";
 import MovieCard from "./MovieCard";
 import useWindowSize from "./useWindowSize";
-import slick from "./slick.scss";
+import "./slick.scss";
+
 function Movies() {
   // Các state quản lý movies show ở trang Home
   const [movies, setMovies] = useState([]);
-  const [movies1, setMovies1] = useState([]);
   const [error, setError] = useState(null);
   const size = useWindowSize();
+
   const getMovies = async () => {
     try {
       const data = await apiGetMovies();

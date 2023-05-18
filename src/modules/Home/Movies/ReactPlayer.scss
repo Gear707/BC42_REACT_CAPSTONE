@@ -1,0 +1,36 @@
+@media screen and (max-width: 992px) {
+    iframe {
+        width: 450px !important;
+        height: 250px !important;
+        top: 70% !important;
+        left: 10% !important;
+
+    }
+}
+
+@media screen and (max-width: 768px) {
+    iframe {
+        width: 400px !important;
+        height: 220px !important;
+        top: 80% !important;
+        left: 15% !important;
+
+    }
+}
+
+@media screen and (max-width: 576px) {
+    iframe {
+        width: 325px !important;
+        height: 185px !important;
+        left: 23% !important;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    iframe {
+        width: 300px !important;
+        height: 170px !important;
+        top: 100% !important;
+        left: 8% !important;
+    }
+}

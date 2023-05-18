@@ -7,7 +7,7 @@
     overflow-y: scroll;
     color: black;
     padding: 15px 0;
-    margin-top: 250px;
+    margin-top: 150px;
 }
 
 .logo {
@@ -66,6 +66,8 @@
 
 @media screen and (max-width: 576px) {
     .container {
+        margin-top: 100px;
+
         .logo {
             width: 85%;
             height: auto;
@@ -90,6 +92,8 @@
 
 @media screen and (max-width: 420px) {
     .container {
+        margin-top: 70px;
+
         .logo {
             width: 70%;
             height: auto;
