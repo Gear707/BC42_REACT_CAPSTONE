@@ -1,1 +1,1 @@
-Phần quản lý task của các thành viên được ghi trong file "Tasks management.pdf"
+Phần quản lý task của các thành viên được ghi trong file "Tasks management.pdf"git 
