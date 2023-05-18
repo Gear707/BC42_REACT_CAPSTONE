@@ -45,6 +45,15 @@ function Header() {
     }
   };
 
+  const showAdminLink = () => {
+    if (!user || user.maLoaiNguoiDung !== "QuanTri") return null;
+    return (
+      <Nav.Link onClick={handleNavigateAdmin} className={styles.navLink}>
+        Trang quản trị
+      </Nav.Link>
+    );
+  };
+
   return (
     <Navbar bg="light" expand="xxl" className={styles.header} collapseOnSelect>
       <Container fluid className="d-flex">
@@ -85,11 +94,7 @@ function Header() {
               >
                 Liên hệ
               </Nav.Link>
-              <Nav.Link onClick={handleNavigateAdmin}
-                className={styles.navLink}
-              >
-                Trang quản trị
-              </Nav.Link>
+              {showAdminLink()}
             </Nav>
             <div className={styles.navRight}>
               {user ? (
