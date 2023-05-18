@@ -4,6 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router-dom";
 import styles from "./Movie.module.scss";
 import Card from "react-bootstrap/Card";
+import "./ReactPlayer.scss";
 
 function MovieCard({ item }) {
   // state show modal trailer
@@ -49,6 +50,7 @@ function MovieCard({ item }) {
       <Modal show={show} onHide={handleClose}>
         <ReactPlayer
           className={styles.trailerModal}
+          style={{ width: "50px", height: "50px" }}
           url={item.trailer}
           config={{
             video: {

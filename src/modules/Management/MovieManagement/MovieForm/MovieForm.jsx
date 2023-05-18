@@ -10,6 +10,7 @@ import styles from "./MovieForm.module.scss";
 import { Modal } from "react-bootstrap";
 import ReactPlayer from "react-player";
 import { useNavigate } from "react-router-dom";
+
 function MovieForm() {
   const navigate = useNavigate();
   // state show modal trailer

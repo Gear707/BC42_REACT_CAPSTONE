@@ -114,10 +114,14 @@ function MovieManagement() {
     try {
       const data = await apiGetMovieList(tenPhim, currentPage);
       setMovies(data.content.items);
+      if (tenPhim && data.content.items.length === 0) {
+        alertError("Phim bạn tìm không có trong hệ thống");
+      }
     } catch (error) {
       alertError("Lấy danh sách phim thất bại");
     }
   };
+
   // hàm xóa phim
   const handleDeleteMovie = async (movieId) => {
     const result = await warningDeleteMovie();
@@ -157,7 +161,7 @@ function MovieManagement() {
           <div className="input-group w-75">
             <input
               id="txtSearch"
-              type="text"
+              type="search"
               className="form-control"
               placeholder="Nhập từ khóa"
               name="keyword"

@@ -10,6 +10,14 @@ function MovieInfo({ movieId, movieDuration }) {
   const [cinema, setCinema] = useState({});
   const [error, setError] = useState(null);
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  };
+
   const getMovieDetails = async () => {
     try {
       const data = await apiGetMovieDetails(movieId);
@@ -31,6 +39,7 @@ function MovieInfo({ movieId, movieDuration }) {
   useEffect(() => {
     getMovieDetails();
     getCinemaInfos();
+    scrollToTop();
   }, [movieId]);
 
   return (

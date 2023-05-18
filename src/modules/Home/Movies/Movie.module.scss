@@ -18,7 +18,7 @@
 }
 
 .sliderContainer {
-   width: 67%;
+    width: 67%;
     margin: auto;
 }
 
@@ -51,7 +51,6 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    // margin-bottom: 10px !important;
     height: 40px;
 }
 
@@ -89,7 +88,7 @@
 
 .playButton {
     top: 50%;
-    left: 50%;
+    left: 45%;
     width: 60px;
     border: none;
     height: 60px;
@@ -127,6 +126,7 @@ iframe,
 @media screen and (max-width: 768px) {
     .sliderContainer {
         width: 70% !important;
+
         .movieCard {
             font-size: 14px;
             max-height: 380px;
@@ -147,7 +147,6 @@ iframe,
                 font-size: 16px;
             }
         }
-
     }
 }
 
