@@ -20,6 +20,8 @@ import Pagination from "react-paginate";
 import "./Pagination.scss";
 
 function MovieManagement() {
+  // Định dạng file ảnh
+  const PHOTO_FORMAT = /\.(jpeg|jpg|png|webp)$/i;
   // Định dạng đường dẫn Youtube
   const YOUTUBE_URL = /^(https?:\/\/)?(www\.)?(youtube\.com|youtu\.be)\/.+$/;
   // Định dạng điểm đánh giá phim
@@ -51,6 +53,29 @@ function MovieManagement() {
       .string()
       .required("Trailer không được để trống!")
       .matches(YOUTUBE_URL, "Đường dẫn phải là đường dẫn từ Youtube"),
+    hinhAnh: yup
+      .mixed()
+      .test(
+        "fileType",
+        "File không đúng định dạng (jpg, jpeg, png)",
+        (value) => {
+          // Nếu không up file =>true
+          if (!value[0]?.name) {
+            return true;
+          }
+          // Nếu có file thì bắt đầu kiểm tra định dạng
+          if (value.length > 0) {
+            return PHOTO_FORMAT.test(value[0].name);
+          }
+          return false;
+        }
+      )
+      .test("fileSize", "Kích thước file không được vượt quá 1MB", (value) => {
+        if (!value[0]?.name) {
+          return true;
+        }
+        if (value.length && value[0]?.size <= 1000000) return true;
+      }),
     ngayKhoiChieu: yup
       .string()
       .required("Ngày khởi chiếu không được để trống!"),
@@ -68,6 +93,7 @@ function MovieManagement() {
       tenPhim: "",
       moTa: "",
       ngayKhoiChieu: "",
+      hinhAnh: "",
       trailer: "",
       danhGia: "",
     },
@@ -80,6 +106,7 @@ function MovieManagement() {
     const ngayKhoiChieu = dayjs(values.ngayKhoiChieu).format("DD/MM/YYYY");
     const payload = {
       ...values,
+      hinhAnh: values?.hinhAnh[0] || undefined,
       ngayKhoiChieu: ngayKhoiChieu,
     };
     try {
@@ -328,6 +355,19 @@ function MovieManagement() {
               />
               {errors.danhGia && (
                 <p className="mt-1 text-danger">{errors.danhGia.message}</p>
+              )}
+            </div>
+
+            <div className="form-group mb-2">
+              <label>Hình ảnh</label>
+              <input
+                type="file"
+                className="form-control"
+                name="hinhAnh"
+                {...register("hinhAnh")}
+              />
+              {errors.hinhAnh && (
+                <p className="mt-1 text-danger">{errors.hinhAnh.message}</p>
               )}
             </div>
 
