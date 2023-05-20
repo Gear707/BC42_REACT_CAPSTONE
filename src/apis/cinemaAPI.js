@@ -46,5 +46,6 @@ export const apiGetCinema = async (maHeThongRap) => {
 };
 
 export const apiCreateMovieTime = async (payload) => {
-  await axiosClient.post(`/QuanLyDatVe/TaoLichChieu`, payload);
+  const data = await axiosClient.post(`/QuanLyDatVe/TaoLichChieu`, payload);
+  return data.data;
 };

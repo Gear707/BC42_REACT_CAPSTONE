@@ -110,14 +110,19 @@ function MovieManagement() {
       ngayKhoiChieu: ngayKhoiChieu,
     };
     try {
-      await apiUpdateMovie(payload);
-      getMovieList();
-      setShow(false);
-      alertSuccess("Cập nhật phim thành công");
+      const data = await apiUpdateMovie(payload);
+      if (data) {
+        alertSuccess(data.message);
+        getMovieList();
+        setShow(false);
+      } else {
+        alertError("Cập nhật phim thất bại");
+      }
     } catch (error) {
       alertError("Cập nhật phim thất bại");
     }
   };
+
   const onError = (errors) => {
     console.log(errors);
   };

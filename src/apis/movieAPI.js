@@ -30,7 +30,11 @@ export const apiCreateMovie = async (movie) => {
   }
   formData.append("maNhom", "GP06");
 
-  await axiosClient.post("/QuanLyPhim/ThemPhimUploadHinh", formData);
+  const data = await axiosClient.post(
+    "/QuanLyPhim/ThemPhimUploadHinh",
+    formData
+  );
+  return data?.data;
 };
 
 export const apiGetMovieList = async (tenPhim, currentPage) => {
@@ -53,7 +57,12 @@ export const apiUpdateMovie = async (movie) => {
   for (let key in movie) {
     formData.append(key, movie[key]);
   }
-  await axiosClient.post(`/QuanLyPhim/CapNhatPhimUpload`, formData);
+
+  const data = await axiosClient.post(
+    `/QuanLyPhim/CapNhatPhimUpload`,
+    formData
+  );
+  return data?.data;
 };
 
 export const apiDeleteMovie = async (movieId) => {

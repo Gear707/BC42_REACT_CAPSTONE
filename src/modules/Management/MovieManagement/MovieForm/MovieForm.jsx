@@ -88,19 +88,25 @@ function MovieForm() {
       ngayKhoiChieu: ngayKhoiChieu,
     };
     try {
-      await apiCreateMovie(payload);
-      alertSuccess("Thêm phim mới thành công");
-      // reset các ô input sau khi thêm thành công
-      reset({
-        tenPhim: "",
-        moTa: "",
-        trailer: "",
-        hinhAnh: "",
-        ngayKhoiChieu: "",
-        danhGia: "",
-      });
+      const data = await apiCreateMovie(payload);
+      if (data) {
+        alertSuccess(data.message);
+        // reset các ô input sau khi thêm thành công
+        reset({
+          tenPhim: "",
+          moTa: "",
+          trailer: "",
+          hinhAnh: "",
+          ngayKhoiChieu: "",
+          danhGia: "",
+        });
+        setImageUrl(null);
+        setYoutubeLink(null);
+      } else {
+        alertError("Thêm phim thất bại");
+      }
     } catch (error) {
-      alertError(error.content);
+      alertError("Thêm phim thất bại");
     }
   };
 
