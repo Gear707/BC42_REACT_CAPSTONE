@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { apiSignin } from "../apis/userAPI";
+import { alertError, alertSuccess } from "../apis/sweetAlert2";
 
 // async actions
 export const signin = createAsyncThunk("user/signin", async (values) => {
@@ -7,9 +8,10 @@ export const signin = createAsyncThunk("user/signin", async (values) => {
     const data = await apiSignin(values);
     // Lưu thông tin user vào localStorage để giữ trạng thái đăng nhập
     localStorage.setItem("user", JSON.stringify(data.content));
-
+    alertSuccess("Đăng nhập thành công");
     return data.content;
   } catch (error) {
+    alertError("Đăng nhập thất bại");
     throw error.response?.data?.content;
   }
 });

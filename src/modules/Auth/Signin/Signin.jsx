@@ -6,7 +6,6 @@ import { Navigate, useSearchParams } from "react-router-dom";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import styles from "./Signin.module.scss";
-import { alertSuccess } from "../../../apis/sweetAlert2";
 
 const PASSWORD_FORMAT = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 
@@ -39,7 +38,6 @@ function Signin() {
 
     const onSubmit = (values) => {
         dispatch(signin(values));
-        alertSuccess("Đăng nhập thành công");
     };
 
     const onError = (errors) => {
@@ -76,8 +74,8 @@ function Signin() {
                         {errors.matKhau && <p className="mt-1 text-danger">{errors.matKhau.message}</p>}
                     </div>
 
-                    {/* Hiển thị lỗi server trả về (sai tài khoản hoặc mật khẩu) */}
-                    {error && <p className="text-danger">{error}</p>}
+                    {/* Hiển thị lỗi server trả về (sai tài khoản, mật khẩu) */}
+                    {error && <p className="text-danger">Tài khoản, mật khẩu không đúng</p>}
 
                     <div className="form-group">
                         <button className={`${styles.btnSignin} form-control btn mt-2 px-3`}
