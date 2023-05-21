@@ -73,16 +73,20 @@ function MovieShowtime() {
     };
     try {
       const data = await apiCreateMovieTime(payload);
-      alertSuccess("Tạo lịch chiếu phim thành công");
-      reset({
-        maHeThongRap: "Chọn Hệ thống rạp",
-        maPhim: "",
-        ngayChieuGioChieu: "",
-        maRap: "Chọn Cụm rạp",
-        giaVe: "",
-      });
+      if (data) {
+        alertSuccess(data.message);
+        reset({
+          maHeThongRap: "Chọn Hệ thống rạp",
+          maPhim: "",
+          ngayChieuGioChieu: "",
+          maRap: "Chọn Cụm rạp",
+          giaVe: "",
+        });
+      } else {
+        alertError("Thêm lịch chiếu thất bại");
+      }
     } catch (error) {
-      alertError(error.content);
+      alertError("Thêm lịch chiếu thất bại");
     }
   };
 

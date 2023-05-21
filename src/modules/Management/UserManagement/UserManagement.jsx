@@ -82,39 +82,43 @@ function UserManagement() {
   const onSubmit = async (values) => {
     if (user) {
       try {
-        await apiUpdateUser(values);
-        await getUserList();
-        alertSuccess("Cập nhật user thành công");
-        reset({
-          taiKhoan: "",
-          hoTen: "",
-          email: "",
-          soDT: "",
-          matKhau: "",
-          maLoaiNguoiDung: "",
-        });
+        const data = await apiUpdateUser(values);
+        if (data) {
+          await getUserList();
+          alertSuccess("Cập nhật user thành công");
+          reset({
+            taiKhoan: "",
+            hoTen: "",
+            email: "",
+            soDT: "",
+            matKhau: "",
+            maLoaiNguoiDung: "",
+          });
+          setShow(false);
+        }
       } catch (error) {
         alertError("Cập nhật user thất bại");
       }
     } else {
       try {
-        await apiCreateNewUser(values);
-        await getUserList();
-        alertSuccess("Cập nhật user thành công");
-        reset({
-          taiKhoan: "",
-          hoTen: "",
-          email: "",
-          soDT: "",
-          matKhau: "",
-          maLoaiNguoiDung: "",
-        });
+        const data = await apiCreateNewUser(values);
+        if (data) {
+          await getUserList();
+          alertSuccess("Cập nhật user thành công");
+          reset({
+            taiKhoan: "",
+            hoTen: "",
+            email: "",
+            soDT: "",
+            matKhau: "",
+            maLoaiNguoiDung: "",
+          });
+          setShow(false);
+        }
       } catch (error) {
         alertError("Thêm user thất bại");
       }
     }
-
-    setShow(false);
   };
 
   const onError = (errors) => {
