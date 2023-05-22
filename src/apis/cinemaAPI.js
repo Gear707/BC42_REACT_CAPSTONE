@@ -34,15 +34,12 @@ export const apiGetCinemaBrand = async (movieId) => {
 };
 
 export const apiGetCinema = async (maHeThongRap) => {
-  const { data } = await axiosClient.get(
-    `QuanLyRap/LayThongTinCumRapTheoHeThong`,
-    {
-      params: {
-        maHeThongRap: maHeThongRap,
-      },
-    }
-  );
-  return data;
+  const data = await axiosClient.get(`QuanLyRap/LayThongTinCumRapTheoHeThong`, {
+    params: {
+      maHeThongRap: maHeThongRap || undefined,
+    },
+  });
+  return data?.data;
 };
 
 export const apiCreateMovieTime = async (payload) => {

@@ -106,11 +106,13 @@ function MovieShowtime() {
 
   // hàm lấy dữ liệu cum rạp chiếu
   const getCinema = async () => {
-    try {
-      const data = await apiGetCinema(values.maHeThongRap);
-      setCumRap(data.content);
-    } catch (error) {
-      console.log(error);
+    if (values.maHeThongRap) {
+      try {
+        const data = await apiGetCinema(values.maHeThongRap);
+        setCumRap(data?.content);
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
