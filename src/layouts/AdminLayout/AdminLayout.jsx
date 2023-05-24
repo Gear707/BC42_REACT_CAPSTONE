@@ -28,11 +28,14 @@ function AdminLayout() {
     <div className={styles.theme}>
       <div className="d-flex">
         <div className={`col-sm-2 text-center ${styles.background}`}>
-          <img
-            className={styles.logo}
-            src="https://i.imgur.com/lC22izJ.png"
-            alt=""
-          />
+          <a onClick={() => navigate("/")}>
+            <img
+              className={styles.logo}
+              src="https://i.imgur.com/lC22izJ.png"
+              alt=""
+            />
+          </a>
+
           <button
             className={`${styles.user} btn ${
               activeUser ? styles.activeClass : "null"

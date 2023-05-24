@@ -8,7 +8,6 @@ import {
   apiUpdateUser,
 } from "../../../apis/userAPI";
 import Modal from "react-bootstrap/Modal";
-import { Button } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -174,16 +173,27 @@ function UserManagement() {
   };
 
   // hàm tìm kiếm user
-  const handleSearchUser = async (keywork) => {
-    if (keywork) {
+  const handleSearchUser = async (keyword) => {
+    if (keyword) {
       try {
-        const data = await apiSearchUser(keywork);
+        const data = await apiSearchUser(keyword);
         setUsers(data.content);
       } catch (error) {
         alertError("Không tìm thấy user");
       }
     } else {
       getUserList();
+    }
+  };
+
+  // hàm show password
+  const handleShowPassWord = (evt) => {
+    const passwordType = document.getElementById("password");
+    console.log(passwordType);
+    if (passwordType?.type === "password") {
+      passwordType.type = "text";
+    } else {
+      passwordType.type = "password";
     }
   };
 
@@ -203,12 +213,12 @@ function UserManagement() {
               type="search"
               className="form-control"
               placeholder="Nhập từ khóa"
-              name="keywork"
+              name="keyword"
               onChange={handleChange}
             />
             <button
               className="btn btn-primary me-3"
-              onClick={() => handleSearchUser(values?.keywork)}
+              onClick={() => handleSearchUser(values?.keyword)}
             >
               <i className="fa fa-search" />
             </button>
@@ -301,10 +311,14 @@ function UserManagement() {
             <div className="form-group mb-2">
               <label>Mật khẩu</label>
               <input
-                type="text"
+                id="password"
+                type="password"
                 className="form-control"
+                name="matKhau"
                 {...register("matKhau")}
               />
+              <label>Show password:</label>
+              <input type="checkbox" onClick={handleShowPassWord} />
             </div>
             {errors.matKhau && (
               <p className="mt-1 text-danger">{errors.matKhau.message}</p>
