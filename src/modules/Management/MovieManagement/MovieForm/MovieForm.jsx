@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { apiCreateMovie } from "../../../../apis/movieAPI";
+import { apiCreateMovie, apiGetMovieList } from "../../../../apis/movieAPI";
 import dayjs from "dayjs";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -88,6 +88,13 @@ function MovieForm() {
       ngayKhoiChieu: ngayKhoiChieu,
     };
     try {
+      // Kiểm tra tên phim có trùng với tên phim trong list phim không?
+      const { content } = await apiGetMovieList(payload.tenPhim);
+      const tenPhimDaTonTai = content.count;
+      if (tenPhimDaTonTai) {
+        alertError("Tên phim đã tồn tại!");
+        return;
+      }
       const data = await apiCreateMovie(payload);
       if (data) {
         alertSuccess(data.message);
