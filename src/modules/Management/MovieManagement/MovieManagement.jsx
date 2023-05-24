@@ -362,7 +362,9 @@ function MovieManagement() {
             </div>
 
             <div className="form-group mb-2">
-              <label>Hình ảnh</label>
+              <label>
+                Hình ảnh (Lấy Poster cũ của phim nếu không cập nhật)
+              </label>
               <input
                 type="file"
                 className="form-control"
