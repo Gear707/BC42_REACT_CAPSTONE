@@ -102,8 +102,6 @@ function MovieForm() {
         });
         setImageUrl(null);
         setYoutubeLink(null);
-      } else {
-        alertError("Thêm phim thất bại");
       }
     } catch (error) {
       alertError("Thêm phim thất bại");

@@ -115,8 +115,6 @@ function MovieManagement() {
         alertSuccess(data.message);
         getMovieList();
         setShow(false);
-      } else {
-        alertError("Cập nhật phim thất bại");
       }
     } catch (error) {
       alertError("Cập nhật phim thất bại");

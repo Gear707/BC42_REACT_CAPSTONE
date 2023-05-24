@@ -1,4 +1,5 @@
 import axios from "axios";
+import { alertError } from "./sweetAlert2";
 
 const axiosClient = axios.create({
   baseURL: "https://movienew.cybersoft.edu.vn/api",
@@ -26,7 +27,8 @@ axiosClient.interceptors.response.use(
   },
   (error) => {
     // Xử lý những error chung
-
+    const noiDungLoi = error?.response?.data?.content;
+    alertError(noiDungLoi);
     // Lỗi 401: Trường hợp token hết hạn => Đăng xuất
     if (error.response.status === 401) {
       localStorage.removeItem("user");

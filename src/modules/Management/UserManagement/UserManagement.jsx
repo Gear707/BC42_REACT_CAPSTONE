@@ -96,9 +96,7 @@ function UserManagement() {
           });
           setShow(false);
         }
-      } catch (error) {
-        alertError("Cập nhật user thất bại");
-      }
+      } catch (error) {}
     } else {
       try {
         const data = await apiCreateNewUser(values);
@@ -115,9 +113,7 @@ function UserManagement() {
           });
           setShow(false);
         }
-      } catch (error) {
-        alertError("Thêm user thất bại");
-      }
+      } catch (error) {}
     }
   };
 
