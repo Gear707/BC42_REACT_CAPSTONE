@@ -6,6 +6,8 @@ import { alertSuccess } from "../../../apis/sweetAlert2";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
+import PageNotFound from "../../../components/PageNotFound/PageNotFound";
+import { useSelector } from "react-redux";
 
 const PASSWORD_FORMAT = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
 const NAME_FORMAT = /^[\p{L}\s]{2,}$/u;
@@ -34,6 +36,8 @@ const schema = yup.object({
 });
 
 function Signup() {
+    const { user } = useSelector((state) => state.user);
+
     const { register, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
             taiKhoan: "",
@@ -68,6 +72,8 @@ function Signup() {
     const onError = (errors) => {
         console.log(errors);
     };
+
+    if (user) return <PageNotFound />;
 
     return (
         <div className={styles.box}>

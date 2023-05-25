@@ -12,7 +12,7 @@ function PageNotFound() {
             <img src="https://file.hstatic.net/200000348419/file/404_1_ff141bafa60e4ed3aef90c7ebdbf54e6.png" />
             <h2>Xin lỗi, chúng tôi không tìm thấy trang mà bạn cần tìm</h2>
             <p>Trở về trang chủ</p>
-            <button className="btn btn-danger" onClick={() => navigate("./")}>
+            <button className="btn btn-danger" onClick={() => navigate("/")}>
               Home
             </button>
           </div>
