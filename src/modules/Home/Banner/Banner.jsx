@@ -18,6 +18,7 @@ function Banner() {
         autoplay: true,
         speed: 500,
         autoplaySpeed: 5 * 1000,
+        adaptiveHeight: true
     };
 
     const getBanners = async () => {
